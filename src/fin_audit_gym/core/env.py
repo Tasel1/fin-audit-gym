@@ -18,6 +18,8 @@ from fin_audit_gym.core.schemas import (
     Payment,
     Submission,
 )
+from fin_audit_gym.evaluator.metrics import calculate_metrics
+from fin_audit_gym.evaluator.reward import RewardEngine
 from fin_audit_gym.generator import (
     AnomalyConfig,
     AnomalyInjector,
@@ -37,6 +39,7 @@ class FinAuditEnv:
     def __init__(self, data_dir: str | Path | None = None, max_steps: int = 100) -> None:
         self.data_dir = Path(data_dir) if data_dir else None
         self.max_steps = max_steps
+        self.reward_engine = RewardEngine()
 
         self._steps_taken = 0
         self._total_queries = 0
@@ -331,6 +334,10 @@ class FinAuditEnv:
                 findings=[Finding.model_validate(f) for f in raw_findings],
                 explanation=validated_action.get("explanation"),
             )
+            submission_metrics = calculate_metrics(submission.findings, self._ground_truth_findings)
+            reward = self.reward_engine.compute_terminal_reward(
+                submission_metrics, self._steps_taken
+            )
             obs = {
                 "action": action_type,
                 "submission_received": True,
@@ -343,5 +350,7 @@ class FinAuditEnv:
             "episode_id": self._world.manifest.episode_id,
             "total_queries": self._total_queries,
         }
+        if action_type == ActionType.SUBMIT_FINDINGS.value:
+            info["metrics"] = submission_metrics.model_dump()
 
         return obs, reward, self._terminated, self._truncated, info
