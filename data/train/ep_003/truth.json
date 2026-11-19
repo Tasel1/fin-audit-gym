@@ -1,0 +1,84 @@
+[
+  {
+    "finding_id": "FINDING-001",
+    "error_type": "duplicate_invoice",
+    "entity_id": "INV-2026-0011-DUP",
+    "description": "Duplicate invoice detected: INV-2026-0011-DUP duplicates invoice INV-2026-0011 with vendor VEND-003 and amount 595512",
+    "evidence": {
+      "duplicate_invoice_id": "INV-2026-0011-DUP",
+      "original_invoice_id": "INV-2026-0011",
+      "vendor_id": "VEND-003",
+      "amount_minor": 595512
+    }
+  },
+  {
+    "finding_id": "FINDING-002",
+    "error_type": "unallocated_payment",
+    "entity_id": "PAY-UNALLOC-002",
+    "description": "Unallocated cash payment PAY-UNALLOC-002 without supporting invoice reference",
+    "evidence": {
+      "payment_id": "PAY-UNALLOC-002",
+      "amount_minor": 150000,
+      "vendor_id": "VEND-GHOST-586",
+      "bank_reference": "WIRE-UNALLOC-626387"
+    }
+  },
+  {
+    "finding_id": "FINDING-003",
+    "error_type": "fx_mismatch",
+    "entity_id": "INV-2026-0004",
+    "description": "Incorrect foreign exchange conversion applied to invoice INV-2026-0004: recorded 1590506 minor units vs expected 1272405",
+    "evidence": {
+      "invoice_id": "INV-2026-0004",
+      "currency": "GBP",
+      "recorded_amount_minor": 1590506,
+      "expected_amount_minor": 1272405
+    }
+  },
+  {
+    "finding_id": "FINDING-004",
+    "error_type": "period_cutoff",
+    "entity_id": "INV-2026-CUTOFF",
+    "description": "Period cutoff violation: invoice INV-2026-CUTOFF dated 2027-01-05 improperly booked into fiscal year 2026",
+    "evidence": {
+      "invoice_id": "INV-2026-CUTOFF",
+      "invoice_date": "2027-01-05",
+      "booked_date": "2026-12-31",
+      "fiscal_year": 2026
+    }
+  },
+  {
+    "finding_id": "FINDING-005",
+    "error_type": "composite_round_trip",
+    "entity_id": "RT-2026-005",
+    "description": "Round-trip transaction without economic substance detected: outflow to VEND-SHELL-A matched by inflow from VEND-SHELL-B for 500000 minor units",
+    "evidence": {
+      "round_trip_id": "RT-2026-005",
+      "vendor_a": "VEND-SHELL-A",
+      "vendor_b": "VEND-SHELL-B",
+      "amount_minor": 500000,
+      "date": "2026-08-20"
+    }
+  },
+  {
+    "finding_id": "FINDING-006",
+    "error_type": "composite_split_invoice",
+    "entity_id": "SPLIT-2026-006",
+    "description": "Structured split invoices detected: 3 invoices (INV-SPLIT-06-1, INV-SPLIT-06-2, INV-SPLIT-06-3) issued to vendor VEND-STRUCT-01 below the $25,000 approval limit totaling 2500000 minor units",
+    "evidence": {
+      "split_id": "SPLIT-2026-006",
+      "vendor_id": "VEND-STRUCT-01",
+      "sub_invoice_ids": [
+        "INV-SPLIT-06-1",
+        "INV-SPLIT-06-2",
+        "INV-SPLIT-06-3"
+      ],
+      "total_amount_minor": 2500000,
+      "individual_amounts_minor": [
+        850000,
+        850000,
+        800000
+      ]
+    }
+  }
+]

@@ -1,0 +1,17 @@
+{"payment_id":"PAY-2026-0001","invoice_id":"INV-2026-0001","vendor_id":"VEND-007","payment_date":"2026-01-30","currency":"EUR","amount_minor":379655,"bank_reference":"WIRE-652629"}
+{"payment_id":"PAY-2026-0002","invoice_id":"INV-2026-0002","vendor_id":"VEND-003","payment_date":"2026-02-27","currency":"USD","amount_minor":740515,"bank_reference":"WIRE-830255"}
+{"payment_id":"PAY-2026-0003","invoice_id":"INV-2026-0003","vendor_id":"VEND-001","payment_date":"2026-04-07","currency":"USD","amount_minor":305100,"bank_reference":"WIRE-626042"}
+{"payment_id":"PAY-2026-0004","invoice_id":"INV-2026-0004","vendor_id":"VEND-004","payment_date":"2026-05-15","currency":"USD","amount_minor":932214,"bank_reference":"WIRE-190488"}
+{"payment_id":"PAY-2026-0005","invoice_id":"INV-2026-0005","vendor_id":"VEND-008","payment_date":"2026-05-24","currency":"USD","amount_minor":360466,"bank_reference":"WIRE-163528"}
+{"payment_id":"PAY-2026-0006","invoice_id":"INV-2026-0006","vendor_id":"VEND-002","payment_date":"2026-06-11","currency":"USD","amount_minor":96156,"bank_reference":"WIRE-547135"}
+{"payment_id":"PAY-2026-0007","invoice_id":"INV-2026-0007","vendor_id":"VEND-005","payment_date":"2026-06-29","currency":"EUR","amount_minor":1487676,"bank_reference":"WIRE-403188"}
+{"payment_id":"PAY-2026-0008","invoice_id":"INV-2026-0008","vendor_id":"VEND-005","payment_date":"2026-06-30","currency":"GBP","amount_minor":1193360,"bank_reference":"WIRE-505801"}
+{"payment_id":"PAY-2026-0009","invoice_id":"INV-2026-0009","vendor_id":"VEND-006","payment_date":"2026-07-10","currency":"USD","amount_minor":773826,"bank_reference":"WIRE-368407"}
+{"payment_id":"PAY-2026-0010","invoice_id":"INV-2026-0010","vendor_id":"VEND-005","payment_date":"2026-08-03","currency":"USD","amount_minor":946774,"bank_reference":"WIRE-133824"}
+{"payment_id":"PAY-2026-0011","invoice_id":"INV-2026-0011","vendor_id":"VEND-007","payment_date":"2026-09-14","currency":"GBP","amount_minor":417313,"bank_reference":"WIRE-277101"}
+{"payment_id":"PAY-2026-RET-0208","invoice_id":"INV-2026-RET-0208","vendor_id":"VEND-RETAINER-700","payment_date":"2026-03-13","currency":"USD","amount_minor":50000,"bank_reference":"ACH-RET-942544"}
+{"payment_id":"PAY-2026-RET-0210","invoice_id":"INV-2026-RET-0210","vendor_id":"VEND-RETAINER-700","payment_date":"2026-04-12","currency":"USD","amount_minor":50000,"bank_reference":"ACH-RET-155254"}
+{"payment_id":"PAY-2026-RET-0212","invoice_id":"INV-2026-RET-0212","vendor_id":"VEND-RETAINER-700","payment_date":"2026-05-12","currency":"USD","amount_minor":50000,"bank_reference":"ACH-RET-190950"}
+{"payment_id":"PAY-2026-P1-0215","invoice_id":"INV-2026-PART-0214","vendor_id":"VEND-CONTRACT-766","payment_date":"2026-07-13","currency":"USD","amount_minor":180000,"bank_reference":"WIRE-P1-941233"}
+{"payment_id":"PAY-2026-P2-0216","invoice_id":"INV-2026-PART-0214","vendor_id":"VEND-CONTRACT-766","payment_date":"2026-08-12","currency":"USD","amount_minor":120000,"bank_reference":"WIRE-P2-722000"}
+{"payment_id":"PAY-UNALLOC-002","invoice_id":null,"vendor_id":"VEND-GHOST-819","payment_date":"2026-06-15","currency":"USD","amount_minor":480000,"bank_reference":"WIRE-UNALLOC-758174"}
