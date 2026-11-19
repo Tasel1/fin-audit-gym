@@ -11,6 +11,7 @@ from typing import Any
 from pydantic import BaseModel, ConfigDict, Field
 
 from fin_audit_gym.core.schemas import (
+    Finding,
     FXRate,
     Invoice,
     InvoiceLineItem,
@@ -77,7 +78,9 @@ class GeneratedWorld(BaseModel):
 
         return True
 
-    def export_to_directory(self, dir_path: Path | str) -> None:
+    def export_to_directory(
+        self, dir_path: Path | str, truth_findings: list[Finding] | None = None
+    ) -> None:
         """Export world artifacts to target directory as CSV, JSON, and JSONL files."""
         out_dir = Path(dir_path)
         out_dir.mkdir(parents=True, exist_ok=True)
@@ -137,6 +140,13 @@ class GeneratedWorld(BaseModel):
         # 6. Export provenance.json
         provenance_file = out_dir / "provenance.json"
         provenance_file.write_text(json.dumps(self.provenance, indent=2), encoding="utf-8")
+
+        # 7. Export truth.json if provided
+        if truth_findings is not None:
+            truth_file = out_dir / "truth.json"
+            truth_file.write_text(
+                json.dumps([f.model_dump() for f in truth_findings], indent=2), encoding="utf-8"
+            )
 
 
 class SyntheticLedgerGenerator:
