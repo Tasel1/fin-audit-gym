@@ -77,16 +77,20 @@ AVAILABLE_ACTION_SCHEMAS: dict[str, Any] = {
 def validate_action(action: Any) -> dict[str, Any]:
     """Validate action input structure and return standardized action dict.
 
+    Accepts action type via either 'type' or 'action' key for maximum interoperability.
+
     Raises:
         InvalidActionError: If action is not a dict or has invalid type.
     """
     if not isinstance(action, dict):
         raise InvalidActionError(f"Action must be a dictionary, got {type(action).__name__}")
 
-    action_type = action.get("type")
+    action_type = action.get("type") or action.get("action")
     if not action_type or action_type not in VALID_ACTION_TYPES:
         raise InvalidActionError(
             f"Invalid action type '{action_type}'. Valid types: {sorted(VALID_ACTION_TYPES)}"
         )
 
-    return action
+    normalized = dict(action)
+    normalized["type"] = action_type
+    return normalized

@@ -28,11 +28,12 @@ def convert_currency(
 
     try:
         dec_rate = Decimal(str(rate))
+        if dec_rate.is_nan() or dec_rate.is_infinite() or dec_rate <= Decimal(0):
+            raise ValueError(
+                f"Exchange rate must be a finite, strictly positive number, got '{rate}'"
+            )
     except (decimal.InvalidOperation, TypeError) as exc:
         raise ValueError(f"Invalid currency exchange rate '{rate}': {exc}") from exc
-
-    if dec_rate <= Decimal(0):
-        raise ValueError(f"Exchange rate must be strictly positive, got '{rate}'")
 
     rounding_attr = getattr(decimal, rounding_mode, None)
     if rounding_attr is None:

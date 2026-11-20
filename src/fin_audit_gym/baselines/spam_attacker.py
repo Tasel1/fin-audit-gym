@@ -8,7 +8,7 @@ from fin_audit_gym.baselines.base import BasePolicy
 class SpamAttackerPolicy(BasePolicy):
     """Submits dozens of duplicated accusations to trigger Kuhn-Munkres false positive explosion."""
 
-    def __init__(self, num_spam: int = 50) -> None:
+    def __init__(self, num_spam: int = 30) -> None:
         self.num_spam = num_spam
 
     def act(self, observation: dict[str, Any], info: dict[str, Any]) -> dict[str, Any]:

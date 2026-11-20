@@ -76,9 +76,15 @@ def safe_calculate(expression: str) -> str:
     if not expression or not expression.strip():
         raise ValueError("Expression cannot be empty")
 
+    cleaned = expression.strip()
+    if len(cleaned) > 1000:
+        raise ValueError(
+            f"Expression length ({len(cleaned)}) exceeds maximum limit of 1000 characters"
+        )
+
     try:
-        tree = ast.parse(expression.strip(), mode="eval")
-    except SyntaxError as exc:
+        tree = ast.parse(cleaned, mode="eval")
+    except (SyntaxError, RecursionError, MemoryError) as exc:
         raise ValueError(f"Invalid arithmetic expression syntax: {exc}") from exc
 
     # Strictly whitelist AST nodes across the entire tree
@@ -86,7 +92,10 @@ def safe_calculate(expression: str) -> str:
         if not isinstance(node, ALLOWED_NODES):
             raise ValueError(f"Disallowed expression element: {type(node).__name__}")  # noqa: TRY004
 
-    res = _eval_ast(tree)
+    try:
+        res = _eval_ast(tree)
+    except RecursionError as exc:
+        raise ValueError("Expression recursion limit exceeded") from exc
 
     # Clean formatting
     try:

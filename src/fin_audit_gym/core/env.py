@@ -6,6 +6,8 @@ import math
 from pathlib import Path
 from typing import Any
 
+from pydantic import ValidationError
+
 from fin_audit_gym.core.actions import AVAILABLE_ACTION_SCHEMAS, ActionType, validate_action
 from fin_audit_gym.core.calculator import safe_calculate
 from fin_audit_gym.core.exceptions import EpisodeDoneError
@@ -18,7 +20,7 @@ from fin_audit_gym.core.schemas import (
     Payment,
     Submission,
 )
-from fin_audit_gym.evaluator.metrics import calculate_metrics
+from fin_audit_gym.evaluator.metrics import AuditMetrics, calculate_metrics
 from fin_audit_gym.evaluator.reward import RewardEngine
 from fin_audit_gym.generator import (
     AnomalyConfig,
@@ -27,6 +29,23 @@ from fin_audit_gym.generator import (
     GeneratorConfig,
     SyntheticLedgerGenerator,
 )
+
+
+def _parse_pagination(action: dict[str, Any]) -> tuple[int, int]:
+    """Safely extract and sanitize page and page_size from action dictionary."""
+    try:
+        raw_page = action.get("page", 1)
+        page = max(1, int(raw_page))
+    except (ValueError, TypeError):
+        page = 1
+
+    try:
+        raw_size = action.get("page_size", 20)
+        page_size = min(max(1, int(raw_size)), 50)
+    except (ValueError, TypeError):
+        page_size = 20
+
+    return page, page_size
 
 
 class FinAuditEnv:
@@ -212,8 +231,7 @@ class FinAuditEnv:
             if ref_id:
                 filtered = [r for r in filtered if r.reference_id == ref_id]
 
-            page = max(1, int(validated_action.get("page", 1)))
-            page_size = min(max(1, int(validated_action.get("page_size", 20))), 50)
+            page, page_size = _parse_pagination(validated_action)
             start_i = (page - 1) * page_size
             page_rows = filtered[start_i : start_i + page_size]
             total_pages = max(1, math.ceil(len(filtered) / page_size))
@@ -239,8 +257,7 @@ class FinAuditEnv:
             if status:
                 filtered_inv = [inv for inv in filtered_inv if inv.status == status]
 
-            page = max(1, int(validated_action.get("page", 1)))
-            page_size = min(max(1, int(validated_action.get("page_size", 20))), 50)
+            page, page_size = _parse_pagination(validated_action)
             start_i = (page - 1) * page_size
             page_items = filtered_inv[start_i : start_i + page_size]
             total_pages = max(1, math.ceil(len(filtered_inv) / page_size))
@@ -266,8 +283,7 @@ class FinAuditEnv:
             if inv_id:
                 filtered_pmt = [p for p in filtered_pmt if p.invoice_id == inv_id]
 
-            page = max(1, int(validated_action.get("page", 1)))
-            page_size = min(max(1, int(validated_action.get("page_size", 20))), 50)
+            page, page_size = _parse_pagination(validated_action)
             start_i = (page - 1) * page_size
             page_items = filtered_pmt[start_i : start_i + page_size]
             total_pages = max(1, math.ceil(len(filtered_pmt) / page_size))
@@ -293,8 +309,7 @@ class FinAuditEnv:
             if quote_query:
                 filtered_fx = [fx for fx in filtered_fx if fx.quote_currency == quote_query]
 
-            page = max(1, int(validated_action.get("page", 1)))
-            page_size = min(max(1, int(validated_action.get("page_size", 20))), 50)
+            page, page_size = _parse_pagination(validated_action)
             start_i = (page - 1) * page_size
             page_items = filtered_fx[start_i : start_i + page_size]
             total_pages = max(1, math.ceil(len(filtered_fx) / page_size))
@@ -330,19 +345,79 @@ class FinAuditEnv:
         elif action_type == ActionType.SUBMIT_FINDINGS.value:
             self._terminated = True
             raw_findings = validated_action.get("findings", [])
-            submission = Submission(
-                findings=[Finding.model_validate(f) for f in raw_findings],
-                explanation=validated_action.get("explanation"),
-            )
-            submission_metrics = calculate_metrics(submission.findings, self._ground_truth_findings)
-            reward = self.reward_engine.compute_terminal_reward(
-                submission_metrics, self._steps_taken
-            )
-            obs = {
-                "action": action_type,
-                "submission_received": True,
-                "findings_count": len(submission.findings),
-            }
+            explanation = validated_action.get("explanation")
+
+            # Enforce Section 05 Hackathon limits: max 30 findings, max 1000 chars explanation
+            if not isinstance(raw_findings, list) or len(raw_findings) > 30:
+                reward = -1.0
+                fp_count = len(raw_findings) if isinstance(raw_findings, list) else 0
+                obs = {
+                    "action": action_type,
+                    "submission_received": False,
+                    "error": (
+                        "Invalid findings structure: list exceeds maximum limit of 30 findings, "
+                        f"got {fp_count if isinstance(raw_findings, list) else type(raw_findings).__name__}"
+                    ),
+                }
+                submission_metrics = AuditMetrics(
+                    tp=0,
+                    fp=fp_count,
+                    fn=len(self._ground_truth_findings),
+                    precision=0.0,
+                    recall=0.0,
+                    f1=0.0,
+                )
+            elif explanation is not None and len(str(explanation)) > 1000:
+                reward = -1.0
+                obs = {
+                    "action": action_type,
+                    "submission_received": False,
+                    "error": (
+                        f"Explanation length ({len(str(explanation))}) exceeds limit of 1000 characters"
+                    ),
+                }
+                submission_metrics = AuditMetrics(
+                    tp=0,
+                    fp=len(raw_findings),
+                    fn=len(self._ground_truth_findings),
+                    precision=0.0,
+                    recall=0.0,
+                    f1=0.0,
+                )
+            else:
+                try:
+                    parsed_findings: list[Finding] = []
+                    for f in raw_findings:
+                        if not isinstance(f, (dict, Finding)):
+                            raise TypeError(f"Each finding must be a dict, got {type(f).__name__}")
+                        pf = Finding.model_validate(f) if isinstance(f, dict) else f
+                        # Enforce max 10 evidence items per finding
+                        if len(pf.evidence) > 10:
+                            raise ValueError(
+                                f"Finding '{pf.finding_id}' exceeds limit of 10 evidence fields"
+                            )
+                        parsed_findings.append(pf)
+
+                    submission = Submission(findings=parsed_findings, explanation=explanation)
+                    submission_metrics = calculate_metrics(
+                        submission.findings, self._ground_truth_findings
+                    )
+                    reward = self.reward_engine.compute_terminal_reward(
+                        submission_metrics, self._steps_taken
+                    )
+                    obs = {
+                        "action": action_type,
+                        "submission_received": True,
+                        "findings_count": len(submission.findings),
+                    }
+                except (ValidationError, ValueError, TypeError) as exc:
+                    reward = -1.0
+                    obs = {
+                        "action": action_type,
+                        "submission_received": False,
+                        "error": f"Malformed findings structure: {exc}",
+                    }
+                    submission_metrics = calculate_metrics([], self._ground_truth_findings)
 
         info = {
             "steps_taken": self._steps_taken,
