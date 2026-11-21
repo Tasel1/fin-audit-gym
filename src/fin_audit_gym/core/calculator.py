@@ -96,6 +96,11 @@ def safe_calculate(expression: str) -> str:
         res = _eval_ast(tree)
     except RecursionError as exc:
         raise ValueError("Expression recursion limit exceeded") from exc
+    except decimal.DecimalException as exc:
+        raise ValueError(f"Arithmetic calculation error: {exc}") from exc
+
+    if not res.is_finite():
+        raise ValueError("Expression resulted in non-finite value (Infinity or NaN)")
 
     # Clean formatting
     try:

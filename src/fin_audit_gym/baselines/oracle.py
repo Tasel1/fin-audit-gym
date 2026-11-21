@@ -21,7 +21,7 @@ class OraclePolicy(BasePolicy):
             self.truth_findings = [f.model_dump() for f in env._ground_truth_findings]
 
     def reset(self) -> None:
-        pass
+        self.truth_findings = []
 
     def act(self, observation: dict[str, Any], info: dict[str, Any]) -> dict[str, Any]:
         return {

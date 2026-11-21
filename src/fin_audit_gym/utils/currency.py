@@ -23,7 +23,7 @@ def convert_currency(
         ValueError: If amount_minor is negative, rate is invalid/non-positive,
                     or rounding mode is unrecognized.
     """
-    if not isinstance(amount_minor, int) or amount_minor < 0:
+    if isinstance(amount_minor, bool) or not isinstance(amount_minor, int) or amount_minor < 0:
         raise ValueError(f"amount_minor must be a non-negative integer, got {amount_minor}")
 
     try:

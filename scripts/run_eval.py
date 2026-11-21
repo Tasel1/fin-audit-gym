@@ -35,12 +35,20 @@ def evaluate_policies(
 ) -> None:
     """Evaluate requested policies across all episodes in data_dir."""
     base_dir = Path(data_dir)
-    ep_dirs = sorted([d for d in base_dir.iterdir() if d.is_dir()])
-    if not ep_dirs and (base_dir / "manifest.json").is_file():
+    if not base_dir.exists():
+        raise FileNotFoundError(f"Data directory does not exist: {base_dir}")
+
+    if (base_dir / "manifest.json").is_file():
         ep_dirs = [base_dir]
+    else:
+        ep_dirs = sorted(
+            [d for d in base_dir.iterdir() if d.is_dir() and (d / "manifest.json").is_file()]
+        )
 
     if not ep_dirs:
-        raise FileNotFoundError(f"No episode directories found in {base_dir}")
+        raise FileNotFoundError(
+            f"No valid episode directories (with manifest.json) found in {base_dir}"
+        )
 
     all_policies = ["oracle", "reconciler", "random_explorer", "spam_attacker"]
     if policy_choice.lower() == "all":

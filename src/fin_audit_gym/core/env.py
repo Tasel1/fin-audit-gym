@@ -20,15 +20,7 @@ from fin_audit_gym.core.schemas import (
     Payment,
     Submission,
 )
-from fin_audit_gym.evaluator.metrics import AuditMetrics, calculate_metrics
-from fin_audit_gym.evaluator.reward import RewardEngine
-from fin_audit_gym.generator import (
-    AnomalyConfig,
-    AnomalyInjector,
-    GeneratedWorld,
-    GeneratorConfig,
-    SyntheticLedgerGenerator,
-)
+from fin_audit_gym.generator.engine import GeneratedWorld
 
 
 def _parse_pagination(action: dict[str, Any]) -> tuple[int, int]:
@@ -36,13 +28,13 @@ def _parse_pagination(action: dict[str, Any]) -> tuple[int, int]:
     try:
         raw_page = action.get("page", 1)
         page = max(1, int(raw_page))
-    except (ValueError, TypeError):
+    except (ValueError, TypeError, OverflowError):
         page = 1
 
     try:
         raw_size = action.get("page_size", 20)
         page_size = min(max(1, int(raw_size)), 50)
-    except (ValueError, TypeError):
+    except (ValueError, TypeError, OverflowError):
         page_size = 20
 
     return page, page_size
@@ -58,7 +50,15 @@ class FinAuditEnv:
     def __init__(self, data_dir: str | Path | None = None, max_steps: int = 100) -> None:
         self.data_dir = Path(data_dir) if data_dir else None
         self.max_steps = max_steps
-        self.reward_engine = RewardEngine()
+        self._reward_engine: Any = None
+
+    @property
+    def reward_engine(self) -> Any:
+        if self._reward_engine is None:
+            from fin_audit_gym.evaluator.reward import RewardEngine
+
+            self._reward_engine = RewardEngine()
+        return self._reward_engine
 
         self._steps_taken = 0
         self._total_queries = 0
@@ -151,6 +151,13 @@ class FinAuditEnv:
         if self.data_dir and self.data_dir.is_dir():
             self._world = self._load_from_data_dir(self.data_dir)
         else:
+            from fin_audit_gym.generator import (
+                AnomalyConfig,
+                AnomalyInjector,
+                GeneratorConfig,
+                SyntheticLedgerGenerator,
+            )
+
             effective_seed = seed if seed is not None else 42
             gen_cfg = GeneratorConfig(seed=effective_seed)
             clean_world = SyntheticLedgerGenerator(gen_cfg).generate()
@@ -224,10 +231,12 @@ class FinAuditEnv:
             filtered = self._world.ledger
             if account_id:
                 filtered = [r for r in filtered if r.account_id == account_id]
-            if date_from:
-                filtered = [r for r in filtered if r.date >= date_from]
-            if date_to:
-                filtered = [r for r in filtered if r.date <= date_to]
+            if date_from is not None:
+                str_date_from = str(date_from)
+                filtered = [r for r in filtered if r.date >= str_date_from]
+            if date_to is not None:
+                str_date_to = str(date_to)
+                filtered = [r for r in filtered if r.date <= str_date_to]
             if ref_id:
                 filtered = [r for r in filtered if r.reference_id == ref_id]
 
@@ -343,6 +352,8 @@ class FinAuditEnv:
 
         # 6. Submit Findings
         elif action_type == ActionType.SUBMIT_FINDINGS.value:
+            from fin_audit_gym.evaluator.metrics import AuditMetrics, calculate_metrics
+
             self._terminated = True
             raw_findings = validated_action.get("findings", [])
             explanation = validated_action.get("explanation")

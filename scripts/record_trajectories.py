@@ -41,9 +41,20 @@ def record_trajectories(
     out_path.parent.mkdir(parents=True, exist_ok=True)
 
     # Discover episode directories
-    ep_dirs = sorted([d for d in base_dir.iterdir() if d.is_dir()])
-    if not ep_dirs and (base_dir / "manifest.json").is_file():
+    if not base_dir.exists():
+        raise FileNotFoundError(f"Data directory does not exist: {base_dir}")
+
+    if (base_dir / "manifest.json").is_file():
         ep_dirs = [base_dir]
+    else:
+        ep_dirs = sorted(
+            [d for d in base_dir.iterdir() if d.is_dir() and (d / "manifest.json").is_file()]
+        )
+
+    if not ep_dirs:
+        raise FileNotFoundError(
+            f"No valid episode directories (with manifest.json) found in {base_dir}"
+        )
 
     records: list[dict] = []
 

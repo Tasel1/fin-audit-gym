@@ -185,6 +185,8 @@ class AnomalyInjector:
 
         # 3. FX Conversion Mismatch
         for _ in range(self.config.num_fx_mismatches):
+            if not invoices:
+                break
             # Target an invoice with foreign currency or create one
             fx_invs = [inv for inv in invoices if inv.currency in ("EUR", "GBP")]
             if not fx_invs:
