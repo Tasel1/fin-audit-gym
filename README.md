@@ -4,7 +4,7 @@
 
 [![Python 3.11+](https://img.shields.io/badge/python-3.11+-blue.svg)](https://www.python.org/downloads/)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
-[![Tests: 56 passing](https://img.shields.io/badge/tests-56%20passing-brightgreen.svg)]()
+[![Tests: 60 passing](https://img.shields.io/badge/tests-60%20passing-brightgreen.svg)]()
 [![Code Style: Ruff](https://img.shields.io/badge/code%20style-ruff-000000.svg)](https://github.com/astral-sh/ruff)
 
 ---
@@ -74,7 +74,7 @@ pip install -r requirements-dev.txt
 ### 2. Single-Command Jury Verification
 
 ```bash
-# 1. Run full automated test suite (56 unit, integration, adversarial pentest & security tests)
+# 1. Run full automated test suite (60 unit, integration, adversarial pentest & security tests)
 make test
 
 # 2. Run code style and type audit

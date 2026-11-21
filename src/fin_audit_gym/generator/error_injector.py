@@ -184,16 +184,16 @@ class AnomalyInjector:
             finding_counter += 1
 
         # 3. FX Conversion Mismatch
-        for _ in range(self.config.num_fx_mismatches):
+        for fx_idx in range(self.config.num_fx_mismatches):
             if not invoices:
                 break
             # Target an invoice with foreign currency or create one
             fx_invs = [inv for inv in invoices if inv.currency in ("EUR", "GBP")]
             if not fx_invs:
-                target_inv = invoices[0]
+                target_inv = invoices[fx_idx % len(invoices)]
                 target_inv.currency = "EUR"
             else:
-                target_inv = fx_invs[0]
+                target_inv = fx_invs[fx_idx % len(fx_invs)]
 
             expected_amount = int(target_inv.total_minor * 1.085)
             # Inject 25% discrepancy in recorded amount
@@ -241,8 +241,12 @@ class AnomalyInjector:
             finding_counter += 1
 
         # 4. Period Cutoff Violation
-        for _ in range(self.config.num_period_cutoffs):
-            cutoff_inv_id = f"INV-{world.manifest.fiscal_year}-CUTOFF"
+        for cutoff_idx in range(self.config.num_period_cutoffs):
+            cutoff_inv_id = (
+                f"INV-{world.manifest.fiscal_year}-CUTOFF"
+                if self.config.num_period_cutoffs == 1
+                else f"INV-{world.manifest.fiscal_year}-CUTOFF-{cutoff_idx + 1:02d}"
+            )
             entry_id = f"ENTRY-ANOM-{entry_idx:05d}"
             entry_idx += 1
             next_year = world.manifest.fiscal_year + 1

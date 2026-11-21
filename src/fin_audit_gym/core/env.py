@@ -52,14 +52,6 @@ class FinAuditEnv:
         self.max_steps = max_steps
         self._reward_engine: Any = None
 
-    @property
-    def reward_engine(self) -> Any:
-        if self._reward_engine is None:
-            from fin_audit_gym.evaluator.reward import RewardEngine
-
-            self._reward_engine = RewardEngine()
-        return self._reward_engine
-
         self._steps_taken = 0
         self._total_queries = 0
         self._terminated = False
@@ -67,6 +59,14 @@ class FinAuditEnv:
 
         self._world: GeneratedWorld | None = None
         self._ground_truth_findings: list[Finding] = []
+
+    @property
+    def reward_engine(self) -> Any:
+        if self._reward_engine is None:
+            from fin_audit_gym.evaluator.reward import RewardEngine
+
+            self._reward_engine = RewardEngine()
+        return self._reward_engine
 
     def _load_from_data_dir(self, dir_path: Path) -> GeneratedWorld:
         """Load financial universe and ground truth from existing exported directory."""

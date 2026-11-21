@@ -35,9 +35,20 @@ def convert_currency(
     except (decimal.InvalidOperation, TypeError) as exc:
         raise ValueError(f"Invalid currency exchange rate '{rate}': {exc}") from exc
 
-    rounding_attr = getattr(decimal, rounding_mode, None)
-    if rounding_attr is None:
+    valid_rounding_modes = {
+        "ROUND_HALF_UP",
+        "ROUND_HALF_EVEN",
+        "ROUND_HALF_DOWN",
+        "ROUND_UP",
+        "ROUND_DOWN",
+        "ROUND_CEILING",
+        "ROUND_FLOOR",
+        "ROUND_05UP",
+    }
+    if rounding_mode not in valid_rounding_modes:
         raise ValueError(f"Unknown decimal rounding mode: '{rounding_mode}'")
+
+    rounding_attr = getattr(decimal, rounding_mode)
 
     dec_amount = Decimal(amount_minor)
     result = dec_amount * dec_rate

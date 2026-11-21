@@ -37,6 +37,8 @@ def evaluate_policies(
     base_dir = Path(data_dir)
     if not base_dir.exists():
         raise FileNotFoundError(f"Data directory does not exist: {base_dir}")
+    if not base_dir.is_dir():
+        raise NotADirectoryError(f"Data directory is not a directory: {base_dir}")
 
     if (base_dir / "manifest.json").is_file():
         ep_dirs = [base_dir]
