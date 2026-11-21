@@ -9,6 +9,18 @@ from fin_audit_gym.core.schemas import Finding
 class BipartiteMatcher:
     """Computes optimal 1-to-1 matching between predicted findings and ground truth anomalies."""
 
+    @staticmethod
+    def _is_match(pred: Finding, gt: Finding) -> bool:
+        if pred.error_type != gt.error_type:
+            return False
+        if pred.entity_id == gt.entity_id:
+            return True
+        if isinstance(gt.evidence, dict) and pred.entity_id in gt.evidence.get(
+            "sub_invoice_ids", []
+        ):
+            return True
+        return False
+
     def match(
         self,
         predictions: list[Finding],
@@ -32,7 +44,7 @@ class BipartiteMatcher:
 
         for i, pred in enumerate(predictions):
             for j, gt in enumerate(ground_truth):
-                if pred.error_type == gt.error_type and pred.entity_id == gt.entity_id:
+                if self._is_match(pred, gt):
                     cost_matrix[i, j] = -1.0
 
         row_ind, col_ind = linear_sum_assignment(cost_matrix)
@@ -41,7 +53,7 @@ class BipartiteMatcher:
         for r, c in zip(row_ind, col_ind, strict=True):
             p = predictions[r]
             g = ground_truth[c]
-            if p.error_type == g.error_type and p.entity_id == g.entity_id:
+            if self._is_match(p, g):
                 matched_pairs.append((r, c))
 
         matched_p_set = {r for r, _ in matched_pairs}

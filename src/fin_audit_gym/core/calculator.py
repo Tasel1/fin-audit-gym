@@ -107,6 +107,7 @@ def safe_calculate(expression: str) -> str:
         if res == res.to_integral():
             return str(int(res))
     except (decimal.InvalidOperation, OverflowError):
+        # Fall back to standard decimal float formatting if integral conversion fails
         pass
 
     formatted = format(res, "f")

@@ -23,7 +23,7 @@
 ### Слайд 3: Контракт среды и Zero-Leak Sandbox (1:00 – 1:40) — [25 баллов]
 > **Слова спикера:**  
 > «Первый блок критериев — Контракт и изоляция.  
-> 1. Мы реализовали чистый JSON-совместимый контракт `reset` и `step` со строгим лимитом в 100 шагов и курсорной пагинацией до 50 записей на страницу.  
+> 1. Мы реализовали чистый JSON-совместимый контракт `reset` и `step` со строгим лимитом в 100 шагов и постраничной пагинацией до 50 записей на страницу.  
 > 2. Встроенный калькулятор полностью безопасен: он построен на абстрактном синтаксическом дереве `ast.parse` с жестким белым списком арифметики и чисел Decimal. Попытки инъекций кода, импортов или чтения файлов блокируются.  
 > 3. Zero-Leak изоляция: закрытый эталон `truth.json` и причинный граф `provenance.json` физически скрыты от агента. Наш тест `test_security_zero_leak` гарантирует отсутствие утечек в пространстве наблюдений».
 
@@ -126,13 +126,13 @@ head -n 2 trajectories/trajectories.jsonl
 
 Сверьтесь со списком раздела 09 официального ТЗ:
 
-- [x] **Исходный код с лицензией**: Лицензия MIT в [LICENSE](file:///home/tasel/Documents/PROJECTS/fin-audit-gym/LICENSE), пакет установлен через [pyproject.toml](file:///home/tasel/Documents/PROJECTS/fin-audit-gym/pyproject.toml).
-- [x] **README с запуском в одну команду**: Подробный [README.md](file:///home/tasel/Documents/PROJECTS/fin-audit-gym/README.md) с инструкциями для локального запуска и Docker.
-- [x] **Matcher и награда**: Модули [matcher.py](file:///home/tasel/Documents/PROJECTS/fin-audit-gym/src/fin_audit_gym/evaluator/matcher.py) и [reward.py](file:///home/tasel/Documents/PROJECTS/fin-audit-gym/src/fin_audit_gym/evaluator/reward.py).
+- [x] **Исходный код с лицензией**: Лицензия MIT в [LICENSE](LICENSE), пакет установлен через [pyproject.toml](pyproject.toml).
+- [x] **README с запуском в одну команду**: Подробный [README.md](README.md) с инструкциями для локального запуска и Docker.
+- [x] **Matcher и награда**: Модули [matcher.py](src/fin_audit_gym/evaluator/matcher.py) и [reward.py](src/fin_audit_gym/evaluator/reward.py).
 - [x] **Эпизоды**: 10 train в `data/train/` и 10 dev в `data/dev/`.
 - [x] **Тесты**: 60 автоматических тестов (включая пентест) в папке `tests/` (`make test`).
-- [x] **Базовые политики**: 4 адаптера в [src/fin_audit_gym/baselines/](file:///home/tasel/Documents/PROJECTS/fin-audit-gym/src/fin_audit_gym/baselines/).
-- [x] **Траектории**: Файл [trajectories/trajectories.jsonl](file:///home/tasel/Documents/PROJECTS/fin-audit-gym/trajectories/trajectories.jsonl) (30 траекторий взаимодействия).
-- [x] **Записка о дизайне**: Технический документ [DESIGN.md](file:///home/tasel/Documents/PROJECTS/fin-audit-gym/DESIGN.md).
-- [x] **Демо**: Скрипт бенчмаркинга `python3 scripts/run_eval.py --data-dir data/dev --policy all` и веб-презентация [presentation/index.html](file:///home/tasel/Documents/PROJECTS/fin-audit-gym/presentation/index.html).
+- [x] **Базовые политики**: 4 адаптера в [src/fin_audit_gym/baselines/](src/fin_audit_gym/baselines/).
+- [x] **Траектории**: Файл [trajectories/trajectories.jsonl](trajectories/trajectories.jsonl) (30 траекторий взаимодействия).
+- [x] **Записка о дизайне**: Технический документ [DESIGN.md](DESIGN.md).
+- [x] **Демо**: Скрипт бенчмаркинга `python3 scripts/run_eval.py --data-dir data/dev --policy all` и веб-презентация [presentation/index.html](presentation/index.html).
 - [x] **Публичный репозиторий GitHub**: [https://github.com/Tasel1/fin-audit-gym](https://github.com/Tasel1/fin-audit-gym).

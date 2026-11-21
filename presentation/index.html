@@ -888,9 +888,22 @@
               <div class="card-desc">
                 Проверка всего репозитория за считанные секунды:
                 <div class="code-snippet" style="margin-top: 10px">
-                  # Запуск 60 тестов (включая пентест) make test # Оценка 4
-                  политик на dev python3 scripts/run_eval.py \ --data-dir
-                  data/dev --policy all # Полный аудит кода make check
+                  <pre
+                    style="
+                      margin: 0;
+                      font-family: inherit;
+                      font-size: inherit;
+                      white-space: pre-wrap;
+                    "
+                  >
+# Запуск 60 тестов (включая пентест)
+make test
+
+# Оценка 4 политик на dev
+python3 scripts/run_eval.py --data-dir data/dev --policy all
+
+# Полный аудит кода
+make check</pre>
                 </div>
               </div>
             </div>

@@ -136,7 +136,7 @@ def test_multiple_period_cutoffs_and_fx_mismatches_uniqueness():
         num_composite_split_invoices=0,
         num_distractors=0,
     )
-    mutated_world, findings = AnomalyInjector(anomaly_config).inject(world)
+    _, findings = AnomalyInjector(anomaly_config).inject(world)
 
     cutoff_findings = [f for f in findings if f.error_type == "period_cutoff"]
     assert len(cutoff_findings) == 2

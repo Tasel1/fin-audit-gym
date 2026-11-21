@@ -176,13 +176,15 @@ fin-audit-gym/
 │   ├── train/             # 10 reference training episodes (ep_001..ep_010)
 │   └── dev/               # 10 reference evaluation episodes (ep_001..ep_010)
 ├── trajectories/          # Serialized policy execution logs (trajectories.jsonl)
-├── tests/                 # 41 unit, integration, isolation, and anti-gaming tests
+├── tests/                 # 60 unit, integration, isolation, and anti-gaming tests
 │   ├── test_contract_isolation.py       # Gym API & zero-leak sandbox verification
 │   ├── test_schemas_and_calculator.py   # AST security attack tests & Pydantic validation
 │   ├── test_generator_clean_world.py    # Double-entry mathematical invariants
 │   ├── test_generator_anomalies.py      # Error injector & distractor verification
+│   ├── test_pentest_and_robustness.py   # 15-vector adversarial pentest & fuzzing suite
 │   ├── test_reward_and_attacks.py       # Kuhn-Munkres matching & anti-gaming defenses
 │   ├── test_baselines.py                # 4 baseline policy performance verification
+│   ├── test_environment_setup.py       # Packaging & environment setup verification
 │   └── test_scripts.py                  # CLI runners & trajectory recording checks
 ├── scripts/
 │   ├── generate_episodes.py   # Deterministic dataset generation script
