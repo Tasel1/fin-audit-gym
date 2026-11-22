@@ -23,11 +23,13 @@ def run_policy_episode(
     seed: int = 42,
 ) -> dict[str, Any]:
     """Execute a complete episodic interaction loop between policy and environment."""
+    from fin_audit_gym.baselines.oracle import OraclePolicy
+
     policy.reset()
     obs, info = env.reset(seed=seed)
 
-    # Allow policies with privileged benchmark access (like Oracle) to bind env state
-    if hasattr(policy, "bind_env"):
+    # Only OraclePolicy is permitted privileged access to bind env state
+    if isinstance(policy, OraclePolicy):
         policy.bind_env(env)
 
     trajectory: list[dict[str, Any]] = []

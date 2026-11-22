@@ -438,5 +438,10 @@ class FinAuditEnv:
         }
         if action_type == ActionType.SUBMIT_FINDINGS.value:
             info["metrics"] = submission_metrics.model_dump()
+        elif self._truncated:
+            from fin_audit_gym.evaluator.metrics import calculate_metrics
+
+            reward = -1.0
+            info["metrics"] = calculate_metrics([], self._ground_truth_findings).model_dump()
 
         return obs, reward, self._terminated, self._truncated, info
