@@ -1,60 +1,93 @@
 <!doctype html>
-<html lang="ru">
+<html lang="ru" data-theme="light">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Fin-Audit-Gym — Защита проекта | FinTech Hackathon 2026</title>
-    <!-- Chart.js for benchmark evaluation -->
+    <!-- Chart.js for live metric evaluation -->
     <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
     <style>
       /* =========================================================================
-         DESIGN SYSTEM: QUIET CABINET (Inspired by Earwright UI Tokens)
-         Stone, Obsidian, Earwright Amber, and Verification Sage
+         EXECUTIVE STUDIO DESIGN SYSTEM (Inspired by Modern Showcase / Mobbin / Cosmos)
+         High-contrast, airy whitespace, crisp 1px borders, zero AI-slop gradients
          ========================================================================= */
       :root {
-        --canvas: #0c0a09;
-        --canvas-alt: #161412;
-        --surface: #1c1917;
-        --surface-raised: #231f1c;
-        --surface-hover: #292524;
-        --border: #2a2725;
-        --border-strong: #44403c;
-        --border-subtle: #1f1c1a;
-        --border-focus: #57534e;
+        --canvas: #f8f8fa;
+        --surface: #ffffff;
+        --surface-subtle: #f4f4f6;
+        --surface-hover: #ebebee;
+        --border: #e4e4e7;
+        --border-strong: #d4d4d8;
+        --border-focus: #09090b;
 
-        --ink: #f5f5f4;
-        --ink-secondary: #d6d3d1;
-        --ink-muted: #a8a29e;
-        --ink-dim: #78716c;
+        --ink: #09090b;
+        --ink-secondary: #52525b;
+        --ink-muted: #71717a;
+        --ink-faint: #a1a1aa;
 
-        /* Earwright UI Amber & Accent */
-        --accent: #f59e0b;
-        --accent-hover: #fbbf24;
-        --accent-subtle: rgba(245, 158, 11, 0.12);
-        --accent-dim: rgba(245, 158, 11, 0.05);
+        /* Signal Colors */
+        --accent: #09090b;
+        --accent-inverse: #ffffff;
+        --brand-amber: #d97706;
+        --brand-amber-subtle: #fef3c7;
+        --brand-amber-border: #fde68a;
 
-        /* Verification Sage (100% Pass / Clean Audit) */
-        --sage: #34d399;
-        --sage-subtle: rgba(52, 211, 153, 0.12);
-        --sage-border: rgba(52, 211, 153, 0.35);
+        --brand-sage: #059669;
+        --brand-sage-subtle: #d1fae5;
+        --brand-sage-border: #a7f3d0;
 
-        /* Danger / Penalty */
-        --danger: #f87171;
-        --danger-subtle: rgba(248, 113, 113, 0.12);
-        --danger-border: rgba(248, 113, 113, 0.35);
+        --brand-rose: #e11d48;
+        --brand-rose-subtle: #ffe4e6;
+        --brand-rose-border: #fecdd3;
 
-        /* Typography */
-        --font-serif: Georgia, "Liberation Serif", "Times New Roman", serif;
+        --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.04);
+        --shadow-md: 0 4px 12px rgba(0, 0, 0, 0.05);
+        --shadow-lg: 0 12px 32px rgba(0, 0, 0, 0.08);
+
         --font-sans:
           -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
-          "Liberation Sans", sans-serif;
+          "Helvetica Neue", Arial, sans-serif;
         --font-mono:
-          ui-monospace, "Liberation Mono", Menlo, Monaco, Consolas, monospace;
+          ui-monospace, "SF Mono", "Liberation Mono", Menlo, Consolas, monospace;
 
         --radius-sm: 6px;
-        --radius-md: 8px;
-        --radius-lg: 12px;
+        --radius-md: 10px;
+        --radius-lg: 16px;
+        --radius-xl: 20px;
         --radius-pill: 9999px;
+      }
+
+      [data-theme="dark"] {
+        --canvas: #09090b;
+        --surface: #121215;
+        --surface-subtle: #18181b;
+        --surface-hover: #222226;
+        --border: #27272a;
+        --border-strong: #3f3f46;
+        --border-focus: #fafafa;
+
+        --ink: #fafafa;
+        --ink-secondary: #a1a1aa;
+        --ink-muted: #71717a;
+        --ink-faint: #52525b;
+
+        --accent: #fafafa;
+        --accent-inverse: #09090b;
+        --brand-amber: #fbbf24;
+        --brand-amber-subtle: rgba(245, 158, 11, 0.12);
+        --brand-amber-border: rgba(245, 158, 11, 0.25);
+
+        --brand-sage: #34d399;
+        --brand-sage-subtle: rgba(52, 211, 153, 0.12);
+        --brand-sage-border: rgba(52, 211, 153, 0.25);
+
+        --brand-rose: #fb7185;
+        --brand-rose-subtle: rgba(244, 63, 94, 0.12);
+        --brand-rose-border: rgba(244, 63, 94, 0.25);
+
+        --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.3);
+        --shadow-md: 0 4px 12px rgba(0, 0, 0, 0.4);
+        --shadow-lg: 0 12px 32px rgba(0, 0, 0, 0.5);
       }
 
       * {
@@ -74,127 +107,142 @@
         flex-direction: column;
         user-select: none;
         -webkit-font-smoothing: antialiased;
+        transition:
+          background-color 0.2s ease,
+          color 0.2s ease;
       }
 
       /* =========================================================================
-         TOP APP BAR (Cabinet Navigation Header)
+         TOP NAVIGATION BAR (Clean Showcase Header)
          ========================================================================= */
-      .app-header {
-        height: 56px;
-        background: var(--canvas-alt);
+      .top-navbar {
+        height: 64px;
+        background: var(--surface);
         border-bottom: 1px solid var(--border);
         display: flex;
         align-items: center;
         justify-content: space-between;
-        padding: 0 24px;
+        padding: 0 28px;
         z-index: 50;
         flex-shrink: 0;
       }
 
-      .header-brand {
+      .nav-left {
         display: flex;
         align-items: center;
-        gap: 12px;
+        gap: 16px;
       }
 
-      .brand-badge {
-        font-family: var(--font-mono);
-        font-size: 11px;
-        font-weight: 700;
-        letter-spacing: 0.8px;
-        text-transform: uppercase;
-        color: var(--canvas);
+      .logo-mark {
+        width: 32px;
+        height: 32px;
         background: var(--accent);
-        padding: 3px 7px;
-        border-radius: var(--radius-sm);
+        color: var(--accent-inverse);
+        border-radius: var(--radius-md);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-weight: 800;
+        font-size: 16px;
+        letter-spacing: -0.5px;
       }
 
-      .brand-title {
-        font-family: var(--font-serif);
-        font-size: 17px;
-        font-weight: 600;
+      .logo-text {
+        font-size: 16px;
+        font-weight: 700;
+        letter-spacing: -0.3px;
         color: var(--ink);
-        letter-spacing: -0.2px;
       }
 
-      .header-nav {
+      .logo-tag {
+        font-size: 11px;
+        font-weight: 600;
+        color: var(--ink-muted);
+        background: var(--surface-subtle);
+        border: 1px solid var(--border);
+        padding: 2px 8px;
+        border-radius: var(--radius-pill);
+      }
+
+      /* Slide Switcher Center Tabs */
+      .slide-tabs {
         display: flex;
         align-items: center;
         gap: 4px;
+        background: var(--surface-subtle);
+        border: 1px solid var(--border);
+        padding: 3px;
+        border-radius: var(--radius-pill);
       }
 
-      .nav-tab {
+      .tab-item {
         background: transparent;
-        border: 1px solid transparent;
-        color: var(--ink-muted);
-        font-family: var(--font-mono);
-        font-size: 12px;
-        padding: 5px 10px;
-        border-radius: var(--radius-sm);
+        border: none;
+        color: var(--ink-secondary);
+        font-family: var(--font-sans);
+        font-size: 13px;
+        font-weight: 500;
+        padding: 6px 14px;
+        border-radius: var(--radius-pill);
         cursor: pointer;
         transition: all 0.15s ease;
       }
 
-      .nav-tab:hover {
+      .tab-item:hover {
         color: var(--ink);
-        background: var(--surface);
       }
 
-      .nav-tab.active {
-        color: var(--accent);
+      .tab-item.active {
         background: var(--surface);
-        border-color: var(--border);
+        color: var(--ink);
         font-weight: 600;
+        box-shadow: var(--shadow-sm);
       }
 
-      .header-actions {
+      .nav-right {
         display: flex;
         align-items: center;
         gap: 10px;
       }
 
-      /* Timer Widget */
-      .timer-widget {
+      /* Pitch Timer Widget */
+      .timer-badge {
         display: flex;
         align-items: center;
         gap: 8px;
-        background: var(--surface);
+        background: var(--surface-subtle);
         border: 1px solid var(--border);
-        padding: 4px 10px;
-        border-radius: var(--radius-sm);
+        padding: 5px 12px;
+        border-radius: var(--radius-pill);
         font-family: var(--font-mono);
         font-size: 13px;
-        color: var(--ink-secondary);
-      }
-
-      .timer-display {
         font-weight: 600;
-        min-width: 44px;
+        color: var(--ink);
       }
 
       .timer-btn {
-        background: transparent;
+        background: none;
         border: none;
-        color: var(--ink-dim);
         cursor: pointer;
-        padding: 2px;
+        color: var(--ink-muted);
         display: flex;
         align-items: center;
       }
 
       .timer-btn:hover {
-        color: var(--accent);
+        color: var(--ink);
       }
 
-      .btn-header {
+      /* Top Action Buttons */
+      .nav-btn {
         background: var(--surface);
         border: 1px solid var(--border);
         color: var(--ink-secondary);
         font-family: var(--font-sans);
-        font-size: 12px;
+        font-size: 13px;
         font-weight: 500;
-        padding: 6px 12px;
-        border-radius: var(--radius-sm);
+        padding: 7px 14px;
+        border-radius: var(--radius-md);
         cursor: pointer;
         display: flex;
         align-items: center;
@@ -202,16 +250,16 @@
         transition: all 0.15s;
       }
 
-      .btn-header:hover {
-        background: var(--surface-hover);
+      .nav-btn:hover {
+        background: var(--surface-subtle);
         color: var(--ink);
         border-color: var(--border-strong);
       }
 
-      .btn-header.active {
-        background: var(--accent-subtle);
+      .nav-btn.active {
+        background: var(--accent);
+        color: var(--accent-inverse);
         border-color: var(--accent);
-        color: var(--accent);
       }
 
       /* Top Slim Progress Strip */
@@ -243,16 +291,16 @@
       .slide {
         position: absolute;
         inset: 0;
-        padding: 36px 64px 32px;
+        padding: 36px 72px 28px;
         display: flex;
         flex-direction: column;
         opacity: 0;
         visibility: hidden;
-        transform: translateY(12px);
+        transform: translateY(10px);
         transition:
-          opacity 0.25s cubic-bezier(0.16, 1, 0.3, 1),
-          transform 0.25s cubic-bezier(0.16, 1, 0.3, 1),
-          visibility 0.25s;
+          opacity 0.22s cubic-bezier(0.16, 1, 0.3, 1),
+          transform 0.22s cubic-bezier(0.16, 1, 0.3, 1),
+          visibility 0.22s;
       }
 
       .slide.active {
@@ -262,65 +310,52 @@
       }
 
       .slide.prev {
-        transform: translateY(-12px);
+        transform: translateY(-10px);
       }
 
-      /* Slide Header */
-      .slide-header {
+      /* Slide Top Title Area */
+      .slide-headline-row {
         display: flex;
         justify-content: space-between;
         align-items: flex-end;
         margin-bottom: 24px;
-        border-bottom: 1px solid var(--border);
         padding-bottom: 16px;
+        border-bottom: 1px solid var(--border);
         flex-shrink: 0;
       }
 
-      .slide-tag {
-        font-family: var(--font-mono);
-        font-size: 11px;
+      .slide-meta-label {
+        font-size: 12px;
         font-weight: 600;
-        letter-spacing: 1.2px;
+        letter-spacing: 0.5px;
         text-transform: uppercase;
-        color: var(--accent);
-        margin-bottom: 6px;
-        display: flex;
-        align-items: center;
-        gap: 6px;
+        color: var(--ink-muted);
+        margin-bottom: 4px;
       }
 
-      .slide-tag::before {
-        content: "";
-        width: 6px;
-        height: 6px;
-        background: var(--accent);
-        border-radius: 50%;
-      }
-
-      .slide-title {
-        font-family: var(--font-serif);
-        font-size: 30px;
-        font-weight: 600;
+      .slide-heading {
+        font-size: 32px;
+        font-weight: 700;
+        letter-spacing: -0.8px;
         color: var(--ink);
-        letter-spacing: -0.4px;
-        line-height: 1.2;
+        line-height: 1.15;
       }
 
-      .score-pill {
-        background: var(--surface);
-        border: 1px solid var(--sage-border);
-        color: var(--sage);
+      .badge-score {
+        background: var(--brand-sage-subtle);
+        border: 1px solid var(--brand-sage-border);
+        color: var(--brand-sage);
         font-family: var(--font-mono);
         font-size: 13px;
-        font-weight: 600;
-        padding: 5px 12px;
+        font-weight: 700;
+        padding: 6px 14px;
         border-radius: var(--radius-pill);
         display: flex;
         align-items: center;
         gap: 6px;
       }
 
-      /* Slide Body */
+      /* Slide Body & Grids */
       .slide-body {
         flex: 1;
         display: flex;
@@ -329,7 +364,6 @@
         min-height: 0;
       }
 
-      /* Grid Layouts */
       .grid-2 {
         display: grid;
         grid-template-columns: 1fr 1fr;
@@ -346,8 +380,8 @@
         align-items: stretch;
       }
 
-      /* Editorial Cabinet Cards */
-      .card {
+      /* Showcase Cards (Mobbin/Cosmos Inspired) */
+      .studio-card {
         background: var(--surface);
         border: 1px solid var(--border);
         border-radius: var(--radius-lg);
@@ -355,51 +389,45 @@
         display: flex;
         flex-direction: column;
         gap: 14px;
+        box-shadow: var(--shadow-sm);
+        transition:
+          border-color 0.2s,
+          box-shadow 0.2s,
+          transform 0.2s;
         position: relative;
         overflow: hidden;
       }
 
-      .card-quiet {
-        background: var(--canvas-alt);
-        border-color: var(--border-subtle);
+      .studio-card:hover {
+        border-color: var(--border-strong);
+        box-shadow: var(--shadow-md);
+        transform: translateY(-2px);
       }
 
-      .card-accented {
-        border-left: 3px solid var(--accent);
-      }
-
-      .card-verified {
-        border-left: 3px solid var(--sage);
-        background: linear-gradient(
-          180deg,
-          var(--sage-subtle) 0%,
-          var(--surface) 100%
-        );
-      }
-
-      .card-danger {
-        border-left: 3px solid var(--danger);
-        background: linear-gradient(
-          180deg,
-          var(--danger-subtle) 0%,
-          var(--surface) 100%
-        );
-      }
-
-      .card-header {
+      .card-header-row {
         display: flex;
         align-items: center;
         justify-content: space-between;
       }
 
       .card-title {
-        font-family: var(--font-serif);
         font-size: 18px;
-        font-weight: 600;
+        font-weight: 700;
+        letter-spacing: -0.3px;
         color: var(--ink);
         display: flex;
         align-items: center;
         gap: 8px;
+      }
+
+      .card-chip {
+        font-size: 11px;
+        font-weight: 600;
+        padding: 3px 8px;
+        border-radius: var(--radius-sm);
+        border: 1px solid var(--border);
+        background: var(--surface-subtle);
+        color: var(--ink-secondary);
       }
 
       .card-desc {
@@ -410,10 +438,10 @@
       }
 
       .card-desc ul {
-        padding-left: 18px;
+        padding-left: 20px;
         display: flex;
         flex-direction: column;
-        gap: 8px;
+        gap: 10px;
       }
 
       .card-desc li strong {
@@ -421,29 +449,31 @@
       }
 
       /* Code & Command Snippet */
-      .code-snippet {
+      .code-box {
         font-family: var(--font-mono);
         font-size: 12px;
-        background: var(--canvas);
+        background: var(--surface-subtle);
         border: 1px solid var(--border);
-        border-radius: var(--radius-sm);
-        padding: 10px 14px;
-        color: var(--accent-hover);
+        border-radius: var(--radius-md);
+        padding: 12px 14px;
+        color: var(--ink);
         line-height: 1.5;
         white-space: pre-wrap;
         position: relative;
+        margin-top: 10px;
       }
 
-      .copy-action {
+      .btn-copy {
         position: absolute;
-        top: 6px;
-        right: 6px;
-        background: var(--surface-raised);
+        top: 8px;
+        right: 8px;
+        background: var(--surface);
         border: 1px solid var(--border);
-        color: var(--ink-dim);
+        color: var(--ink-muted);
         font-family: var(--font-sans);
-        font-size: 10px;
-        padding: 3px 8px;
+        font-size: 11px;
+        font-weight: 500;
+        padding: 4px 8px;
         border-radius: var(--radius-sm);
         cursor: pointer;
         display: flex;
@@ -452,151 +482,224 @@
         transition: all 0.15s;
       }
 
-      .copy-action:hover {
+      .btn-copy:hover {
         color: var(--ink);
         border-color: var(--border-strong);
       }
 
-      /* Clean Data Table */
-      .cabinet-table {
+      /* High-Density Minimalist Table */
+      .studio-table {
         width: 100%;
         border-collapse: collapse;
         font-size: 13px;
         border: 1px solid var(--border);
         border-radius: var(--radius-md);
         overflow: hidden;
+        background: var(--surface);
       }
 
-      .cabinet-table th {
+      .studio-table th {
         text-align: left;
-        padding: 10px 14px;
-        background: var(--surface-raised);
+        padding: 12px 16px;
+        background: var(--surface-subtle);
         border-bottom: 1px solid var(--border);
         color: var(--ink-muted);
         text-transform: uppercase;
         font-size: 11px;
         letter-spacing: 0.8px;
-        font-family: var(--font-mono);
+        font-weight: 600;
       }
 
-      .cabinet-table td {
-        padding: 10px 14px;
-        border-bottom: 1px solid var(--border-subtle);
+      .studio-table td {
+        padding: 12px 16px;
+        border-bottom: 1px solid var(--border);
         color: var(--ink-secondary);
         font-family: var(--font-mono);
       }
 
-      .cabinet-table tr:last-child td {
+      .studio-table tr:last-child td {
         border-bottom: none;
       }
 
-      .cabinet-table tr.highlight td {
-        background: var(--sage-subtle);
-        color: var(--ink);
-        font-weight: 600;
+      .studio-table tr.highlight td {
+        background: var(--brand-sage-subtle);
+        color: var(--brand-sage);
+        font-weight: 700;
       }
 
-      /* Hero Slide Custom */
-      .hero-content {
+      /* Hero Slide Showcase (Mobbin/Cosmos Showcase Style) */
+      .hero-center {
         display: flex;
         flex-direction: column;
         align-items: center;
-        justify-content: center;
         text-align: center;
-        height: 100%;
         gap: 20px;
+        max-width: 960px;
+        margin: 0 auto;
       }
 
-      .hero-eyebrow {
-        font-family: var(--font-mono);
+      .hero-pill-badge {
         font-size: 12px;
-        letter-spacing: 1.5px;
+        font-weight: 600;
+        letter-spacing: 0.5px;
         text-transform: uppercase;
-        color: var(--accent);
-        border: 1px solid var(--border);
-        padding: 4px 12px;
-        border-radius: var(--radius-pill);
+        color: var(--ink-secondary);
         background: var(--surface);
+        border: 1px solid var(--border);
+        padding: 6px 14px;
+        border-radius: var(--radius-pill);
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        box-shadow: var(--shadow-sm);
       }
 
-      .hero-title {
-        font-family: var(--font-serif);
-        font-size: 54px;
-        font-weight: 600;
-        letter-spacing: -1.2px;
-        line-height: 1.1;
+      .hero-pill-badge .indicator-dot {
+        width: 8px;
+        height: 8px;
+        background: var(--brand-sage);
+        border-radius: 50%;
+      }
+
+      .hero-main-title {
+        font-size: 58px;
+        font-weight: 800;
+        letter-spacing: -1.8px;
+        line-height: 1.05;
         color: var(--ink);
       }
 
-      .hero-subtitle {
+      .hero-subtext {
         font-size: 20px;
         color: var(--ink-secondary);
-        max-width: 780px;
+        max-width: 760px;
         line-height: 1.5;
         font-weight: 400;
       }
 
-      .pill-row {
-        display: flex;
-        gap: 10px;
-        flex-wrap: wrap;
-        justify-content: center;
-        margin-top: 8px;
+      /* 3 Showcase Visual Cards on Hero */
+      .hero-cards-grid {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 20px;
+        width: 100%;
+        margin-top: 10px;
+        text-align: left;
       }
 
-      .hero-pill {
+      .preview-card {
         background: var(--surface);
         border: 1px solid var(--border);
-        border-radius: var(--radius-pill);
-        padding: 6px 14px;
+        border-radius: var(--radius-lg);
+        padding: 20px;
+        display: flex;
+        flex-direction: column;
+        gap: 12px;
+        box-shadow: var(--shadow-sm);
+        transition: all 0.2s;
+      }
+
+      .preview-card:hover {
+        border-color: var(--border-strong);
+        transform: translateY(-2px);
+      }
+
+      .preview-icon-box {
+        width: 40px;
+        height: 40px;
+        border-radius: var(--radius-md);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 18px;
+        border: 1px solid var(--border);
+        background: var(--surface-subtle);
+      }
+
+      .preview-title {
+        font-size: 16px;
+        font-weight: 700;
+        color: var(--ink);
+        letter-spacing: -0.2px;
+      }
+
+      .preview-desc {
         font-size: 13px;
+        line-height: 1.5;
         color: var(--ink-secondary);
-        font-family: var(--font-mono);
+      }
+
+      .preview-badge-row {
+        margin-top: auto;
         display: flex;
         align-items: center;
         gap: 6px;
       }
 
-      .hero-pill.verified {
-        border-color: var(--sage-border);
-        color: var(--sage);
+      .mini-pill {
+        font-size: 11px;
+        font-weight: 600;
+        padding: 3px 8px;
+        border-radius: var(--radius-pill);
+        border: 1px solid var(--border);
+        background: var(--surface-subtle);
+        color: var(--ink-muted);
+      }
+
+      .mini-pill.sage {
+        background: var(--brand-sage-subtle);
+        color: var(--brand-sage);
+        border-color: var(--brand-sage-border);
       }
 
       /* =========================================================================
-         BOTTOM CONTROLS & SPEAKER NOTES DRAWER
+         BOTTOM FOOTER & CONTROLS
          ========================================================================= */
-      .bottom-bar {
-        height: 52px;
-        background: var(--canvas-alt);
+      .bottom-navbar {
+        height: 56px;
+        background: var(--surface);
         border-top: 1px solid var(--border);
         display: flex;
         align-items: center;
         justify-content: space-between;
-        padding: 0 24px;
+        padding: 0 28px;
         z-index: 50;
         flex-shrink: 0;
       }
 
-      .status-text {
-        font-family: var(--font-mono);
-        font-size: 12px;
-        color: var(--ink-dim);
-      }
-
-      .controls-btns {
+      .footer-info {
+        font-size: 13px;
+        color: var(--ink-muted);
         display: flex;
         align-items: center;
         gap: 8px;
       }
 
-      .ctrl-btn {
+      .footer-kbd {
+        font-family: var(--font-mono);
+        font-size: 11px;
+        background: var(--surface-subtle);
+        border: 1px solid var(--border);
+        padding: 2px 6px;
+        border-radius: 4px;
+        color: var(--ink);
+      }
+
+      .footer-actions {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+      }
+
+      .btn-nav-action {
         background: var(--surface);
         border: 1px solid var(--border);
-        color: var(--ink-secondary);
+        color: var(--ink);
         font-family: var(--font-sans);
         font-size: 13px;
-        padding: 6px 14px;
-        border-radius: var(--radius-sm);
+        font-weight: 600;
+        padding: 7px 16px;
+        border-radius: var(--radius-md);
         cursor: pointer;
         display: flex;
         align-items: center;
@@ -604,350 +707,355 @@
         transition: all 0.15s;
       }
 
-      .ctrl-btn:hover {
-        background: var(--surface-hover);
-        color: var(--ink);
+      .btn-nav-action:hover {
+        background: var(--surface-subtle);
         border-color: var(--border-strong);
       }
 
-      .ctrl-btn.primary {
+      .btn-nav-action.primary {
         background: var(--accent);
-        color: var(--canvas);
-        font-weight: 600;
+        color: var(--accent-inverse);
         border-color: var(--accent);
       }
 
-      .ctrl-btn.primary:hover {
-        background: var(--accent-hover);
+      .btn-nav-action.primary:hover {
+        opacity: 0.92;
       }
 
-      /* SPEAKER DRAWER (Teleprompter for Presenter / Friend) */
-      .speaker-drawer {
+      /* =========================================================================
+         SPEAKER TELEPROMPTER DRAWER (Hot key: N)
+         ========================================================================= */
+      .speaker-teleprompter {
         position: fixed;
-        bottom: 52px;
+        bottom: 56px;
         left: 0;
         right: 0;
-        background: var(--surface-raised);
-        border-top: 1px solid var(--border-strong);
-        padding: 18px 32px;
+        background: var(--surface);
+        border-top: 1px solid var(--border);
+        padding: 20px 36px;
         z-index: 40;
         transform: translateY(100%);
-        transition: transform 0.2s cubic-bezier(0.16, 1, 0.3, 1);
-        box-shadow: 0 -8px 24px rgba(0, 0, 0, 0.5);
+        transition: transform 0.22s cubic-bezier(0.16, 1, 0.3, 1);
+        box-shadow: var(--shadow-lg);
       }
 
-      .speaker-drawer.open {
+      .speaker-teleprompter.open {
         transform: translateY(0);
       }
 
-      .drawer-header {
+      .teleprompter-header {
         display: flex;
         align-items: center;
         justify-content: space-between;
         margin-bottom: 8px;
       }
 
-      .drawer-title {
-        font-family: var(--font-mono);
+      .teleprompter-label {
         font-size: 11px;
+        font-weight: 700;
         text-transform: uppercase;
-        letter-spacing: 1px;
-        color: var(--accent);
-        font-weight: 600;
+        letter-spacing: 0.8px;
+        color: var(--brand-amber);
         display: flex;
         align-items: center;
         gap: 6px;
       }
 
-      .drawer-body {
-        font-size: 14px;
+      .teleprompter-text {
+        font-size: 15px;
         line-height: 1.6;
         color: var(--ink);
-        font-family: var(--font-sans);
-        max-height: 120px;
+        max-height: 130px;
         overflow-y: auto;
       }
 
-      /* Q&A MODAL DIALOG */
-      .modal-overlay {
+      /* =========================================================================
+         DEFENSE Q&A BATTLECARD MODAL (Hot key: ?)
+         ========================================================================= */
+      .modal-backdrop {
         position: fixed;
         inset: 0;
-        background: rgba(12, 10, 9, 0.8);
-        backdrop-filter: blur(4px);
+        background: rgba(9, 9, 11, 0.6);
+        backdrop-filter: blur(6px);
         display: none;
         align-items: center;
         justify-content: center;
         z-index: 100;
       }
 
-      .modal-overlay.open {
+      .modal-backdrop.open {
         display: flex;
       }
 
-      .modal-dialog {
-        width: 820px;
-        max-width: 90vw;
+      .modal-sheet {
+        width: 840px;
+        max-width: 92vw;
         max-height: 85vh;
         background: var(--surface);
-        border: 1px solid var(--border-strong);
-        border-radius: var(--radius-lg);
+        border: 1px solid var(--border);
+        border-radius: var(--radius-xl);
+        box-shadow: var(--shadow-lg);
         display: flex;
         flex-direction: column;
         overflow: hidden;
       }
 
-      .modal-header {
-        padding: 16px 24px;
+      .modal-top {
+        padding: 18px 28px;
         border-bottom: 1px solid var(--border);
         display: flex;
         align-items: center;
         justify-content: space-between;
-        background: var(--canvas-alt);
+        background: var(--surface-subtle);
       }
 
-      .modal-title {
-        font-family: var(--font-serif);
-        font-size: 18px;
+      .modal-heading {
+        font-size: 17px;
+        font-weight: 700;
         color: var(--ink);
+        letter-spacing: -0.2px;
       }
 
-      .modal-close {
+      .btn-close-modal {
         background: transparent;
         border: none;
-        color: var(--ink-dim);
+        color: var(--ink-muted);
         font-size: 20px;
         cursor: pointer;
       }
 
-      .modal-close:hover {
+      .btn-close-modal:hover {
         color: var(--ink);
       }
 
-      .modal-content {
-        padding: 24px;
+      .modal-scroll-area {
+        padding: 24px 28px;
         overflow-y: auto;
         display: flex;
         flex-direction: column;
         gap: 16px;
       }
 
-      .qa-card {
-        background: var(--canvas-alt);
+      .qa-box {
+        background: var(--surface-subtle);
         border: 1px solid var(--border);
         border-radius: var(--radius-md);
-        padding: 16px;
+        padding: 16px 20px;
       }
 
-      .qa-q {
-        font-weight: 600;
-        color: var(--accent);
+      .qa-question {
         font-size: 14px;
+        font-weight: 700;
+        color: var(--ink);
         margin-bottom: 6px;
       }
 
-      .qa-a {
+      .qa-answer {
         font-size: 13px;
         line-height: 1.6;
         color: var(--ink-secondary);
       }
 
-      /* Toast Notification */
-      .toast {
+      /* Copy Notification Toast */
+      .toast-popup {
         position: fixed;
-        bottom: 68px;
-        right: 24px;
-        background: var(--sage);
-        color: var(--canvas);
-        font-family: var(--font-mono);
+        bottom: 70px;
+        right: 28px;
+        background: var(--accent);
+        color: var(--accent-inverse);
         font-size: 12px;
         font-weight: 600;
-        padding: 8px 16px;
-        border-radius: var(--radius-sm);
+        padding: 10px 18px;
+        border-radius: var(--radius-pill);
+        box-shadow: var(--shadow-md);
         z-index: 200;
         opacity: 0;
         pointer-events: none;
-        transition: opacity 0.2s ease;
+        transition:
+          opacity 0.2s ease,
+          transform 0.2s ease;
+        transform: translateY(6px);
       }
 
-      .toast.visible {
+      .toast-popup.active {
         opacity: 1;
+        transform: translateY(0);
       }
     </style>
   </head>
   <body>
-    <!-- Top Quiet Cabinet Bar -->
-    <header class="app-header">
-      <div class="header-brand">
-        <span class="brand-badge">FinTech</span>
-        <span class="brand-title">Fin-Audit-Gym</span>
+    <!-- Executive Top Navbar (Showcase Header) -->
+    <header class="top-navbar">
+      <div class="nav-left">
+        <div class="logo-mark">F</div>
+        <div class="logo-text">Fin-Audit-Gym</div>
+        <span class="logo-tag">FinTech '26</span>
       </div>
 
-      <!-- Quick Slide Tabs -->
-      <nav class="header-nav">
-        <button class="nav-tab active" onclick="jumpToSlide(1)">
-          1. Титул
+      <!-- Slide Switcher Tabs -->
+      <nav class="slide-tabs">
+        <button class="tab-item active" onclick="jumpToSlide(1)">
+          1. Обзор
         </button>
-        <button class="nav-tab" onclick="jumpToSlide(2)">2. Суть вызова</button>
-        <button class="nav-tab" onclick="jumpToSlide(3)">
+        <button class="tab-item" onclick="jumpToSlide(2)">
+          2. Суть вызова
+        </button>
+        <button class="tab-item" onclick="jumpToSlide(3)">
           3. Контракт [25б]
         </button>
-        <button class="nav-tab" onclick="jumpToSlide(4)">
+        <button class="tab-item" onclick="jumpToSlide(4)">
           4. Данные [25б]
         </button>
-        <button class="nav-tab" onclick="jumpToSlide(5)">
+        <button class="tab-item" onclick="jumpToSlide(5)">
           5. Оценщик [25б]
         </button>
-        <button class="nav-tab" onclick="jumpToSlide(6)">
+        <button class="tab-item" onclick="jumpToSlide(6)">
           6. Бенчмарк [15б]
         </button>
-        <button class="nav-tab" onclick="jumpToSlide(7)">
+        <button class="tab-item" onclick="jumpToSlide(7)">
           7. Инженерия [10б]
         </button>
-        <button class="nav-tab" onclick="jumpToSlide(8)">8. Финал</button>
+        <button class="tab-item" onclick="jumpToSlide(8)">8. Финал</button>
       </nav>
 
-      <div class="header-actions">
-        <!-- Pitch Timer Widget -->
+      <div class="nav-right">
+        <!-- Pitch Timer -->
         <div
-          class="timer-widget"
+          class="timer-badge"
           title="Таймер выступления (цель: 3.5 - 4.0 мин)"
         >
-          <span class="timer-btn" onclick="toggleTimer()">⏱</span>
-          <span class="timer-display" id="timerDisplay">00:00</span>
+          <button class="timer-btn" onclick="toggleTimer()">⏱</button>
+          <span id="timerText">00:00</span>
           <button class="timer-btn" onclick="resetTimer()" title="Сбросить">
             ↺
           </button>
         </div>
 
         <button
-          class="btn-header"
-          id="btnNotes"
-          onclick="toggleSpeakerDrawer()"
+          class="nav-btn"
+          id="btnTeleprompter"
+          onclick="toggleTeleprompter()"
         >
           💬 Шпаргалка (N)
         </button>
 
-        <button class="btn-header" onclick="toggleQAModal()">
+        <button class="nav-btn" onclick="toggleQAModal()">
           💡 Вопросы жюри (?)
+        </button>
+
+        <button
+          class="nav-btn"
+          onclick="toggleTheme()"
+          title="Переключить тему (Светлая / Темная)"
+        >
+          <span id="themeIcon">🌙</span>
         </button>
       </div>
     </header>
 
-    <!-- Top Slim Progress Indicator -->
+    <!-- Top Slim Progress Strip -->
     <div class="progress-strip">
       <div class="progress-fill" id="progressFill"></div>
     </div>
 
-    <!-- Slides Viewport -->
+    <!-- Main Slide Deck Viewport -->
     <main class="slide-deck">
-      <!-- SLIDE 1: HERO & INTEGRITY PROOF -->
+      <!-- SLIDE 1: HERO SHOWCASE (Showcase Cards Layout) -->
       <div class="slide active" data-slide="1">
-        <div class="hero-content">
-          <div class="hero-eyebrow">
+        <div class="hero-center">
+          <div class="hero-pill-badge">
+            <span class="indicator-dot"></span>
             FinTech Hackathon 2026 // Дорога в Астану
           </div>
-          <h1 class="hero-title">Fin-Audit-Gym</h1>
-          <p class="hero-subtitle">
+
+          <h1 class="hero-main-title">Fin-Audit-Gym</h1>
+          <p class="hero-subtext">
             Воспроизводимый симулятор и Gymnasium-среда для обучения и
             стресс-тестирования автономных ИИ-аудиторов финансовой отчетности.
           </p>
 
-          <div class="pill-row">
-            <span class="hero-pill verified">
-              <svg width="12" height="12" viewBox="0 0 12 12" fill="none">
-                <path
-                  d="M2.5 6.5 L4.8 8.8 L9.5 3.5"
-                  stroke="currentColor"
-                  stroke-width="1.8"
-                  stroke-linecap="round"
-                />
-              </svg>
-              100 / 100 баллов по критериям ТЗ
-            </span>
-            <span class="hero-pill verified">
-              <svg width="12" height="12" viewBox="0 0 12 12" fill="none">
-                <path
-                  d="M2.5 6.5 L4.8 8.8 L9.5 3.5"
-                  stroke="currentColor"
-                  stroke-width="1.8"
-                  stroke-linecap="round"
-                />
-              </svg>
-              60 автоматизированных тестов (100% pass)
-            </span>
-            <span class="hero-pill">0 GPU · 0 платных API · 100% Offline</span>
-            <span class="hero-pill"
-              >Защита от Specification Gaming (DeepMind)</span
-            >
-          </div>
+          <!-- 3 Showcase Cards Inspired by Mobbin/Cosmos Showcase -->
+          <div class="hero-cards-grid">
+            <div class="preview-card">
+              <div class="preview-icon-box">🛡️</div>
+              <div class="preview-title">Zero-Leak Sandbox</div>
+              <div class="preview-desc">
+                Изолированный Gymnasium-контракт <code>reset</code>/<code
+                  >step</code
+                >
+                и AST-калькулятор без RCE.
+              </div>
+              <div class="preview-badge-row">
+                <span class="mini-pill sage">25 / 25 баллов</span>
+                <span class="mini-pill">0 GPU / Offline</span>
+              </div>
+            </div>
 
-          <div
-            style="
-              margin-top: 18px;
-              font-family: var(--font-mono);
-              font-size: 13px;
-              color: var(--ink-dim);
-            "
-          >
-            Используйте клавиши
-            <kbd
-              style="
-                background: var(--surface);
-                padding: 3px 6px;
-                border: 1px solid var(--border);
-                border-radius: 4px;
-                color: var(--ink);
-              "
-              >→</kbd
-            >
-            или
-            <kbd
-              style="
-                background: var(--surface);
-                padding: 3px 6px;
-                border: 1px solid var(--border);
-                border-radius: 4px;
-                color: var(--ink);
-              "
-              >Пробел</kbd
-            >
-            для навигации
+            <div class="preview-card">
+              <div class="preview-icon-box">⚖️</div>
+              <div class="preview-title">Double-Entry World</div>
+              <div class="preview-desc">
+                Генератор Clean-World-First: баланс дебета и кредита, целые
+                копейки, 4 типа ошибок и дистракторы.
+              </div>
+              <div class="preview-badge-row">
+                <span class="mini-pill sage">25 / 25 баллов</span>
+                <span class="mini-pill">Детерминизм</span>
+              </div>
+            </div>
+
+            <div class="preview-card">
+              <div class="preview-icon-box">🎯</div>
+              <div class="preview-title">Kuhn-Munkres Matcher</div>
+              <div class="preview-desc">
+                Биективный арбитр 1-к-1, нейтрализующий спам-атаки и
+                галлюцинации в минимальный штраф -1.0.
+              </div>
+              <div class="preview-badge-row">
+                <span class="mini-pill sage">25 / 25 баллов</span>
+                <span class="mini-pill">Anti-Gaming</span>
+              </div>
+            </div>
           </div>
         </div>
       </div>
 
       <!-- SLIDE 2: THE CORE SHIFT (СУТЬ ВЫЗОВА) -->
       <div class="slide" data-slide="2">
-        <div class="slide-header">
+        <div class="slide-headline-row">
           <div>
-            <div class="slide-tag">Раздел 01 ТЗ // Постановка задачи</div>
-            <h2 class="slide-title">
+            <div class="slide-meta-label">Раздел 01 ТЗ · Стратегия победы</div>
+            <h2 class="slide-heading">
               В чем суть вызова: Симулятор вместо чат-бота
             </h2>
           </div>
-          <div class="score-pill">Стратегия победы</div>
+          <div class="badge-score">Стратегия победы</div>
         </div>
         <div class="slide-body">
           <div class="grid-2">
-            <div class="card card-danger">
-              <div class="card-header">
-                <div class="card-title" style="color: var(--danger)">
-                  ❌ Ловушка 90% команд хакатона
+            <div
+              class="studio-card"
+              style="border-top: 3px solid var(--brand-rose)"
+            >
+              <div class="card-header-row">
+                <div class="card-title" style="color: var(--brand-rose)">
+                  Ловушка 90% команд хакатона
                 </div>
+                <span class="card-chip">Антипаттерн</span>
               </div>
               <div class="card-desc">
                 <ul>
                   <li>
                     <strong>Обучение LLM вслепую:</strong> Попытка дообучить
-                    локальную модель генерировать текстовые отчеты без
-                    верифицированной среды.
+                    локальную модель генерировать аудиторские отчеты текстом без
+                    валидной среды.
                   </li>
                   <li>
-                    <strong>Игрушечный UI:</strong> Трата времени на дашборды и
-                    чат-боты.
+                    <strong>Игрушечный интерфейс:</strong> Трата времени на
+                    дашборды и чат-боты сомнительной практической пользы.
                   </li>
                   <li>
-                    <strong>Пункт 12 ТЗ прямо предупреждает:</strong>
+                    <strong>Пункт 12 ТЗ прямо запрещает это:</strong>
                     <em
                       >«Красивый UI и недоказанные улучшения обучения баллов не
                       дают. Жюри оценивает корректность среды и оценщика, а не
@@ -958,28 +1066,32 @@
               </div>
             </div>
 
-            <div class="card card-verified">
-              <div class="card-header">
-                <div class="card-title" style="color: var(--sage)">
-                  ✓ Наше решение: SWE-bench для аудита
+            <div
+              class="studio-card"
+              style="border-top: 3px solid var(--brand-sage)"
+            >
+              <div class="card-header-row">
+                <div class="card-title" style="color: var(--brand-sage)">
+                  Наше решение: SWE-bench для аудита
                 </div>
+                <span class="card-chip">Выигрышный подход</span>
               </div>
               <div class="card-desc">
                 <ul>
                   <li>
-                    <strong>Стандартизированная Gym-среда:</strong> Строгий
+                    <strong>Стандартизированная Gym-среда:</strong> Честный
                     протокол <code>reset</code> / <code>step</code> для
-                    повторяющихся взаимодействий без утечки весов.
+                    повторяющихся взаимодействий без утечки весов модели.
                   </li>
                   <li>
                     <strong>Синтетический полигон:</strong> Генерация
                     сбалансированных бухгалтерских миров с причинным графом
-                    изменений (provenance graph).
+                    изменений (provenance.json).
                   </li>
                   <li>
                     <strong>Непробиваемый оценщик:</strong> Математический
-                    арбитраж находок агента, защищенный от галлюцинаций и
-                    спам-атак алгоритмом Куна-Манкреса.
+                    арбитраж находок агента, устойчивый к галлюцинациям и
+                    читерству алгоритмом Куна-Манкреса.
                   </li>
                 </ul>
               </div>
@@ -990,54 +1102,55 @@
 
       <!-- SLIDE 3: CRITERION 1 — CONTRACT & ISOLATION (25 PTS) -->
       <div class="slide" data-slide="3">
-        <div class="slide-header">
+        <div class="slide-headline-row">
           <div>
-            <div class="slide-tag">Критерий жюри 1 // 25 баллов</div>
-            <h2 class="slide-title">Контракт Gymnasium и изоляция Zero-Leak</h2>
+            <div class="slide-meta-label">Критерий жюри 1 · 25 баллов</div>
+            <h2 class="slide-heading">
+              Контракт Gymnasium и изоляция Zero-Leak
+            </h2>
           </div>
-          <div class="score-pill">25 / 25 баллов</div>
+          <div class="badge-score">25 / 25 баллов</div>
         </div>
         <div class="slide-body">
           <div class="grid-3">
-            <div class="card card-accented">
+            <div class="studio-card">
               <div class="card-title">🔌 Чистый JSON-контракт</div>
               <div class="card-desc">
-                Строго по разделу 04 спецификации:
-                <div class="code-snippet" style="margin-top: 8px">
+                Полное соответствие спецификации раздела 04:
+                <div class="code-box">
                   reset(seed, cfg) -> (obs, info) step(action) -> (obs, r, term,
                   trunc, info)
                 </div>
                 Лимит 100 шагов на эпизод. Стабильная курсорная пагинация (макс.
-                50 записей на страницу). Никакого свободного Shell, SQL или
-                сети.
+                50 строк) для работы в рамках контекстного окна.
               </div>
             </div>
 
-            <div class="card card-accented">
+            <div class="studio-card">
               <div class="card-title">🧮 Безопасный AST-калькулятор</div>
               <div class="card-desc">
-                Полная изоляция от инъекций кода (RCE):
-                <div class="code-snippet" style="margin-top: 8px">
+                Полное исключение выполнения произвольного кода (RCE):
+                <div class="code-box">
                   ast.parse(expr, mode='eval') Whitelist: BinOp, UnaryOp,
                   Decimal
                 </div>
                 Никаких <code>eval()</code>, системных импортов или чтения
-                диска. Попытка внедрения вредоносного payload расходует шаг и
-                дает контролируемую ошибку.
+                файлов. Попытка инъекции расходует шаг и дает ограниченную
+                ошибку.
               </div>
             </div>
 
-            <div class="card card-accented">
+            <div class="studio-card">
               <div class="card-title">🛡️ Zero-Leak Песочница</div>
               <div class="card-desc">
                 Файлы <code>truth.json</code> и
-                <code>provenance.json</code> хранятся строго вне адресного
-                пространства агента:
+                <code>provenance.json</code> хранятся строго вне процесса
+                агента:
                 <ul style="margin-top: 8px">
                   <li>В наблюдениях нет подсказок, путей или числа ошибок.</li>
                   <li>Seed эпизода агенту недоступен.</li>
                   <li>
-                    Подтверждено интеграционным тестом
+                    Проверено интеграционным тестом
                     <code>test_security_zero_leak</code>.
                   </li>
                 </ul>
@@ -1049,22 +1162,22 @@
 
       <!-- SLIDE 4: CRITERION 2 — DATA & DOUBLE ENTRY (25 PTS) -->
       <div class="slide" data-slide="4">
-        <div class="slide-header">
+        <div class="slide-headline-row">
           <div>
-            <div class="slide-tag">Критерий жюри 2 // 25 баллов</div>
-            <h2 class="slide-title">
+            <div class="slide-meta-label">Критерий жюри 2 · 25 баллов</div>
+            <h2 class="slide-heading">
               Генератор синтетического учета и двойная запись
             </h2>
           </div>
-          <div class="score-pill">25 / 25 баллов</div>
+          <div class="badge-score">25 / 25 баллов</div>
         </div>
         <div class="slide-body">
           <div class="grid-2">
-            <div class="card card-quiet">
+            <div class="studio-card">
               <div class="card-title">⚖️ Архитектура Clean-World-First</div>
               <div class="card-desc">
                 До внесения аномалий генерируется идеальный бухгалтерский мир:
-                <div class="code-snippet" style="margin-top: 8px">
+                <div class="code-box">
                   assert sum(debits) == sum(credits) Plan: 1000 Cash, 1200 AR,
                   2000 AP, 4000 Rev, 5000 Exp, 7000 FX
                 </div>
@@ -1072,26 +1185,26 @@
                   <li>
                     Деньги — исключительно в
                     <strong>целых минимальных единицах</strong> (cents / minor
-                    units) с фиксацией разрядности. Полный отказ от float.
+                    units). Полный отказ от ошибок округления float.
                   </li>
                   <li>FX-курсы — строгие десятичные строки.</li>
                   <li>
-                    Пропуски ссылок — явные <code>null</code>, а не угаданные
-                    связи.
+                    Отсутствующие ссылки — явные <code>null</code>, а не
+                    угаданные связи.
                   </li>
                 </ul>
               </div>
             </div>
 
-            <div class="card card-quiet">
+            <div class="studio-card">
               <div class="card-title">
                 🔍 4 типа ошибок + 2 комбинации + шум
               </div>
               <div class="card-desc">
                 <ul>
                   <li>
-                    <strong>Duplicate Invoice:</strong> Повторные проводки
-                    счетов.
+                    <strong>Duplicate Invoice:</strong> Двойная проводка счета в
+                    книге.
                   </li>
                   <li>
                     <strong>Unallocated Payment:</strong> Пропущенное или
@@ -1099,11 +1212,11 @@
                   </li>
                   <li>
                     <strong>FX Mismatch:</strong> Неверная дата или курс
-                    конвертации валют.
+                    конвертации валюты.
                   </li>
                   <li>
-                    <strong>Period Cutoff:</strong> Ошибка отнесения к
-                    финансовому периоду.
+                    <strong>Period Cutoff:</strong> Проводка расхода/дохода за
+                    границей фингода.
                   </li>
                   <li>
                     <strong>Взаимодействующие ошибки:</strong> Частичный платеж
@@ -1111,8 +1224,8 @@
                   </li>
                   <li>
                     <strong>Законные дистракторы:</strong> Разбитые платежи,
-                    возвраты, регулярные списания (агент обязан исследовать
-                    документы, а не гадать по регуляркам).
+                    возвраты, регулярные абонплаты (модель вынуждена
+                    анализировать первичку, а не гадать).
                   </li>
                 </ul>
               </div>
@@ -1123,33 +1236,36 @@
 
       <!-- SLIDE 5: CRITERION 3 — REWARD & ANTI-SPAM (25 PTS) -->
       <div class="slide" data-slide="5">
-        <div class="slide-header">
+        <div class="slide-headline-row">
           <div>
-            <div class="slide-tag">Критерий жюри 3 // 25 баллов</div>
-            <h2 class="slide-title">
+            <div class="slide-meta-label">Критерий жюри 3 · 25 баллов</div>
+            <h2 class="slide-heading">
               Матчер Куна-Манкреса и защита от читерства
             </h2>
           </div>
-          <div class="score-pill">25 / 25 баллов</div>
+          <div class="badge-score">25 / 25 баллов</div>
         </div>
         <div class="slide-body">
           <div class="grid-2">
-            <div class="card card-accented">
+            <div class="studio-card">
               <div class="card-title">🎯 Биективный матчер 1-к-1 (SciPy)</div>
               <div class="card-desc">
-                Венгерский алгоритм оптимального назначения:
-                <div class="code-snippet" style="margin-top: 8px">
+                Венгерский алгоритм оптимального двудольного сопоставления:
+                <div class="code-box">
                   from scipy.optimize import linear_sum_assignment row_ind,
                   col_ind = linear_sum_assignment(cost_matrix)
                 </div>
                 <ul>
                   <li>
-                    Каждая эталонная аномалия закрывается строго одной находкой.
+                    Каждая реальная ошибка закрывается строго одной находкой.
                   </li>
                   <li>
-                    <strong>Атака «Пометить всё» (Spam Attack):</strong> Если
-                    модель отправляет 50 случайных обвинений, матчер сопоставит
-                    максимум 2, а остальные 48 станут False Positives.
+                    <strong
+                      >Защита от атаки «Пометить всё» (Spam Attack):</strong
+                    >
+                    Если агент отправляет 50 случайных обвинений, матчер
+                    сопоставит максимум 2, а остальные 48 станут False
+                    Positives.
                   </li>
                   <li>
                     $Precision \to 0 \implies F_1 \to 0 \implies Reward = -1.0$.
@@ -1158,23 +1274,22 @@
               </div>
             </div>
 
-            <div class="card card-accented">
+            <div class="studio-card">
               <div class="card-title">📈 Терминальная функция награды ТЗ</div>
               <div class="card-desc">
-                Строго по формуле раздела 05 официального ТЗ:
-                <div class="code-snippet" style="margin-top: 8px">
+                Строго по математической формуле раздела 05:
+                <div class="code-box">
                   Reward = clip(2 * F1 - 1 - 0.002 * inspection_steps, -1, 1)
                 </div>
                 <ul>
                   <li>
                     <strong>Тест чистой книги:</strong> Тишина на чистых книгах
-                    дает $F_1 = 1.0, R = +0.998$. Ложные тревоги караются
-                    падением до -1.0.
+                    дает $F_1 = 1.0, R = +0.998$. Ложные обвинения караются
+                    падением в -1.0.
                   </li>
                   <li>
                     <strong>Нулевая награда за шаги:</strong> Промежуточная
-                    награда = 0 (устранена ловушка бесконечного блуждания по
-                    записям).
+                    награда = 0 (устранена ловушка бесконечного лупа).
                   </li>
                 </ul>
               </div>
@@ -1185,19 +1300,19 @@
 
       <!-- SLIDE 6: CRITERION 4 — 4 BASELINE POLICIES (15 PTS) -->
       <div class="slide" data-slide="6">
-        <div class="slide-header">
+        <div class="slide-headline-row">
           <div>
-            <div class="slide-tag">Критерий жюри 4 // 15 баллов</div>
-            <h2 class="slide-title">
-              Экспериментальное доказательство: 4 базовые политики
+            <div class="slide-meta-label">Критерий жюри 4 · 15 баллов</div>
+            <h2 class="slide-heading">
+              Эксперименты: 4 базовые политики на dev-сете
             </h2>
           </div>
-          <div class="score-pill">15 / 15 баллов</div>
+          <div class="badge-score">15 / 15 баллов</div>
         </div>
         <div class="slide-body">
           <div class="grid-2" style="align-items: center">
             <div>
-              <table class="cabinet-table">
+              <table class="studio-table">
                 <thead>
                   <tr>
                     <th>Политика</th>
@@ -1209,32 +1324,36 @@
                 </thead>
                 <tbody>
                   <tr class="highlight">
-                    <td style="color: var(--sage)">Oracle (Потолок среды)</td>
+                    <td>Oracle (Потолок среды)</td>
                     <td>1.0000</td>
                     <td>1.0000</td>
                     <td>1.0000</td>
-                    <td style="color: var(--sage)">+0.9980</td>
+                    <td>+0.9980</td>
                   </tr>
                   <tr>
-                    <td style="color: var(--accent)">Reconciler (Эвристика)</td>
+                    <td style="color: var(--brand-amber); font-weight: 600">
+                      Reconciler (Эвристика)
+                    </td>
                     <td>0.5250</td>
                     <td>0.5000</td>
                     <td>0.5100</td>
-                    <td style="color: var(--accent)">+0.0140</td>
+                    <td>+0.0140</td>
                   </tr>
                   <tr>
-                    <td style="color: var(--ink-dim)">Random Explorer</td>
+                    <td style="color: var(--ink-muted)">Random Explorer</td>
                     <td>0.0000</td>
                     <td>0.0000</td>
                     <td>0.0000</td>
-                    <td style="color: var(--danger)">-1.0000</td>
+                    <td style="color: var(--brand-rose)">-1.0000</td>
                   </tr>
                   <tr>
-                    <td style="color: var(--danger)">Spam Attacker</td>
+                    <td style="color: var(--brand-rose); font-weight: 600">
+                      Spam Attacker
+                    </td>
                     <td>0.0000</td>
                     <td>0.0000</td>
                     <td>0.0000</td>
-                    <td style="color: var(--danger)">-1.0000</td>
+                    <td style="color: var(--brand-rose)">-1.0000</td>
                   </tr>
                 </tbody>
               </table>
@@ -1242,12 +1361,12 @@
                 style="
                   font-family: var(--font-mono);
                   font-size: 12px;
-                  color: var(--ink-dim);
+                  color: var(--ink-muted);
                   margin-top: 10px;
                 "
               >
-                * 10 независимых эпизодов dev-сета. Воспроизводимость за 0.8
-                сек.
+                * Замерено на 10 независимых эпизодах <code>data/dev/</code>.
+                Воспроизводимость за 0.8 сек.
               </div>
             </div>
 
@@ -1258,20 +1377,20 @@
         </div>
       </div>
 
-      <!-- SLIDE 7: CRITERION 5 — ENGINEERING & SUBMISSION (10 PTS) -->
+      <!-- SLIDE 7: CRITERION 5 — ENGINEERING & REPRODUCIBILITY (10 PTS) -->
       <div class="slide" data-slide="7">
-        <div class="slide-header">
+        <div class="slide-headline-row">
           <div>
-            <div class="slide-tag">Критерий жюри 5 // 10 баллов</div>
-            <h2 class="slide-title">
+            <div class="slide-meta-label">Критерий жюри 5 · 10 баллов</div>
+            <h2 class="slide-heading">
               Инженерия, траектории и запуск одной командой
             </h2>
           </div>
-          <div class="score-pill">10 / 10 баллов</div>
+          <div class="badge-score">10 / 10 баллов</div>
         </div>
         <div class="slide-body">
           <div class="grid-3">
-            <div class="card card-quiet">
+            <div class="studio-card">
               <div class="card-title">📦 Комплект поставки</div>
               <div class="card-desc">
                 <ul>
@@ -1281,36 +1400,36 @@
                   </li>
                   <li>
                     <strong>trajectories.jsonl:</strong> 30 валидных траекторий
-                    interactions без утечки ответов.
+                    взаимодействия без утечки ответов.
                   </li>
                   <li>
-                    <strong>Dockerfile:</strong> Изолированный автономный запуск
-                    без внешних зависимостей.
+                    <strong>Dockerfile:</strong> Чистый автономный запуск без
+                    интернета и без GPU.
                   </li>
                 </ul>
               </div>
             </div>
 
-            <div class="card card-quiet">
+            <div class="studio-card">
               <div class="card-title">⚡ Запуск для жюри</div>
               <div class="card-desc">
-                Мгновенная верификация в 1 клик:
-                <div class="code-snippet" style="margin-top: 8px">
-                  <button class="copy-action" onclick="copyText('make check')">
+                Мгновенная верификация за секунды:
+                <div class="code-box">
+                  <button class="btn-copy" onclick="copySnippet('make check')">
                     копировать</button
-                  ># Линтер + 60 тестов make check # Бенчмарк 4 политик python3
-                  scripts/run_eval.py \ --data-dir data/dev --policy all
+                  ># 60 тестов + линтер ruff make check # Бенчмарк 4 политик
+                  python3 scripts/run_eval.py \ --data-dir data/dev --policy all
                 </div>
               </div>
             </div>
 
-            <div class="card card-quiet">
+            <div class="studio-card">
               <div class="card-title">⚙️ Честные ограничения</div>
               <div class="card-desc">
                 <ul>
                   <li>
                     Программный симулятор не заменяет юридическое аудиторское
-                    заключение по МСФО.
+                    заключение по стандартам МСФО.
                   </li>
                   <li>
                     Сложность ориентирована на полноту доказательной базы, а не
@@ -1328,31 +1447,37 @@
 
       <!-- SLIDE 8: FINALE & NEXT STEPS -->
       <div class="slide" data-slide="8">
-        <div class="hero-content">
-          <div class="hero-eyebrow">
+        <div class="hero-center">
+          <div class="hero-pill-badge">
+            <span class="indicator-dot"></span>
             Очный финал // 28–29 Ноября 2026, Астана
           </div>
-          <h1 class="hero-title" style="font-size: 42px">
-            От хакатонного MVP к индустриальному стандарту
+
+          <h1 class="hero-main-title" style="font-size: 44px">
+            От хакатонного полигона к стандарту индустрии
           </h1>
-          <p class="hero-subtitle" style="font-size: 17px; max-width: 820px">
+          <p class="hero-subtext" style="font-size: 17px; max-width: 820px">
             Fin-Audit-Gym готов занять нишу сертифицированного бенчмарка для
-            автономных ИИ-аудиторов в банках, FinTech-компаниях (Stripe, Brex) и
-            Big 4.
+            автономных ИИ-аудиторов в банках, FinTech-платформах (Stripe, Brex)
+            и аудиторских компаниях Big 4.
           </p>
 
           <div
             class="grid-3"
             style="
               width: 100%;
-              max-width: 900px;
-              margin-top: 8px;
+              max-width: 920px;
+              margin-top: 10px;
               text-align: left;
             "
           >
-            <div class="card card-quiet" style="padding: 16px">
+            <div class="studio-card" style="padding: 18px">
               <div
-                style="font-weight: 600; color: var(--sage); margin-bottom: 4px"
+                style="
+                  font-weight: 700;
+                  color: var(--brand-sage);
+                  margin-bottom: 4px;
+                "
               >
                 🏛️ Big 4 и Регуляторы
               </div>
@@ -1363,15 +1488,15 @@
                   line-height: 1.5;
                 "
               >
-                Верификация соответствия агентов стандарту ISA 500 до
-                предоставления доступа к корпоративной тайне.
+                Верификация соответствия агентов международному стандарту ISA
+                500 до допуска к закрытым базам.
               </div>
             </div>
-            <div class="card card-quiet" style="padding: 16px">
+            <div class="studio-card" style="padding: 18px">
               <div
                 style="
-                  font-weight: 600;
-                  color: var(--accent);
+                  font-weight: 700;
+                  color: var(--brand-amber);
                   margin-bottom: 4px;
                 "
               >
@@ -1384,13 +1509,13 @@
                   line-height: 1.5;
                 "
               >
-                Готовая среда для дообучения reasoning-моделей финансовой
-                дедукции без риска reward gaming.
+                Среда для дообучения reasoning-моделей дедуктивного анализа без
+                риска reward gaming.
               </div>
             </div>
-            <div class="card card-quiet" style="padding: 16px">
+            <div class="studio-card" style="padding: 18px">
               <div
-                style="font-weight: 600; color: var(--ink); margin-bottom: 4px"
+                style="font-weight: 700; color: var(--ink); margin-bottom: 4px"
               >
                 💼 FinTech Необанки
               </div>
@@ -1402,7 +1527,7 @@
                 "
               >
                 Стресс-тестирование форензик-ботов на синтетических данных перед
-                запуском в боевую инфраструктуру.
+                интеграцией в прод.
               </div>
             </div>
           </div>
@@ -1411,7 +1536,7 @@
             style="
               font-family: var(--font-mono);
               font-size: 13px;
-              color: var(--accent);
+              color: var(--ink-muted);
               margin-top: 10px;
             "
           >
@@ -1419,7 +1544,11 @@
             <a
               href="https://github.com/Tasel1/fin-audit-gym"
               target="_blank"
-              style="color: var(--accent); text-decoration: underline"
+              style="
+                color: var(--ink);
+                font-weight: 600;
+                text-decoration: underline;
+              "
               >github.com/Tasel1/fin-audit-gym</a
             >
           </div>
@@ -1428,22 +1557,38 @@
     </main>
 
     <!-- Bottom Controls & Status Bar -->
-    <footer class="bottom-bar">
-      <div class="status-text">
-        Слайд <span id="currentSlideNum">1</span> /
-        <span id="totalSlidesNum">8</span> ·
-        <span id="slideTitleSmall">Титульный</span>
+    <footer class="bottom-navbar">
+      <div class="footer-info">
+        Слайд
+        <span id="currentSlideNum" style="font-weight: 700; color: var(--ink)"
+          >1</span
+        >
+        из <span id="totalSlidesNum">8</span> ·
+        <span id="slideLabelSmall">Обзор</span>
+        <span style="margin-left: 14px"
+          >Навигация: <kbd class="footer-kbd">→</kbd>
+          <kbd class="footer-kbd">←</kbd>
+          <kbd class="footer-kbd">Пробел</kbd></span
+        >
       </div>
 
-      <div class="controls-btns">
-        <button class="ctrl-btn" id="btnPrev" onclick="changeSlide(-1)">
+      <div class="footer-actions">
+        <button
+          class="btn-nav-action"
+          id="btnPrevSlide"
+          onclick="changeSlide(-1)"
+        >
           ← Назад
         </button>
-        <button class="ctrl-btn primary" id="btnNext" onclick="changeSlide(1)">
+        <button
+          class="btn-nav-action primary"
+          id="btnNextSlide"
+          onclick="changeSlide(1)"
+        >
           Вперед →
         </button>
         <button
-          class="ctrl-btn"
+          class="btn-nav-action"
           onclick="toggleFullscreen()"
           title="Полноэкранный режим (F)"
         >
@@ -1453,106 +1598,112 @@
     </footer>
 
     <!-- SPEAKER TELEPROMPTER DRAWER (Hot key: N) -->
-    <div class="speaker-drawer" id="speakerDrawer">
-      <div class="drawer-header">
-        <div class="drawer-title">
-          <span>💬 Шпаргалка спикера для слайда</span>
-          <span id="notesSlideTag">Слайд 1</span>
+    <div class="speaker-teleprompter" id="speakerTeleprompter">
+      <div class="teleprompter-header">
+        <div class="teleprompter-label">
+          <span>💬 Шпаргалка спикера</span>
+          <span
+            id="promptSlideTag"
+            style="color: var(--ink-muted); font-weight: 500"
+            >Слайд 1</span
+          >
         </div>
         <button
-          class="ctrl-btn"
-          onclick="toggleSpeakerDrawer()"
+          class="btn-nav-action"
+          onclick="toggleTeleprompter()"
           style="padding: 2px 8px; font-size: 11px"
         >
           ✕ Закрыть
         </button>
       </div>
-      <div class="drawer-body" id="speakerNotesText">Загрузка шпаргалки...</div>
+      <div class="teleprompter-text" id="teleprompterContent">
+        Загрузка текста...
+      </div>
     </div>
 
-    <!-- DEFENSE Q&A BATTLECARD MODAL (Hot key: ?) -->
+    <!-- DEFENSE Q&A MODAL (Hot key: ?) -->
     <div
-      class="modal-overlay"
+      class="modal-backdrop"
       id="qaModal"
       onclick="if (event.target === this) toggleQAModal();"
     >
-      <div class="modal-dialog">
-        <div class="modal-header">
-          <div class="modal-title">
-            💡 Шпаргалка: Карточки ответов на каверзные вопросы жюри
+      <div class="modal-sheet">
+        <div class="modal-top">
+          <div class="modal-heading">
+            💡 Карточки ответов на каверзные вопросы жюри
           </div>
-          <button class="modal-close" onclick="toggleQAModal()">✕</button>
+          <button class="btn-close-modal" onclick="toggleQAModal()">✕</button>
         </div>
-        <div class="modal-content">
-          <div class="qa-card">
-            <div class="qa-q">
+        <div class="modal-scroll-area">
+          <div class="qa-box">
+            <div class="qa-question">
               1. «А почему вы сами не дообучили большую нейросеть (LLaMA-3 /
               Qwen)?»
             </div>
-            <div class="qa-a">
-              Пункты 01, 10 и 12 ТЗ прямо указывают:
+            <div class="qa-answer">
+              Пункты 01, 10 и 12 официального ТЗ прямо гласят:
               <em
                 >«Обучение весов необязательно, не дает баллов само по себе.
                 Жюри оценивает корректность среды и оценщика»</em
               >. Обучение LLM за 48 часов без валидной среды приводит к
-              галлюцинирующему чат-боту. Мы создали надежный полигон и
-              сгенерировали 30 валидных траекторий
-              <code>trajectories.jsonl</code>, на которых теперь можно корректно
-              обучать любую модель через PPO или SFT.
+              галлюцинациям. Мы поступили как зрелые инженеры: создали
+              сертифицированную среду и сгенерировали 30 валидных траекторий
+              <code>trajectories.jsonl</code>, на которых теперь можно обучать
+              любую модель через PPO или SFT.
             </div>
           </div>
 
-          <div class="qa-card">
-            <div class="qa-q">
+          <div class="qa-card qa-box">
+            <div class="qa-question">
               2. «Что если агент будет читерить и пометит все транзакции как
               ошибки?»
             </div>
-            <div class="qa-a">
-              Это классическая уязвимость Specification Gaming. Мы внедрили
-              венгерский алгоритм Куна-Манкреса
+            <div class="qa-answer">
+              Это уязвимость Specification Gaming. Мы применили венгерский
+              алгоритм Куна-Манкреса
               (<code>scipy.optimize.linear_sum_assignment</code>) для строгого
-              1-к-1 сопоставления. Если агент пришлет спам из десятков догадок,
-              совпадут единицы, а остальные станут False Positives. Precision и
-              F1 рушатся в ноль, а награда улетает в жесткий штраф: -1.0. Это
-              подтверждено тестом
+              биективного сопоставления 1-к-1. При спам-атаке из 50 случайных
+              обвинений совпадут единицы, а остальные станут False Positives.
+              Точность и F1 падают в ноль, а штраф опускает награду до минимума:
+              -1.0. Это подтверждено тестом
               <code>test_spam_attack_bipartite_defense</code>.
             </div>
           </div>
 
-          <div class="qa-card">
-            <div class="qa-q">
+          <div class="qa-card qa-box">
+            <div class="qa-question">
               3. «Как вы гарантируете, что агент не подглядывает в эталон
               truth.json?»
             </div>
-            <div class="qa-a">
+            <div class="qa-answer">
               У нас действует Zero-Leak Sandbox. В словарях
               <code>observation</code> и <code>info</code> методов reset и step
-              отсутствуют приватные ключи, пути и даже количество ошибок. Тест
-              <code>test_security_zero_leak</code> проверяет, что дамп
-              наблюдений агента не содержит ни одного ID или факта из эталона.
+              отсутствуют приватные ключи, пути и количество ошибок.
+              Интеграционный тест <code>test_security_zero_leak</code> берет
+              дамп состояния агента после каждого шага и проверяет отсутствие
+              совпадений с эталоном.
             </div>
           </div>
 
-          <div class="qa-card">
-            <div class="qa-q">
+          <div class="qa-card qa-box">
+            <div class="qa-question">
               4. «Безопасен ли калькулятор? Нет ли там удаленного исполнения
               кода (RCE)?»
             </div>
-            <div class="qa-a">
-              У нас полностью отсутствует функция <code>eval()</code>.
-              Калькулятор парсит выражения через абстрактное синтаксическое
-              дерево <code>ast.parse</code> с жестким белым списком бинарных
-              операций (<code>+ - * / %</code>) и чисел Decimal. Попытки вызова
-              функций, импортов или чтения файлов блокируются с контролируемой
-              ошибкой.
+            <div class="qa-answer">
+              У нас полностью отсутствует опасный <code>eval()</code>.
+              Калькулятор парсит выражения через синтаксическое дерево
+              <code>ast.parse</code> с жестким белым списком бинарных операций
+              (<code>+ - * / %</code>) и чисел Decimal. Попытки вызова функций,
+              импортов или чтения файлов блокируются.
             </div>
           </div>
         </div>
       </div>
     </div>
 
-    <!-- Copy Toast -->
-    <div class="toast" id="toastMessage">✓ Скопировано в буфер</div>
+    <!-- Toast Notification -->
+    <div class="toast-popup" id="toastBox">✓ Команда скопирована в буфер</div>
 
     <!-- Application Script -->
     <script>
@@ -1562,13 +1713,15 @@
       const progressFill = document.getElementById("progressFill");
       const currentSlideNum = document.getElementById("currentSlideNum");
       const totalSlidesNum = document.getElementById("totalSlidesNum");
-      const slideTitleSmall = document.getElementById("slideTitleSmall");
-      const navTabs = document.querySelectorAll(".nav-tab");
-      const speakerDrawer = document.getElementById("speakerDrawer");
-      const speakerNotesText = document.getElementById("speakerNotesText");
-      const notesSlideTag = document.getElementById("notesSlideTag");
+      const slideLabelSmall = document.getElementById("slideLabelSmall");
+      const tabItems = document.querySelectorAll(".tab-item");
+      const teleprompter = document.getElementById("speakerTeleprompter");
+      const teleprompterContent = document.getElementById(
+        "teleprompterContent",
+      );
+      const promptSlideTag = document.getElementById("promptSlideTag");
       const qaModal = document.getElementById("qaModal");
-      const toastMessage = document.getElementById("toastMessage");
+      const toastBox = document.getElementById("toastBox");
       let chartInstance = null;
 
       // Speaker Notes Database from PITCH_DECK.md
@@ -1584,7 +1737,7 @@
       };
 
       const slideTitles = [
-        "Титульный",
+        "Обзор",
         "Суть вызова",
         "Контракт [25б]",
         "Данные [25б]",
@@ -1608,19 +1761,19 @@
 
         progressFill.style.width = (currentSlide / totalSlides) * 100 + "%";
         currentSlideNum.textContent = currentSlide;
-        slideTitleSmall.textContent = slideTitles[currentSlide - 1];
+        slideLabelSmall.textContent = slideTitles[currentSlide - 1];
 
-        navTabs.forEach((tab, idx) => {
+        tabItems.forEach((tab, idx) => {
           tab.classList.toggle("active", idx + 1 === currentSlide);
         });
 
-        document.getElementById("btnPrev").disabled = currentSlide === 1;
-        document.getElementById("btnNext").textContent =
+        document.getElementById("btnPrevSlide").disabled = currentSlide === 1;
+        document.getElementById("btnNextSlide").textContent =
           currentSlide === totalSlides ? "В начало ↺" : "Вперед →";
 
         // Update teleprompter notes
-        notesSlideTag.textContent = `Слайд ${currentSlide}: ${slideTitles[currentSlide - 1]}`;
-        speakerNotesText.textContent = speakerNotes[currentSlide] || "";
+        promptSlideTag.textContent = `Слайд ${currentSlide}: ${slideTitles[currentSlide - 1]}`;
+        teleprompterContent.textContent = speakerNotes[currentSlide] || "";
 
         if (currentSlide === 6) {
           renderChart();
@@ -1653,7 +1806,7 @@
           e.key === "т" ||
           e.key === "Т"
         ) {
-          toggleSpeakerDrawer();
+          toggleTeleprompter();
         } else if (e.key === "?" || e.key === "/") {
           toggleQAModal();
         } else if (e.key >= "1" && e.key <= "8") {
@@ -1669,28 +1822,41 @@
         }
       }
 
-      function toggleSpeakerDrawer() {
-        speakerDrawer.classList.toggle("open");
+      function toggleTeleprompter() {
+        teleprompter.classList.toggle("open");
         document
-          .getElementById("btnNotes")
-          .classList.toggle("active", speakerDrawer.classList.contains("open"));
+          .getElementById("btnTeleprompter")
+          .classList.toggle("active", teleprompter.classList.contains("open"));
       }
 
       function toggleQAModal() {
         qaModal.classList.toggle("open");
       }
 
-      function copyText(text) {
+      function copySnippet(text) {
         navigator.clipboard.writeText(text).then(() => {
-          toastMessage.classList.add("visible");
-          setTimeout(() => toastMessage.classList.remove("visible"), 2000);
+          toastBox.classList.add("active");
+          setTimeout(() => toastBox.classList.remove("active"), 2000);
         });
+      }
+
+      // Theme Toggle (Light / Dark)
+      function toggleTheme() {
+        const root = document.documentElement;
+        const isDark = root.getAttribute("data-theme") === "dark";
+        root.setAttribute("data-theme", isDark ? "light" : "dark");
+        document.getElementById("themeIcon").textContent = isDark ? "🌙" : "☀️";
+        if (chartInstance) {
+          chartInstance.destroy();
+          chartInstance = null;
+          if (currentSlide === 6) renderChart();
+        }
       }
 
       // Pitch Timer Logic
       let timerSeconds = 0;
       let timerInterval = null;
-      const timerDisplay = document.getElementById("timerDisplay");
+      const timerText = document.getElementById("timerText");
 
       function toggleTimer() {
         if (timerInterval) {
@@ -1701,13 +1867,13 @@
             timerSeconds++;
             const mins = String(Math.floor(timerSeconds / 60)).padStart(2, "0");
             const secs = String(timerSeconds % 60).padStart(2, "0");
-            timerDisplay.textContent = `${mins}:${secs}`;
+            timerText.textContent = `${mins}:${secs}`;
             if (timerSeconds >= 240) {
-              timerDisplay.style.color = "var(--danger)";
+              timerText.style.color = "var(--brand-rose)";
             } else if (timerSeconds >= 210) {
-              timerDisplay.style.color = "var(--accent)";
+              timerText.style.color = "var(--brand-amber)";
             } else {
-              timerDisplay.style.color = "var(--ink)";
+              timerText.style.color = "var(--ink)";
             }
           }, 1000);
         }
@@ -1719,14 +1885,19 @@
           timerInterval = null;
         }
         timerSeconds = 0;
-        timerDisplay.textContent = "00:00";
-        timerDisplay.style.color = "var(--ink-secondary)";
+        timerText.textContent = "00:00";
+        timerText.style.color = "var(--ink)";
       }
 
-      // Chart.js Benchmark Rendering with Quiet Cabinet Palette
+      // Chart.js High-Craft Minimalist Rendering
       function renderChart() {
         if (chartInstance) return;
         const ctx = document.getElementById("benchmarkChart").getContext("2d");
+        const isDark =
+          document.documentElement.getAttribute("data-theme") === "dark";
+        const gridColor = isDark ? "#27272a" : "#e4e4e7";
+        const textColor = isDark ? "#a1a1aa" : "#71717a";
+
         chartInstance = new Chart(ctx, {
           type: "bar",
           data: {
@@ -1735,17 +1906,13 @@
               {
                 label: "F1-Score",
                 data: [1.0, 0.51, 0.0, 0.0],
-                backgroundColor: "rgba(245, 158, 11, 0.85)", // Earwright Amber
-                borderColor: "#f59e0b",
-                borderWidth: 1,
+                backgroundColor: isDark ? "#38bdf8" : "#0284c7",
                 borderRadius: 4,
               },
               {
                 label: "Награда (Reward)",
                 data: [0.998, 0.014, -1.0, -1.0],
-                backgroundColor: "rgba(52, 211, 153, 0.85)", // Verification Sage
-                borderColor: "#34d399",
-                borderWidth: 1,
+                backgroundColor: isDark ? "#34d399" : "#059669",
                 borderRadius: 4,
               },
             ],
@@ -1756,8 +1923,12 @@
             plugins: {
               legend: {
                 labels: {
-                  color: "#d6d3d1",
-                  font: { family: "ui-monospace, monospace", size: 11 },
+                  color: textColor,
+                  font: {
+                    family: "ui-monospace, monospace",
+                    size: 11,
+                    weight: "600",
+                  },
                 },
               },
               tooltip: {
@@ -1772,15 +1943,15 @@
               y: {
                 min: -1.0,
                 max: 1.0,
-                grid: { color: "#2a2725" },
+                grid: { color: gridColor },
                 ticks: {
-                  color: "#a8a29e",
+                  color: textColor,
                   font: { family: "ui-monospace, monospace" },
                 },
               },
               x: {
                 grid: { display: false },
-                ticks: { color: "#d6d3d1", font: { weight: "600" } },
+                ticks: { color: textColor, font: { weight: "600" } },
               },
             },
           },
