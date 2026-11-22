@@ -3,32 +3,29 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Fin-Audit-Gym — Защита проекта | FinTech Hackathon 2026</title>
+    <title>Fin-Audit-Gym — Автономный симулятор финансового аудита</title>
     <!-- Chart.js for data verification -->
     <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
     <style>
       /* =========================================================================
-         HIGH-END EDITORIAL DESIGN SYSTEM: OAT & INDIGO
-         Clean, restrained, human-crafted Swiss minimalism.
-         No AI slop, no emoji, no gratuitous gradients, no clutter.
+         HIGH-END EDITORIAL DEMO SYSTEM: OAT & INDIGO
+         Clean, restrained, minimalist presentation deck.
+         Zero clutter, zero hackathon-rubric text, zero AI-slop.
          ========================================================================= */
       :root {
-        /* User-specified palette */
         --oat: #fff0e1;
         --indigo: #c8c3ff;
 
-        /* High-contrast accessible ink (14.6:1 contrast ratio on Oat) */
+        /* Accessible high-contrast typography */
         --ink: #1c1830;
         --ink-secondary: #5e5673;
         --ink-faint: #8d84a3;
 
-        /* Clean surfaces & borders */
         --surface: #ffffff;
-        --surface-subtle: rgba(200, 195, 255, 0.15);
-        --border: rgba(28, 24, 48, 0.1);
-        --border-strong: rgba(28, 24, 48, 0.22);
+        --surface-subtle: rgba(200, 195, 255, 0.18);
+        --border: rgba(28, 24, 48, 0.09);
+        --border-strong: rgba(28, 24, 48, 0.2);
 
-        /* Typography */
         --font-sans:
           -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica,
           Arial, sans-serif;
@@ -38,7 +35,6 @@
         --radius-sm: 4px;
         --radius-md: 8px;
         --radius-lg: 14px;
-        --radius-pill: 9999px;
       }
 
       * {
@@ -63,107 +59,32 @@
       /* =========================================================================
          TOP MINIMAL HEADER
          ========================================================================= */
-      .editorial-header {
-        height: 60px;
+      .deck-header {
+        height: 64px;
         display: flex;
         align-items: center;
         justify-content: space-between;
-        padding: 0 40px;
+        padding: 0 48px;
         border-bottom: 1px solid var(--border);
         flex-shrink: 0;
-        background: var(--oat);
       }
 
-      .brand-box {
-        display: flex;
-        align-items: baseline;
-        gap: 12px;
-      }
-
-      .brand-name {
-        font-size: 17px;
+      .brand-title {
+        font-size: 18px;
         font-weight: 700;
         letter-spacing: -0.4px;
         color: var(--ink);
       }
 
-      .brand-sub {
-        font-size: 12px;
-        color: var(--ink-secondary);
+      .slide-counter {
         font-family: var(--font-mono);
-      }
-
-      /* Navigation Tabs */
-      .nav-links {
-        display: flex;
-        align-items: center;
-        gap: 2px;
-      }
-
-      .nav-item {
-        background: transparent;
-        border: 1px solid transparent;
-        color: var(--ink-secondary);
         font-size: 13px;
-        font-weight: 500;
-        padding: 6px 12px;
-        border-radius: var(--radius-sm);
-        cursor: pointer;
-        transition: all 0.15s ease;
-      }
-
-      .nav-item:hover {
-        color: var(--ink);
-        background: rgba(28, 24, 48, 0.04);
-      }
-
-      .nav-item.active {
-        color: var(--ink);
-        background: var(--indigo);
         font-weight: 600;
-      }
-
-      /* Header Tools */
-      .header-tools {
-        display: flex;
-        align-items: center;
-        gap: 10px;
-      }
-
-      .timer-box {
-        display: flex;
-        align-items: center;
-        gap: 6px;
-        font-family: var(--font-mono);
-        font-size: 12px;
-        font-weight: 600;
-        color: var(--ink);
+        color: var(--ink-secondary);
         background: var(--surface);
         border: 1px solid var(--border);
-        padding: 4px 10px;
+        padding: 4px 12px;
         border-radius: var(--radius-sm);
-      }
-
-      .btn-tool {
-        background: var(--surface);
-        border: 1px solid var(--border);
-        color: var(--ink);
-        font-size: 12px;
-        font-weight: 500;
-        padding: 5px 12px;
-        border-radius: var(--radius-sm);
-        cursor: pointer;
-        transition: all 0.15s ease;
-      }
-
-      .btn-tool:hover {
-        border-color: var(--border-strong);
-        background: var(--surface-subtle);
-      }
-
-      .btn-tool.active {
-        background: var(--indigo);
-        border-color: var(--indigo);
       }
 
       /* =========================================================================
@@ -180,7 +101,7 @@
       .slide {
         position: absolute;
         inset: 0;
-        padding: 44px 56px 32px;
+        padding: 48px 64px 36px;
         display: flex;
         flex-direction: column;
         opacity: 0;
@@ -202,18 +123,15 @@
         transform: translateY(-8px);
       }
 
-      /* Slide Header */
-      .slide-meta-row {
-        display: flex;
-        justify-content: space-between;
-        align-items: baseline;
-        margin-bottom: 24px;
+      /* Slide Top Headline */
+      .slide-head {
+        margin-bottom: 28px;
         padding-bottom: 16px;
         border-bottom: 1px solid var(--border);
         flex-shrink: 0;
       }
 
-      .slide-heading {
+      .slide-title {
         font-size: 32px;
         font-weight: 700;
         letter-spacing: -0.8px;
@@ -221,18 +139,7 @@
         line-height: 1.15;
       }
 
-      .slide-indicator-tag {
-        font-family: var(--font-mono);
-        font-size: 12px;
-        font-weight: 600;
-        color: var(--ink-secondary);
-        background: var(--surface);
-        border: 1px solid var(--border);
-        padding: 4px 10px;
-        border-radius: var(--radius-sm);
-      }
-
-      /* Slide Body */
+      /* Slide Content */
       .slide-body {
         flex: 1;
         display: flex;
@@ -241,7 +148,7 @@
         min-height: 0;
       }
 
-      /* Grid Systems */
+      /* Grids */
       .grid-2 {
         display: grid;
         grid-template-columns: 1fr 1fr;
@@ -258,7 +165,7 @@
         align-items: stretch;
       }
 
-      /* Clean Editorial Panels */
+      /* Editorial Panels */
       .panel {
         background: var(--surface);
         border: 1px solid var(--border);
@@ -269,46 +176,46 @@
         gap: 16px;
       }
 
-      .panel.hero-block {
+      .panel.highlight {
         background: var(--indigo);
         border-color: transparent;
       }
 
-      .panel-num {
+      .panel-index {
         font-family: var(--font-mono);
         font-size: 12px;
         font-weight: 700;
         color: var(--ink-faint);
-        letter-spacing: 1px;
+        letter-spacing: 0.8px;
       }
 
-      .panel-title {
+      .panel-heading {
         font-size: 19px;
         font-weight: 700;
         letter-spacing: -0.3px;
         color: var(--ink);
       }
 
-      .panel-text {
+      .panel-content {
         font-size: 14px;
         line-height: 1.6;
         color: var(--ink-secondary);
         flex: 1;
       }
 
-      .panel-text ul {
+      .panel-content ul {
         padding-left: 18px;
         display: flex;
         flex-direction: column;
         gap: 10px;
       }
 
-      .panel-text li strong {
+      .panel-content li strong {
         color: var(--ink);
       }
 
       /* Code Block */
-      .code-display {
+      .code-view {
         font-family: var(--font-mono);
         font-size: 12px;
         background: rgba(28, 24, 48, 0.04);
@@ -319,27 +226,6 @@
         line-height: 1.5;
         white-space: pre-wrap;
         margin-top: 10px;
-        position: relative;
-      }
-
-      .btn-copy-code {
-        position: absolute;
-        top: 6px;
-        right: 6px;
-        background: var(--surface);
-        border: 1px solid var(--border);
-        color: var(--ink-secondary);
-        font-family: var(--font-sans);
-        font-size: 10px;
-        font-weight: 500;
-        padding: 2px 6px;
-        border-radius: var(--radius-sm);
-        cursor: pointer;
-      }
-
-      .btn-copy-code:hover {
-        background: var(--oat);
-        color: var(--ink);
       }
 
       /* Minimal Data Table */
@@ -381,20 +267,18 @@
         font-weight: 700;
       }
 
-      /* =========================================================================
-         SLIDE 1: HERO DISPLAY
-         ========================================================================= */
-      .hero-layout {
+      /* Slide 1 Hero */
+      .hero-box {
         display: flex;
         flex-direction: column;
         justify-content: center;
         height: 100%;
-        max-width: 980px;
+        max-width: 960px;
         margin: 0 auto;
         gap: 32px;
       }
 
-      .hero-title-big {
+      .hero-headline {
         font-size: 64px;
         font-weight: 800;
         letter-spacing: -2px;
@@ -402,70 +286,68 @@
         color: var(--ink);
       }
 
-      .hero-statement {
+      .hero-desc {
         font-size: 22px;
         line-height: 1.5;
         color: var(--ink-secondary);
         max-width: 780px;
       }
 
-      .hero-meta-grid {
+      .hero-grid {
         display: grid;
         grid-template-columns: repeat(3, 1fr);
         gap: 20px;
         margin-top: 8px;
       }
 
-      .hero-meta-item {
+      .hero-card {
         background: var(--surface);
         border: 1px solid var(--border);
         border-radius: var(--radius-md);
-        padding: 20px;
+        padding: 24px;
         display: flex;
         flex-direction: column;
-        gap: 6px;
+        gap: 8px;
       }
 
-      .hero-meta-val {
-        font-family: var(--font-mono);
-        font-size: 20px;
+      .hero-card-title {
+        font-size: 16px;
         font-weight: 700;
         color: var(--ink);
       }
 
-      .hero-meta-label {
+      .hero-card-text {
         font-size: 13px;
+        line-height: 1.5;
         color: var(--ink-secondary);
-        line-height: 1.4;
       }
 
       /* =========================================================================
-         BOTTOM FOOTER & CONTROLS
+         BOTTOM FOOTER
          ========================================================================= */
-      .editorial-footer {
-        height: 54px;
+      .deck-footer {
+        height: 56px;
         display: flex;
         align-items: center;
         justify-content: space-between;
-        padding: 0 40px;
+        padding: 0 48px;
         border-top: 1px solid var(--border);
         flex-shrink: 0;
-        background: var(--oat);
       }
 
-      .footer-status {
+      .footer-topic {
         font-size: 13px;
         color: var(--ink-secondary);
         font-family: var(--font-mono);
       }
 
-      .footer-actions {
+      .footer-btns {
         display: flex;
         align-items: center;
         gap: 8px;
       }
 
-      .btn-nav {
+      .nav-btn {
         background: var(--surface);
         border: 1px solid var(--border);
         color: var(--ink);
@@ -477,278 +359,113 @@
         transition: all 0.15s;
       }
 
-      .btn-nav:hover {
+      .nav-btn:hover {
         background: var(--surface-subtle);
       }
 
-      .btn-nav.primary {
+      .nav-btn.primary {
         background: var(--indigo);
         border-color: var(--indigo);
-      }
-
-      /* Speaker Notes Drawer (N) */
-      .teleprompter-drawer {
-        position: fixed;
-        bottom: 54px;
-        left: 0;
-        right: 0;
-        background: var(--surface);
-        border-top: 1px solid var(--border-strong);
-        padding: 20px 40px;
-        z-index: 40;
-        transform: translateY(100%);
-        transition: transform 0.2s cubic-bezier(0.16, 1, 0.3, 1);
-        box-shadow: 0 -4px 16px rgba(28, 24, 48, 0.08);
-      }
-
-      .teleprompter-drawer.open {
-        transform: translateY(0);
-      }
-
-      .teleprompter-top {
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        margin-bottom: 8px;
-      }
-
-      .teleprompter-tag {
-        font-size: 11px;
-        font-weight: 700;
-        font-family: var(--font-mono);
-        text-transform: uppercase;
-        color: var(--ink-secondary);
-      }
-
-      .teleprompter-body {
-        font-size: 15px;
-        line-height: 1.6;
-        color: var(--ink);
-        max-height: 120px;
-        overflow-y: auto;
-      }
-
-      /* Q&A Modal Overlay (?) */
-      .modal-shade {
-        position: fixed;
-        inset: 0;
-        background: rgba(28, 24, 48, 0.4);
-        backdrop-filter: blur(4px);
-        display: none;
-        align-items: center;
-        justify-content: center;
-        z-index: 100;
-      }
-
-      .modal-shade.open {
-        display: flex;
-      }
-
-      .modal-box {
-        width: 820px;
-        max-width: 90vw;
-        max-height: 85vh;
-        background: var(--oat);
-        border: 1px solid var(--border-strong);
-        border-radius: var(--radius-lg);
-        display: flex;
-        flex-direction: column;
-        overflow: hidden;
-      }
-
-      .modal-head {
-        padding: 16px 28px;
-        border-bottom: 1px solid var(--border);
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
-        background: var(--surface);
-      }
-
-      .modal-caption {
-        font-size: 16px;
-        font-weight: 700;
-        color: var(--ink);
-      }
-
-      .modal-scroll {
-        padding: 24px 28px;
-        overflow-y: auto;
-        display: flex;
-        flex-direction: column;
-        gap: 16px;
-      }
-
-      .qa-row {
-        background: var(--surface);
-        border: 1px solid var(--border);
-        border-radius: var(--radius-md);
-        padding: 16px 20px;
-      }
-
-      .qa-query {
-        font-size: 14px;
-        font-weight: 700;
-        color: var(--ink);
-        margin-bottom: 6px;
-      }
-
-      .qa-reply {
-        font-size: 13px;
-        line-height: 1.6;
-        color: var(--ink-secondary);
-      }
-
-      .toast-note {
-        position: fixed;
-        bottom: 66px;
-        right: 40px;
-        background: var(--ink);
-        color: var(--oat);
-        font-size: 12px;
-        font-family: var(--font-mono);
-        padding: 8px 14px;
-        border-radius: var(--radius-sm);
-        opacity: 0;
-        pointer-events: none;
-        transition: opacity 0.15s ease;
-      }
-
-      .toast-note.visible {
-        opacity: 1;
       }
     </style>
   </head>
   <body>
-    <!-- Top Editorial Header -->
-    <header class="editorial-header">
-      <div class="brand-box">
-        <span class="brand-name">Fin-Audit-Gym</span>
-        <span class="brand-sub">FinTech '26</span>
-      </div>
-
-      <!-- Navigation Tabs -->
-      <nav class="nav-links">
-        <button class="nav-item active" onclick="jump(1)">01. Обзор</button>
-        <button class="nav-item" onclick="jump(2)">02. Вызов</button>
-        <button class="nav-item" onclick="jump(3)">03. Контракт</button>
-        <button class="nav-item" onclick="jump(4)">04. Данные</button>
-        <button class="nav-item" onclick="jump(5)">05. Оценщик</button>
-        <button class="nav-item" onclick="jump(6)">06. Бенчмарк</button>
-        <button class="nav-item" onclick="jump(7)">07. Инженерия</button>
-        <button class="nav-item" onclick="jump(8)">08. Финал</button>
-      </nav>
-
-      <div class="header-tools">
-        <div class="timer-box" title="Таймер выступления">
-          <span style="cursor: pointer" onclick="toggleTimer()">⏱</span>
-          <span id="timerVal">00:00</span>
-          <span
-            style="cursor: pointer; color: var(--ink-faint)"
-            onclick="resetTimer()"
-            >↺</span
-          >
-        </div>
-
-        <button class="btn-tool" id="btnNotes" onclick="toggleNotes()">
-          Шпаргалка (N)
-        </button>
-        <button class="btn-tool" onclick="toggleQA()">Q&A (?)</button>
-      </div>
+    <!-- Top Minimal Header -->
+    <header class="deck-header">
+      <div class="brand-title">Fin-Audit-Gym</div>
+      <div class="slide-counter" id="counterBox">01 / 08</div>
     </header>
 
     <!-- Main Deck -->
     <main class="slide-deck">
       <!-- SLIDE 1: HERO -->
       <div class="slide active" data-slide="1">
-        <div class="hero-layout">
+        <div class="hero-box">
           <div>
-            <h1 class="hero-title-big">Fin-Audit-Gym</h1>
-            <p class="hero-statement" style="margin-top: 14px">
+            <h1 class="hero-headline">Fin-Audit-Gym</h1>
+            <p class="hero-desc" style="margin-top: 14px">
               Воспроизводимый симулятор и Gymnasium-среда для обучения и
-              стресс-тестирования автономных моделей финансового аудита.
+              стресс-тестирования автономных агентов финансового аудита.
             </p>
           </div>
 
-          <div class="hero-meta-grid">
-            <div class="hero-meta-item">
-              <span class="hero-meta-val">100 / 100</span>
-              <span class="hero-meta-label"
-                >Баллов по критериям официальной спецификации ТЗ</span
-              >
+          <div class="hero-grid">
+            <div class="hero-card">
+              <div class="hero-card-title">Gymnasium-контракт</div>
+              <div class="hero-card-text">
+                Стандартизированный протокол <code>reset</code> и
+                <code>step</code> для повторяющихся эпизодов обучения с
+                подкреплением (RL).
+              </div>
             </div>
-            <div class="hero-meta-item">
-              <span class="hero-meta-val">60 тестов</span>
-              <span class="hero-meta-label"
-                >Автоматическая верификация Gymnasium API, изоляции и атак</span
-              >
+            <div class="hero-card">
+              <div class="hero-card-title">Двойная запись</div>
+              <div class="hero-card-text">
+                Генератор сбалансированной главной книги по принципу
+                Clean-World-First со скрытым причинным графом изменений.
+              </div>
             </div>
-            <div class="hero-meta-item">
-              <span class="hero-meta-val">0 GPU / Offline</span>
-              <span class="hero-meta-label"
-                >Автономный запуск без внешних API и сетевых зависимостей</span
-              >
+            <div class="hero-card">
+              <div class="hero-card-title">Биективный арбитраж</div>
+              <div class="hero-card-text">
+                Оптимальный матчер 1-к-1 на алгоритме Куна-Манкреса, исключающий
+                спам-атаки и галлюцинации моделей.
+              </div>
             </div>
           </div>
         </div>
       </div>
 
-      <!-- SLIDE 2: THE CORE SHIFT -->
+      <!-- SLIDE 2: THE CORE CONCEPT -->
       <div class="slide" data-slide="2">
-        <div class="slide-meta-row">
-          <h2 class="slide-heading">
-            Постановка задачи: Среда вместо чат-бота
+        <div class="slide-head">
+          <h2 class="slide-title">
+            От статических отчетов к интерактивной среде
           </h2>
-          <span class="slide-indicator-tag">Раздел 01 ТЗ</span>
         </div>
         <div class="slide-body">
           <div class="grid-2">
             <div class="panel">
-              <span class="panel-num">01 // ОГРАНИЧЕНИЕ</span>
-              <div class="panel-title">Ловушка генерации текста</div>
-              <div class="panel-text">
+              <span class="panel-index">01 // ОГРАНИЧЕНИЕ</span>
+              <div class="panel-heading">Слабость текстовой генерации</div>
+              <div class="panel-content">
                 <ul>
                   <li>
-                    Попытка обучить языковую модель генерировать текстовые
-                    отчеты без интерактивной среды не решает задачу
-                    соревнований.
+                    Языковые модели не способны автономно проводить аудит в
+                    режиме прямого вывода текста («generate report»).
                   </li>
                   <li>
-                    <strong>Пункт 12 ТЗ прямо фиксирует:</strong>
-                    <em
-                      >«Красивый UI и недоказанные улучшения обучения баллов не
-                      дают. Жюри оценивает корректность среды и оценщика, а не
-                      награду агента»</em
-                    >.
+                    Без инструментов исследования и первичных документов модель
+                    генерирует правдоподобные галлюцинации.
                   </li>
                   <li>
-                    Чат-боты и статические дашборды исключены из критериев
-                    оценки.
+                    Для выработки устойчивой дедукции необходим цикл
+                    взаимодействия: гипотеза → проверка документа →
+                    верифицированное заключение.
                   </li>
                 </ul>
               </div>
             </div>
 
-            <div class="panel hero-block">
-              <span class="panel-num">02 // НАШЕ РЕШЕНИЕ</span>
-              <div class="panel-title">
-                Стандартизированный полигон (RL Gym)
-              </div>
-              <div class="panel-text">
+            <div class="panel highlight">
+              <span class="panel-index">02 // АРХИТЕКТУРА</span>
+              <div class="panel-heading">Среда взаимодействия</div>
+              <div class="panel-content">
                 <ul>
                   <li>
-                    <strong>Контракт Gymnasium:</strong> Унифицированный
-                    интерфейс взаимодействий <code>reset</code> и
-                    <code>step</code> для повторяющихся эпизодов.
+                    <strong>Исследовательские действия:</strong> Модель
+                    постранично изучает журнал проводок, запрашивает инвойсы и
+                    банковские выписки через узкий API.
                   </li>
                   <li>
-                    <strong>Синтетический мир:</strong> Генерация согласованной
-                    скрытой истории компании и причинного графа изменений
-                    (provenance graph).
+                    <strong>Математическая оценка:</strong> Терминальная награда
+                    вычисляется исключительно на основе доказанных фактов и
+                    приложенных ID документов.
                   </li>
                   <li>
-                    <strong>Внешний арбитр:</strong> Математически строгий
-                    оценщик находок модели без утечки правильных ответов.
+                    <strong>Обучающие траектории:</strong> Фиксация чистых
+                    переходов State-Action-Reward для дообучения моделей через
+                    PPO или SFT.
                   </li>
                 </ul>
               </div>
@@ -757,34 +474,33 @@
         </div>
       </div>
 
-      <!-- SLIDE 3: CONTRACT & ISOLATION (25 PTS) -->
+      <!-- SLIDE 3: CONTRACT & ISOLATION -->
       <div class="slide" data-slide="3">
-        <div class="slide-meta-row">
-          <h2 class="slide-heading">Контракт Gymnasium и изоляция данных</h2>
-          <span class="slide-indicator-tag">25 из 25 баллов</span>
+        <div class="slide-head">
+          <h2 class="slide-title">Gymnasium API и изоляция данных</h2>
         </div>
         <div class="slide-body">
           <div class="grid-3">
             <div class="panel">
-              <span class="panel-num">01 // API КОНТРАКТ</span>
-              <div class="panel-title">Протокол взаимодействия</div>
-              <div class="panel-text">
-                Соответствие разделу 04 ТЗ:
-                <div class="code-display">
+              <span class="panel-index">01 // API КОНТРАКТ</span>
+              <div class="panel-heading">Протокол взаимодействия</div>
+              <div class="panel-content">
+                Интерфейс в стандарте Gymnasium:
+                <div class="code-view">
                   reset(seed, config) -> (obs, info) step(action) -> (obs, r,
                   term, trunc, info)
                 </div>
-                Лимит 100 шагов. Стабильная курсорная пагинация до 50 записей.
-                Исключен произвольный доступ к shell, SQL или файловой системе.
+                Лимит 100 шагов на эпизод. Курсорная пагинация до 50 записей для
+                работы в рамках контекстного окна модели.
               </div>
             </div>
 
             <div class="panel">
-              <span class="panel-num">02 // БЕЗОПАСНОСТЬ</span>
-              <div class="panel-title">AST-калькулятор</div>
-              <div class="panel-text">
-                Исключение исполнения кода (RCE):
-                <div class="code-display">
+              <span class="panel-index">02 // БЕЗОПАСНОСТЬ</span>
+              <div class="panel-heading">AST-калькулятор</div>
+              <div class="panel-content">
+                Исключение исполнения произвольного кода (RCE):
+                <div class="code-view">
                   ast.parse(expr, mode='eval') Whitelist: BinOp, UnaryOp,
                   Decimal
                 </div>
@@ -794,18 +510,18 @@
             </div>
 
             <div class="panel">
-              <span class="panel-num">03 // ИЗОЛЯЦИЯ</span>
-              <div class="panel-title">Нулевая утечка (Zero-Leak)</div>
-              <div class="panel-text">
+              <span class="panel-index">03 // ИЗОЛЯЦИЯ</span>
+              <div class="panel-heading">Нулевая утечка (Zero-Leak)</div>
+              <div class="panel-content">
                 Файлы <code>truth.json</code> и
-                <code>provenance.json</code> хранятся вне контекста агента:
+                <code>provenance.json</code> хранятся вне процесса агента:
                 <ul style="margin-top: 8px">
                   <li>
-                    В наблюдениях отсутствуют скрытые факты или подсказки.
+                    В пространстве наблюдений отсутствуют скрытые подсказки.
                   </li>
-                  <li>Seed эпизода изолирован.</li>
+                  <li>Seed эпизода агенту недоступен.</li>
                   <li>
-                    Проверено тестом <code>test_security_zero_leak</code>.
+                    Изоляция подтверждена автоматическим интеграционным тестом.
                   </li>
                 </ul>
               </div>
@@ -814,43 +530,44 @@
         </div>
       </div>
 
-      <!-- SLIDE 4: DATA GENERATOR (25 PTS) -->
+      <!-- SLIDE 4: SYNTHETIC DATA & DOUBLE ENTRY -->
       <div class="slide" data-slide="4">
-        <div class="slide-meta-row">
-          <h2 class="slide-heading">Синтетический учет и инварианты баланса</h2>
-          <span class="slide-indicator-tag">25 из 25 баллов</span>
+        <div class="slide-head">
+          <h2 class="slide-title">Синтетический учет и инварианты баланса</h2>
         </div>
         <div class="slide-body">
           <div class="grid-2">
             <div class="panel">
-              <span class="panel-num">01 // БАЛАНС</span>
-              <div class="panel-title">Принцип Clean-World-First</div>
-              <div class="panel-text">
-                До внесения аномалий генератор формирует сбалансированную
-                историю двойной записи:
-                <div class="code-display">
+              <span class="panel-index">01 // БАЛАНС</span>
+              <div class="panel-heading">Принцип Clean-World-First</div>
+              <div class="panel-content">
+                До внесения аномалий генератор строит сбалансированную историю
+                двойной записи:
+                <div class="code-view">
                   assert sum(debits) == sum(credits) Accounts: 1000 Cash, 1200
                   AR, 2000 AP, 4000 Rev, 5000 Exp, 7000 FX
                 </div>
                 <ul>
                   <li>
-                    Деньги — исключительно в целых минимальных единицах (копейки
-                    / центы). Исключены погрешности float.
+                    Деньги — строго в целых минимальных единицах (копейки /
+                    центы) без погрешностей float.
                   </li>
-                  <li>Курсы валют — строгие десятичные строки.</li>
-                  <li>Пропуски ссылок — явные <code>null</code>.</li>
+                  <li>FX-курсы валют — точные десятичные строки.</li>
+                  <li>
+                    Отсутствующие связи — явные значения <code>null</code>.
+                  </li>
                 </ul>
               </div>
             </div>
 
             <div class="panel">
-              <span class="panel-num">02 // ТАКСОНОМИЯ</span>
-              <div class="panel-title">Аномалии и дистракторы</div>
-              <div class="panel-text">
+              <span class="panel-index">02 // ТАКСОНОМИЯ</span>
+              <div class="panel-heading">Аномалии и дистракторы</div>
+              <div class="panel-content">
                 <ul>
                   <li>
-                    <strong>Duplicate Invoice:</strong> Двойная проводка счета в
-                    главной книге.
+                    <strong>Duplicate Invoice:</strong> Повторные проводки
+                    счетов в главной книге.
                   </li>
                   <li>
                     <strong>Unallocated Payment:</strong> Пропущенное или
@@ -858,19 +575,19 @@
                   </li>
                   <li>
                     <strong>FX Mismatch:</strong> Ошибка даты или курса
-                    конвертации.
+                    конвертации валюты.
                   </li>
                   <li>
                     <strong>Period Cutoff:</strong> Проводка операции за
                     границей финансового года.
                   </li>
                   <li>
-                    <strong>Взаимодействующие ошибки:</strong> Частичный платеж
-                    в валюте на границе периода и круговые сделки.
+                    <strong>Составные сценарии:</strong> Частичный платеж в
+                    валюте на границе периода и круговые сделки.
                   </li>
                   <li>
                     <strong>Законные дистракторы:</strong> Разбитые платежи,
-                    возвраты, регулярные списания.
+                    возвраты и абонплаты.
                   </li>
                 </ul>
               </div>
@@ -879,55 +596,55 @@
         </div>
       </div>
 
-      <!-- SLIDE 5: EVALUATOR & REWARD (25 PTS) -->
+      <!-- SLIDE 5: EVALUATION & ANTI-GAMING -->
       <div class="slide" data-slide="5">
-        <div class="slide-meta-row">
-          <h2 class="slide-heading">
+        <div class="slide-head">
+          <h2 class="slide-title">
             Биективное сопоставление и функция награды
           </h2>
-          <span class="slide-indicator-tag">25 из 25 баллов</span>
         </div>
         <div class="slide-body">
           <div class="grid-2">
             <div class="panel">
-              <span class="panel-num">01 // МАТЧЕР</span>
-              <div class="panel-title">Алгоритм Куна-Манкреса (SciPy)</div>
-              <div class="panel-text">
-                Оптимальное биективное сопоставление 1-к-1:
-                <div class="code-display">
+              <span class="panel-index">01 // МАТЧЕР</span>
+              <div class="panel-heading">Алгоритм Куна-Манкреса (SciPy)</div>
+              <div class="panel-content">
+                Оптимальное сопоставление 1-к-1 на двудольном графе:
+                <div class="code-view">
                   from scipy.optimize import linear_sum_assignment row_ind,
                   col_ind = linear_sum_assignment(cost_matrix)
                 </div>
                 <ul>
                   <li>
-                    Каждая реальная ошибка закрывается строго одной находкой.
+                    Каждая реальная ошибка закрывается строго одним
+                    подтвержденным выводом.
                   </li>
                   <li>
-                    <strong>Защита от атаки «Пометить всё»:</strong> Спам
-                    догадками дает лавину False Positives. Точность и F1 падают
-                    в 0, а награда опускается в -1.0.
+                    <strong>Защита от спам-атак:</strong> Случайные обвинения
+                    или пометка всех строк подряд дают массу False Positives.
+                    Точность и F1 падают в 0, а награда опускается в -1.0.
                   </li>
                 </ul>
               </div>
             </div>
 
             <div class="panel">
-              <span class="panel-num">02 // ФОРМУЛА</span>
-              <div class="panel-title">Терминальная награда спецификации</div>
-              <div class="panel-text">
-                Строго по формуле раздела 05 ТЗ:
-                <div class="code-display">
+              <span class="panel-index">02 // ФОРМУЛА</span>
+              <div class="panel-heading">Терминальная функция награды</div>
+              <div class="panel-content">
+                Формула оценки качества выводов:
+                <div class="code-view">
                   Reward = clip(2 * F1 - 1 - 0.002 * inspection_steps, -1, 1)
                 </div>
                 <ul>
                   <li>
-                    <strong>Тест чистой книги:</strong> Молчание на чистых
-                    книгах дает $F_1 = 1.0, R = +0.998$. Ложные обвинения
-                    караются падением до -1.0.
+                    <strong>Тест чистой книги:</strong> Тишина на чистых книгах
+                    дает максимальную награду (+0.998). Ложные тревоги
+                    наказываются падением до -1.0.
                   </li>
                   <li>
                     <strong>Нулевая награда за шаги:</strong> Промежуточная
-                    награда = 0 (устранена ловушка бесконечного скролла).
+                    награда = 0, что устраняет зацикливание агента.
                   </li>
                 </ul>
               </div>
@@ -936,11 +653,10 @@
         </div>
       </div>
 
-      <!-- SLIDE 6: BASELINES (15 PTS) -->
+      <!-- SLIDE 6: BASELINE BENCHMARKS -->
       <div class="slide" data-slide="6">
-        <div class="slide-meta-row">
-          <h2 class="slide-heading">Экспериментальная оценка на dev-выборке</h2>
-          <span class="slide-indicator-tag">15 из 15 баллов</span>
+        <div class="slide-head">
+          <h2 class="slide-title">Сравнительный бенчмарк базовых политик</h2>
         </div>
         <div class="slide-body">
           <div class="grid-2" style="align-items: center">
@@ -957,7 +673,7 @@
                 </thead>
                 <tbody>
                   <tr class="highlight">
-                    <td>Oracle (Потолок)</td>
+                    <td>Oracle (Потолок среды)</td>
                     <td>1.0000</td>
                     <td>1.0000</td>
                     <td>1.0000</td>
@@ -994,7 +710,7 @@
                   margin-top: 10px;
                 "
               >
-                * Замерено на 10 независимых эпизодах <code>data/dev/</code>.
+                * Замерено на 10 независимых тестовых эпизодах.
                 Воспроизводимость за 0.8 сек.
               </div>
             </div>
@@ -1006,28 +722,25 @@
         </div>
       </div>
 
-      <!-- SLIDE 7: ENGINEERING (10 PTS) -->
+      <!-- SLIDE 7: ENGINEERING & REPRODUCIBILITY -->
       <div class="slide" data-slide="7">
-        <div class="slide-meta-row">
-          <h2 class="slide-heading">
-            Инженерия, траектории и воспроизводимость
-          </h2>
-          <span class="slide-indicator-tag">10 из 10 баллов</span>
+        <div class="slide-head">
+          <h2 class="slide-title">Инженерия и воспроизводимость</h2>
         </div>
         <div class="slide-body">
           <div class="grid-3">
             <div class="panel">
-              <span class="panel-num">01 // ПОСТАВКА</span>
-              <div class="panel-title">Комплект сдачи</div>
-              <div class="panel-text">
+              <span class="panel-index">01 // ДАННЫЕ</span>
+              <div class="panel-heading">Комплект поставки</div>
+              <div class="panel-content">
                 <ul>
                   <li>
-                    <strong>Датасет:</strong> 10 train и 10 dev сгенерированных
-                    эпизодов.
+                    <strong>Датасет:</strong> 10 обучающих и 10 тестовых
+                    эпизодов с закрытым эталоном.
                   </li>
                   <li>
                     <strong>trajectories.jsonl:</strong> 30 валидных траекторий
-                    без утечки ground-truth.
+                    взаимодействий без утечки ground-truth.
                   </li>
                   <li>
                     <strong>Dockerfile:</strong> Изолированное автономное
@@ -1038,30 +751,25 @@
             </div>
 
             <div class="panel">
-              <span class="panel-num">02 // ПРОВЕРКА</span>
-              <div class="panel-title">Запуск для жюри</div>
-              <div class="panel-text">
-                Единая команда верификации:
-                <div class="code-display">
-                  <button
-                    class="btn-copy-code"
-                    onclick="copyCode('make check')"
-                  >
-                    копировать</button
-                  ># Линтер + 60 тестов make check # Бенчмарк 4 политик python3
+              <span class="panel-index">02 // ВЕРИФИКАЦИЯ</span>
+              <div class="panel-heading">Единый запуск</div>
+              <div class="panel-content">
+                Автоматическая проверка всего репозитория:
+                <div class="code-view">
+                  # Линтер + 60 тестов make check # Бенчмарк 4 политик python3
                   scripts/run_eval.py \ --data-dir data/dev --policy all
                 </div>
               </div>
             </div>
 
             <div class="panel">
-              <span class="panel-num">03 // ГРАНИЦЫ</span>
-              <div class="panel-title">Честные ограничения</div>
-              <div class="panel-text">
+              <span class="panel-index">03 // ОГРАНИЧЕНИЯ</span>
+              <div class="panel-heading">Границы моделирования</div>
+              <div class="panel-content">
                 <ul>
                   <li>
-                    Программный симулятор не заменяет юридическое аудиторское
-                    заключение.
+                    Программный симулятор сфокусирован на дедуктивной проверке
+                    фактов и не заменяет юридическое аудиторское заключение.
                   </li>
                   <li>
                     Сложность ориентирована на полноту доказательной базы, а не
@@ -1075,40 +783,40 @@
         </div>
       </div>
 
-      <!-- SLIDE 8: FINALE -->
+      <!-- SLIDE 8: INDUSTRIAL OUTLOOK -->
       <div class="slide" data-slide="8">
-        <div class="hero-layout" style="gap: 24px">
+        <div class="hero-box" style="gap: 28px">
           <div>
-            <h1 class="hero-title-big" style="font-size: 46px">
-              Стандартизация аудиторского ИИ
+            <h1 class="hero-headline" style="font-size: 46px">
+              Стандартизация финансового ИИ
             </h1>
-            <p class="hero-statement" style="font-size: 18px">
+            <p class="hero-desc" style="font-size: 18px">
               Fin-Audit-Gym готов занять нишу сертифицированного полигона для
-              автономных ИИ-аудиторов перед их допуском к закрытым базам.
+              автономных ИИ-аудиторов перед их допуском к закрытым базам данных.
             </p>
           </div>
 
-          <div class="hero-meta-grid">
-            <div class="hero-meta-item">
-              <span class="hero-meta-val">Big 4 & Аудит</span>
-              <span class="hero-meta-label"
-                >Верификация агентов на соответствие международному стандарту
-                ISA 500</span
-              >
+          <div class="hero-grid">
+            <div class="hero-card">
+              <div class="hero-card-title">Big 4 & Аудит</div>
+              <div class="hero-card-text">
+                Сертификация автономных агентов на соответствие международному
+                аудиторскому стандарту ISA 500.
+              </div>
             </div>
-            <div class="hero-meta-item">
-              <span class="hero-meta-val">RL-Лаборатории</span>
-              <span class="hero-meta-label"
-                >Среда для обучения reasoning-моделей без риска specification
-                gaming</span
-              >
+            <div class="hero-card">
+              <div class="hero-card-title">RL-Лаборатории</div>
+              <div class="hero-card-text">
+                Среда для обучения reasoning-моделей дедуктивного анализа без
+                риска спецификационного читерства.
+              </div>
             </div>
-            <div class="hero-meta-item">
-              <span class="hero-meta-val">FinTech Необанки</span>
-              <span class="hero-meta-label"
-                >Стресс-тестирование форензик-алгоритмов перед выкатом в
-                прод</span
-              >
+            <div class="hero-card">
+              <div class="hero-card-title">FinTech Необанки</div>
+              <div class="hero-card-text">
+                Стресс-тестирование форензик-ботов на синтетических данных перед
+                интеграцией в боевую инфраструктуру.
+              </div>
             </div>
           </div>
 
@@ -1119,7 +827,7 @@
               color: var(--ink-secondary);
             "
           >
-            Репозиторий готов к закрытой проверке:
+            Репозиторий проекта:
             <a
               href="https://github.com/Tasel1/fin-audit-gym"
               target="_blank"
@@ -1136,212 +844,77 @@
     </main>
 
     <!-- Bottom Minimal Footer -->
-    <footer class="editorial-footer">
-      <div class="footer-status">
-        Слайд <span id="currentNum">1</span> из <span id="totalNum">8</span> ·
-        <span id="currentTitle">Обзор</span>
-      </div>
-
-      <div class="footer-actions">
-        <button class="btn-nav" id="btnPrev" onclick="move(-1)">← Назад</button>
-        <button class="btn-nav primary" id="btnNext" onclick="move(1)">
+    <footer class="deck-footer">
+      <div class="footer-topic" id="topicLabel">01 // Обзор проекта</div>
+      <div class="footer-btns">
+        <button class="nav-btn" id="btnPrev" onclick="moveSlide(-1)">
+          ← Назад
+        </button>
+        <button class="nav-btn primary" id="btnNext" onclick="moveSlide(1)">
           Вперед →
         </button>
-        <button class="btn-nav" onclick="toggleFull()">⛶ Полный экран</button>
+        <button class="nav-btn" onclick="toggleFullscreen()">
+          ⛶ Полный экран
+        </button>
       </div>
     </footer>
 
-    <!-- Speaker Teleprompter (N) -->
-    <div class="teleprompter-drawer" id="teleprompter">
-      <div class="teleprompter-top">
-        <span class="teleprompter-tag" id="notesTag"
-          >Слайд 1 // Речь докладчика</span
-        >
-        <button
-          class="btn-nav"
-          onclick="toggleNotes()"
-          style="padding: 2px 8px; font-size: 11px"
-        >
-          ✕
-        </button>
-      </div>
-      <div class="teleprompter-body" id="notesText">Загрузка...</div>
-    </div>
-
-    <!-- Q&A Modal (?) -->
-    <div
-      class="modal-shade"
-      id="qaShade"
-      onclick="if (event.target === this) toggleQA();"
-    >
-      <div class="modal-box">
-        <div class="modal-head">
-          <span class="modal-caption">Карточки ответов на вопросы жюри</span>
-          <button
-            class="btn-nav"
-            onclick="toggleQA()"
-            style="border: none; font-size: 16px"
-          >
-            ✕
-          </button>
-        </div>
-        <div class="modal-scroll">
-          <div class="qa-row">
-            <div class="qa-query">
-              1. «Почему вы сами не дообучили большую нейросеть?»
-            </div>
-            <div class="qa-reply">
-              Пункты 01, 10 и 12 ТЗ прямо указывают:
-              <em
-                >«Обучение весов необязательно, не дает баллов само по себе.
-                Жюри оценивает корректность среды и оценщика»</em
-              >. Обучение модели за 48 часов без валидированной среды привело бы
-              к галлюцинациям. Мы создали сертифицированную среду и записали 30
-              обучающих траекторий <code>trajectories.jsonl</code>, готовых для
-              SFT или PPO.
-            </div>
-          </div>
-
-          <div class="qa-row">
-            <div class="qa-query">
-              2. «Что если агент применит атаку спама и пометит все транзакции?»
-            </div>
-            <div class="qa-reply">
-              Это уязвимость Specification Gaming. Мы внедрили венгерский
-              алгоритм Куна-Манкреса
-              (<code>scipy.optimize.linear_sum_assignment</code>) для строгого
-              1-к-1 сопоставления. Если агент пришлет 50 случайных догадок,
-              совпадут единицы, а остальные станут False Positives. Точность
-              падает в ноль, а штраф опускает награду до минимального предела
-              -1.0.
-            </div>
-          </div>
-
-          <div class="qa-row">
-            <div class="qa-query">
-              3. «Как вы гарантируете, что ответы не утекают агенту?»
-            </div>
-            <div class="qa-reply">
-              У нас действует строгая изоляция. В словарях
-              <code>observation</code> и <code>info</code> методов reset и step
-              отсутствуют приватные ключи, пути и количество ошибок.
-              Интеграционный тест <code>test_security_zero_leak</code> проверяет
-              отсутствие утечек эталона в наблюдениях.
-            </div>
-          </div>
-
-          <div class="qa-row">
-            <div class="qa-query">
-              4. «Безопасен ли калькулятор? Нет ли там RCE через eval()?»
-            </div>
-            <div class="qa-reply">
-              У нас нет функции <code>eval()</code>. Калькулятор парсит
-              выражения через абстрактное синтаксическое дерево
-              <code>ast.parse</code> с жестким белым списком бинарных операций
-              (<code>+ - * / %</code>) и чисел Decimal. Любые вызовы функций или
-              импорты блокируются.
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <!-- Toast Notification -->
-    <div class="toast-note" id="toast">Скопировано в буфер</div>
-
     <script>
-      let cur = 1;
+      let current = 1;
       const total = 8;
       const slides = document.querySelectorAll(".slide");
-      const navItems = document.querySelectorAll(".nav-item");
-      const currentNum = document.getElementById("currentNum");
-      const totalNum = document.getElementById("totalNum");
-      const currentTitle = document.getElementById("currentTitle");
-      const teleprompter = document.getElementById("teleprompter");
-      const notesText = document.getElementById("notesText");
-      const notesTag = document.getElementById("notesTag");
-      const qaShade = document.getElementById("qaShade");
-      const toast = document.getElementById("toast");
-      let chartObj = null;
+      const counterBox = document.getElementById("counterBox");
+      const topicLabel = document.getElementById("topicLabel");
+      let chartInstance = null;
 
-      const titles = [
-        "Обзор",
-        "Вызов",
-        "Контракт",
-        "Данные",
-        "Оценщик",
-        "Бенчмарк",
-        "Инженерия",
-        "Финал",
+      const topics = [
+        "01 // Обзор проекта",
+        "02 // Архитектурный сдвиг",
+        "03 // Gymnasium API и изоляция",
+        "04 // Синтетический учет и баланс",
+        "05 // Функция награды и Kuhn-Munkres",
+        "06 // Экспериментальный бенчмарк",
+        "07 // Инженерия и воспроизводимость",
+        "08 // Индустриальное применение",
       ];
 
-      const notes = {
-        1: "«Здравствуйте, уважаемые члены жюри и коллеги! Наша команда представляет проект Fin-Audit-Gym — воспроизводимый симулятор и Gymnasium-среду для обучения и стресс-тестирования автономных ИИ-аудиторов. Наш проект полностью закрывает 100 из 100 баллов официального чеклиста ТЗ: у нас 60 автоматизированных тестов с 0 падений, чистый офлайн-запуск без зависимости от GPU или платных API и математически доказанная защита от читерства моделей».",
-        2: "«Главная ловушка этой номинации, в которую попадают 90% команд — попытка обучить локальную LLM генерировать текстовые отчеты или нарисовать дашборд. Но ТЗ в пункте 12 прямо указывает: жюри оценивает корректность среды и оценщика! Мы сфокусировались именно на ядре: создали стандартизированный полигон (аналог SWE-bench для аудита), узкий API для действий агента и строгий внешний арбитраж находок».",
-        3: "«Первый блок критериев — Контракт и изоляция (25 баллов). 1. Мы реализовали чистый JSON-совместимый контракт reset/step с лимитом 100 шагов и пагинацией до 50 записей. 2. Встроенный калькулятор безопасен: он построен на AST-парсере с жестким белым списком арифметики и чисел Decimal, исключая RCE. 3. Zero-Leak изоляция: файлы truth.json и provenance.json физически скрыты от агента, что доказано тестом test_security_zero_leak».",
-        4: "«Второй блок — Качество данных и двойная запись (25 баллов). Наш генератор построен по принципу Clean-World-First. До внесения аномалий главная книга идеально сбалансирована: дебет строго равен кредиту по всем счетам. Деньги хранятся только в целых центах и копейках (без багов float). Детерминированно внедряются 4 типа ошибок, 2 составных сценария и законные дистракторы (разбитые платежи и возвраты)».",
-        5: "«Третий блок — Оценщик и защита от Specification Gaming (25 баллов). Что если агент применит атаку спама и пометит все строки подряд? Мы применили венгерский алгоритм Куна-Манкреса (scipy.optimize.linear_sum_assignment) для строгого биективного сопоставления 1-к-1. Из 50 случайных обвинений совпадут единицы, остальные 48 станут False Positives. Precision и F1 рушатся в 0, а награда падает до минимума -1.0».",
-        6: "«Четвертый блок — Эксперименты и воспроизводимость (15 баллов). Мы протестировали среду на 4 контрастных политиках: Oracle выбивает F1 = 1.0 и награду +0.998 (среда на 100% разрешима); Reconciler находит половину ошибок (+0.014); Random Explorer получает -1.0; Spam Attacker мгновенно нейтрализуется матчером в -1.0. Запуск бенчмарка занимает всего 0.8 секунды!»",
-        7: "«Пятый блок — Инженерия и сдача (10 баллов). В репозитории подготовлен полный комплект для жюри: датасет из 10 train и 10 dev эпизодов, 30 записанных траекторий в trajectories.jsonl для RL/SFT обучения, Dockerfile для автономного запуска и единая команда make check для запуска всех тестов и линтера».",
-        8: "«Fin-Audit-Gym готов к испытаниям в закрытом туре и выходу в очный финал в Астане. Наша среда решает фундаментальную задачу стандартизации аудиторского ИИ для банков и регуляторов. Спасибо за внимание, готовы ответить на ваши вопросы!»",
-      };
-
-      totalNum.textContent = total;
-
-      function render() {
+      function updateView() {
         slides.forEach((s, idx) => {
           s.classList.remove("active", "prev");
-          if (idx + 1 === cur) s.classList.add("active");
-          else if (idx + 1 < cur) s.classList.add("prev");
+          if (idx + 1 === current) s.classList.add("active");
+          else if (idx + 1 < current) s.classList.add("prev");
         });
 
-        currentNum.textContent = cur;
-        currentTitle.textContent = titles[cur - 1];
+        counterBox.textContent = `0${current} / 0${total}`;
+        topicLabel.textContent = topics[current - 1];
 
-        navItems.forEach((btn, idx) => {
-          btn.classList.toggle("active", idx + 1 === cur);
-        });
-
-        document.getElementById("btnPrev").disabled = cur === 1;
+        document.getElementById("btnPrev").disabled = current === 1;
         document.getElementById("btnNext").textContent =
-          cur === total ? "В начало ↺" : "Вперед →";
+          current === total ? "В начало ↺" : "Вперед →";
 
-        notesTag.textContent = `Слайд ${cur} // Речь докладчика: ${titles[cur - 1]}`;
-        notesText.textContent = notes[cur] || "";
-
-        if (cur === 6) renderChart();
+        if (current === 6) renderChart();
       }
 
-      function move(dir) {
-        cur += dir;
-        if (cur > total) cur = 1;
-        if (cur < 1) cur = 1;
-        render();
+      function moveSlide(direction) {
+        current += direction;
+        if (current > total) current = 1;
+        if (current < 1) current = 1;
+        updateView();
       }
 
-      function jump(num) {
-        cur = num;
-        render();
-      }
-
-      // Keyboard Controls
+      // Keyboard navigation
       document.addEventListener("keydown", (e) => {
         if (e.key === "ArrowRight" || e.key === " " || e.key === "PageDown")
-          move(1);
-        else if (e.key === "ArrowLeft" || e.key === "PageUp") move(-1);
-        else if (e.key === "f" || e.key === "F") toggleFull();
-        else if (
-          e.key === "n" ||
-          e.key === "N" ||
-          e.key === "т" ||
-          e.key === "Т"
-        )
-          toggleNotes();
-        else if (e.key === "?" || e.key === "/") toggleQA();
-        else if (e.key >= "1" && e.key <= "8") jump(parseInt(e.key));
+          moveSlide(1);
+        else if (e.key === "ArrowLeft" || e.key === "PageUp") moveSlide(-1);
+        else if (e.key === "f" || e.key === "F") toggleFullscreen();
+        else if (e.key >= "1" && e.key <= "8") {
+          current = parseInt(e.key);
+          updateView();
+        }
       });
 
-      function toggleFull() {
+      function toggleFullscreen() {
         if (!document.fullscreenElement) {
           document.documentElement.requestFullscreen().catch(() => {});
         } else {
@@ -1349,57 +922,11 @@
         }
       }
 
-      function toggleNotes() {
-        teleprompter.classList.toggle("open");
-        document
-          .getElementById("btnNotes")
-          .classList.toggle("active", teleprompter.classList.contains("open"));
-      }
-
-      function toggleQA() {
-        qaShade.classList.toggle("open");
-      }
-
-      function copyCode(text) {
-        navigator.clipboard.writeText(text).then(() => {
-          toast.classList.add("visible");
-          setTimeout(() => toast.classList.remove("visible"), 2000);
-        });
-      }
-
-      // Timer
-      let sec = 0;
-      let interval = null;
-      const timerVal = document.getElementById("timerVal");
-
-      function toggleTimer() {
-        if (interval) {
-          clearInterval(interval);
-          interval = null;
-        } else {
-          interval = setInterval(() => {
-            sec++;
-            const m = String(Math.floor(sec / 60)).padStart(2, "0");
-            const s = String(sec % 60).padStart(2, "0");
-            timerVal.textContent = `${m}:${s}`;
-          }, 1000);
-        }
-      }
-
-      function resetTimer() {
-        if (interval) {
-          clearInterval(interval);
-          interval = null;
-        }
-        sec = 0;
-        timerVal.textContent = "00:00";
-      }
-
       // Chart.js Clean Rendering (Oat & Indigo palette)
       function renderChart() {
-        if (chartObj) return;
+        if (chartInstance) return;
         const ctx = document.getElementById("benchmarkChart").getContext("2d");
-        chartObj = new Chart(ctx, {
+        chartInstance = new Chart(ctx, {
           type: "bar",
           data: {
             labels: ["Oracle", "Reconciler", "Random", "Spam Attack"],
@@ -1463,7 +990,7 @@
         });
       }
 
-      render();
+      updateView();
     </script>
   </body>
 </html>
