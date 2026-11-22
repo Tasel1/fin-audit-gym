@@ -15,11 +15,10 @@ class BipartiteMatcher:
             return False
         if pred.entity_id == gt.entity_id:
             return True
-        if isinstance(gt.evidence, dict) and pred.entity_id in gt.evidence.get(
-            "sub_invoice_ids", []
-        ):
-            return True
-        return False
+        return bool(
+            isinstance(gt.evidence, dict)
+            and pred.entity_id in gt.evidence.get("sub_invoice_ids", [])
+        )
 
     def match(
         self,
