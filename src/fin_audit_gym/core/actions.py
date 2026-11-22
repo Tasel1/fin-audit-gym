@@ -7,8 +7,16 @@ from fin_audit_gym.core.exceptions import InvalidActionError
 
 
 class ActionType(str, Enum):
-    """Enumeration of all valid action types in FinAuditEnv."""
+    """Enumeration of all valid action types in FinAuditEnv (Section 04 + legacy)."""
 
+    # Section 04 Canonical Actions
+    LIST_RECORDS = "list_records"
+    GET_RECORD = "get_record"
+    GET_DOCUMENT = "get_document"
+    CALCULATOR = "calculator"
+    SUBMIT = "submit"
+
+    # Compatibility & Filtered Query Actions
     QUERY_LEDGER = "query_ledger"
     QUERY_INVOICES = "query_invoices"
     QUERY_PAYMENTS = "query_payments"
@@ -19,7 +27,56 @@ class ActionType(str, Enum):
 
 VALID_ACTION_TYPES = {item.value for item in ActionType}
 
+# Normalized action routing map
+ACTION_ALIASES: dict[str, str] = {
+    "list_records": ActionType.LIST_RECORDS.value,
+    "get_record": ActionType.GET_RECORD.value,
+    "get_document": ActionType.GET_DOCUMENT.value,
+    "calculator": ActionType.CALCULATOR.value,
+    "calculate": ActionType.CALCULATOR.value,
+    "submit": ActionType.SUBMIT.value,
+    "submit_findings": ActionType.SUBMIT.value,
+    "query_ledger": ActionType.QUERY_LEDGER.value,
+    "query_invoices": ActionType.QUERY_INVOICES.value,
+    "query_payments": ActionType.QUERY_PAYMENTS.value,
+    "query_fx": ActionType.QUERY_FX.value,
+}
+
 AVAILABLE_ACTION_SCHEMAS: dict[str, Any] = {
+    ActionType.LIST_RECORDS.value: {
+        "description": "Paginate through financial records with stable cursors (Section 04)",
+        "parameters": {
+            "table": "str ('ledger', 'invoices', 'payments', 'fx')",
+            "cursor": "Optional[str] (opaque or offset cursor)",
+            "limit": "int (1-50, default: 20)",
+        },
+    },
+    ActionType.GET_RECORD.value: {
+        "description": "Fetch a specific record by primary table ID (Section 04)",
+        "parameters": {
+            "table": "str ('ledger', 'invoices', 'payments', 'fx')",
+            "id": "str (record ID)",
+        },
+    },
+    ActionType.GET_DOCUMENT.value: {
+        "description": "Fetch a full document (invoice or payment) by doc_id (Section 04)",
+        "parameters": {
+            "doc_id": "str (e.g., 'DOC-INV-2026-0001')",
+        },
+    },
+    ActionType.CALCULATOR.value: {
+        "description": "Execute safe arithmetic expression in sandbox calculator (Section 04)",
+        "parameters": {
+            "expression": "str (e.g., '100 + 25 * 4')",
+        },
+    },
+    ActionType.SUBMIT.value: {
+        "description": "Submit final detected audit anomalies report to conclude episode (Section 04 & 05)",
+        "parameters": {
+            "findings": "List of findings [{type, affected_ids, claimed_amount_minor, currency, evidence_ids, explanation}]",
+            "explanation": "Optional[str]",
+        },
+    },
     ActionType.QUERY_LEDGER.value: {
         "description": "Query general ledger rows with pagination and filters",
         "parameters": {
@@ -58,26 +115,13 @@ AVAILABLE_ACTION_SCHEMAS: dict[str, Any] = {
             "page_size": "int (1-50, default: 20)",
         },
     },
-    ActionType.CALCULATE.value: {
-        "description": "Execute safe arithmetic expression in sandbox calculator",
-        "parameters": {
-            "expression": "str (e.g., '100 + 25 * 4')",
-        },
-    },
-    ActionType.SUBMIT_FINDINGS.value: {
-        "description": "Submit final detected audit anomalies report to conclude episode",
-        "parameters": {
-            "findings": "List of Finding objects [finding_id, error_type, entity_id, description, evidence]",
-            "explanation": "Optional[str]",
-        },
-    },
 }
 
 
 def validate_action(action: Any) -> dict[str, Any]:
     """Validate action input structure and return standardized action dict.
 
-    Accepts action type via either 'type' or 'action' key for maximum interoperability.
+    Accepts action type via 'action' or 'type' key. Supports both Section 04 and legacy names.
 
     Raises:
         InvalidActionError: If action is not a dict or has invalid type.
@@ -85,12 +129,14 @@ def validate_action(action: Any) -> dict[str, Any]:
     if not isinstance(action, dict):
         raise InvalidActionError(f"Action must be a dictionary, got {type(action).__name__}")
 
-    action_type = action.get("type") or action.get("action")
-    if not action_type or action_type not in VALID_ACTION_TYPES:
+    raw_type = action.get("action") or action.get("type")
+    if not raw_type or str(raw_type) not in ACTION_ALIASES:
         raise InvalidActionError(
-            f"Invalid action type '{action_type}'. Valid types: {sorted(VALID_ACTION_TYPES)}"
+            f"Invalid action type '{raw_type}'. Valid types: {sorted(VALID_ACTION_TYPES)}"
         )
 
+    canonical_type = ACTION_ALIASES[str(raw_type)]
     normalized = dict(action)
-    normalized["type"] = action_type
+    normalized["type"] = canonical_type
+    normalized["action"] = canonical_type
     return normalized

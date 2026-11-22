@@ -19,8 +19,9 @@ def generate_dataset(
     num_train: int = 10,
     num_dev: int = 10,
     seed_offset: int = 1000,
+    num_transactions: int = 85,
 ) -> None:
-    """Generate train and dev episodic universes with balanced double-entry books."""
+    """Generate train and dev episodic universes with balanced double-entry books (Section 20)."""
     base_path = Path(output_dir)
 
     splits = [("train", num_train, 0), ("dev", num_dev, 1000)]
@@ -35,7 +36,9 @@ def generate_dataset(
             seed = seed_offset + split_seed_offset + i
             ep_dir = split_dir / f"ep_{i:03d}"
 
-            gen_config = GeneratorConfig(seed=seed, num_vendors=8, num_transactions=40)
+            gen_config = GeneratorConfig(
+                seed=seed, num_vendors=8, num_transactions=num_transactions
+            )
             world = SyntheticLedgerGenerator(gen_config).generate()
 
             anomaly_config = AnomalyConfig(seed=seed)

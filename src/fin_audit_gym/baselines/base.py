@@ -43,6 +43,8 @@ def run_policy_episode(
 
         trajectory.append(
             {
+                "episode_id": next_info.get("episode_id", info.get("episode_id")),
+                "step": len(trajectory) + 1,
                 "action": action,
                 "observation": next_obs,
                 "reward": reward,

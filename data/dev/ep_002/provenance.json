@@ -11,7 +11,7 @@
         "ENTRY-00001",
         "ENTRY-00002"
       ],
-      "timestamp": "2026-01-02",
+      "timestamp": "2026-01-01",
       "metadata": {
         "amount_minor": 288507
       }
@@ -27,7 +27,7 @@
         "ENTRY-00003",
         "ENTRY-00004"
       ],
-      "timestamp": "2026-01-11",
+      "timestamp": "2026-01-06",
       "metadata": {
         "amount_minor": 340781
       }
@@ -42,7 +42,7 @@
       "ledger_entry_ids": [
         "ENTRY-00005"
       ],
-      "timestamp": "2026-01-17",
+      "timestamp": "2026-01-09",
       "metadata": {
         "total_minor": 210770,
         "currency": "USD"
@@ -58,7 +58,7 @@
       "ledger_entry_ids": [
         "ENTRY-00006"
       ],
-      "timestamp": "2026-02-02",
+      "timestamp": "2026-01-17",
       "metadata": {
         "total_minor": 521024,
         "currency": "GBP"
@@ -74,7 +74,7 @@
       "ledger_entry_ids": [
         "ENTRY-00007"
       ],
-      "timestamp": "2026-02-07",
+      "timestamp": "2026-01-19",
       "metadata": {
         "total_minor": 638248,
         "currency": "USD"
@@ -91,7 +91,7 @@
       "ledger_entry_ids": [
         "ENTRY-00008"
       ],
-      "timestamp": "2026-03-02",
+      "timestamp": "2026-02-06",
       "metadata": {
         "amount_minor": 210770,
         "currency": "USD"
@@ -99,6 +99,22 @@
     },
     "TXN-00007": {
       "transaction_id": "TXN-00007",
+      "tx_type": "customer_sale",
+      "entity_ids": [
+        "SALE-2026-0007",
+        "CUST-004"
+      ],
+      "ledger_entry_ids": [
+        "ENTRY-00009",
+        "ENTRY-00010"
+      ],
+      "timestamp": "2026-01-29",
+      "metadata": {
+        "amount_minor": 73606
+      }
+    },
+    "TXN-00008": {
+      "transaction_id": "TXN-00008",
       "tx_type": "vendor_payment",
       "entity_ids": [
         "PAY-2026-0002",
@@ -106,60 +122,45 @@
         "VEND-006"
       ],
       "ledger_entry_ids": [
-        "ENTRY-00009"
+        "ENTRY-00011"
       ],
-      "timestamp": "2026-03-03",
+      "timestamp": "2026-02-21",
       "metadata": {
         "amount_minor": 521024,
         "currency": "GBP"
       }
     },
-    "TXN-00008": {
-      "transaction_id": "TXN-00008",
-      "tx_type": "vendor_invoice",
-      "entity_ids": [
-        "INV-2026-0004",
-        "VEND-002"
-      ],
-      "ledger_entry_ids": [
-        "ENTRY-00010"
-      ],
-      "timestamp": "2026-02-26",
-      "metadata": {
-        "total_minor": 476736,
-        "currency": "USD"
-      }
-    },
     "TXN-00009": {
       "transaction_id": "TXN-00009",
-      "tx_type": "vendor_invoice",
+      "tx_type": "vendor_payment",
       "entity_ids": [
-        "INV-2026-0005",
-        "VEND-006"
-      ],
-      "ledger_entry_ids": [
-        "ENTRY-00011"
-      ],
-      "timestamp": "2026-03-08",
-      "metadata": {
-        "total_minor": 2058437,
-        "currency": "USD"
-      }
-    },
-    "TXN-00010": {
-      "transaction_id": "TXN-00010",
-      "tx_type": "vendor_invoice",
-      "entity_ids": [
-        "INV-2026-0006",
+        "PAY-2026-0003",
+        "INV-2026-0003",
         "VEND-003"
       ],
       "ledger_entry_ids": [
         "ENTRY-00012"
       ],
-      "timestamp": "2026-03-18",
+      "timestamp": "2026-02-20",
       "metadata": {
-        "total_minor": 1193300,
+        "amount_minor": 638248,
         "currency": "USD"
+      }
+    },
+    "TXN-00010": {
+      "transaction_id": "TXN-00010",
+      "tx_type": "customer_sale",
+      "entity_ids": [
+        "SALE-2026-0010",
+        "CUST-003"
+      ],
+      "ledger_entry_ids": [
+        "ENTRY-00013",
+        "ENTRY-00014"
+      ],
+      "timestamp": "2026-02-10",
+      "metadata": {
+        "amount_minor": 398988
       }
     },
     "TXN-00011": {
@@ -167,46 +168,46 @@
       "tx_type": "customer_sale",
       "entity_ids": [
         "SALE-2026-0011",
-        "CUST-001"
-      ],
-      "ledger_entry_ids": [
-        "ENTRY-00013",
-        "ENTRY-00014"
-      ],
-      "timestamp": "2026-03-22",
-      "metadata": {
-        "amount_minor": 390359
-      }
-    },
-    "TXN-00012": {
-      "transaction_id": "TXN-00012",
-      "tx_type": "customer_sale",
-      "entity_ids": [
-        "SALE-2026-0012",
-        "CUST-003"
+        "CUST-005"
       ],
       "ledger_entry_ids": [
         "ENTRY-00015",
         "ENTRY-00016"
       ],
-      "timestamp": "2026-04-01",
+      "timestamp": "2026-02-13",
       "metadata": {
-        "amount_minor": 488496
+        "amount_minor": 298470
+      }
+    },
+    "TXN-00012": {
+      "transaction_id": "TXN-00012",
+      "tx_type": "vendor_invoice",
+      "entity_ids": [
+        "INV-2026-0004",
+        "VEND-005"
+      ],
+      "ledger_entry_ids": [
+        "ENTRY-00017"
+      ],
+      "timestamp": "2026-02-15",
+      "metadata": {
+        "total_minor": 732487,
+        "currency": "USD"
       }
     },
     "TXN-00013": {
       "transaction_id": "TXN-00013",
       "tx_type": "vendor_invoice",
       "entity_ids": [
-        "INV-2026-0007",
+        "INV-2026-0005",
         "VEND-002"
       ],
       "ledger_entry_ids": [
-        "ENTRY-00017"
+        "ENTRY-00018"
       ],
-      "timestamp": "2026-04-14",
+      "timestamp": "2026-02-21",
       "metadata": {
-        "total_minor": 368167,
+        "total_minor": 804752,
         "currency": "USD"
       }
     },
@@ -218,125 +219,125 @@
         "CUST-004"
       ],
       "ledger_entry_ids": [
-        "ENTRY-00018",
-        "ENTRY-00019"
+        "ENTRY-00019",
+        "ENTRY-00020"
       ],
-      "timestamp": "2026-04-19",
+      "timestamp": "2026-02-24",
       "metadata": {
-        "amount_minor": 140731
+        "amount_minor": 83676
       }
     },
     "TXN-00015": {
       "transaction_id": "TXN-00015",
-      "tx_type": "customer_sale",
-      "entity_ids": [
-        "SALE-2026-0015",
-        "CUST-005"
-      ],
-      "ledger_entry_ids": [
-        "ENTRY-00020",
-        "ENTRY-00021"
-      ],
-      "timestamp": "2026-04-29",
-      "metadata": {
-        "amount_minor": 225592
-      }
-    },
-    "TXN-00016": {
-      "transaction_id": "TXN-00016",
-      "tx_type": "customer_sale",
-      "entity_ids": [
-        "SALE-2026-0016",
-        "CUST-001"
-      ],
-      "ledger_entry_ids": [
-        "ENTRY-00022",
-        "ENTRY-00023"
-      ],
-      "timestamp": "2026-05-05",
-      "metadata": {
-        "amount_minor": 221279
-      }
-    },
-    "TXN-00017": {
-      "transaction_id": "TXN-00017",
-      "tx_type": "vendor_invoice",
-      "entity_ids": [
-        "INV-2026-0008",
-        "VEND-004"
-      ],
-      "ledger_entry_ids": [
-        "ENTRY-00024"
-      ],
-      "timestamp": "2026-05-14",
-      "metadata": {
-        "total_minor": 881808,
-        "currency": "USD"
-      }
-    },
-    "TXN-00018": {
-      "transaction_id": "TXN-00018",
-      "tx_type": "vendor_invoice",
-      "entity_ids": [
-        "INV-2026-0009",
-        "VEND-005"
-      ],
-      "ledger_entry_ids": [
-        "ENTRY-00025"
-      ],
-      "timestamp": "2026-05-17",
-      "metadata": {
-        "total_minor": 1163660,
-        "currency": "USD"
-      }
-    },
-    "TXN-00019": {
-      "transaction_id": "TXN-00019",
-      "tx_type": "vendor_invoice",
-      "entity_ids": [
-        "INV-2026-0010",
-        "VEND-004"
-      ],
-      "ledger_entry_ids": [
-        "ENTRY-00026"
-      ],
-      "timestamp": "2026-06-02",
-      "metadata": {
-        "total_minor": 692815,
-        "currency": "USD"
-      }
-    },
-    "TXN-00020": {
-      "transaction_id": "TXN-00020",
-      "tx_type": "vendor_payment",
-      "entity_ids": [
-        "PAY-2026-0003",
-        "INV-2026-0003",
-        "VEND-003"
-      ],
-      "ledger_entry_ids": [
-        "ENTRY-00027"
-      ],
-      "timestamp": "2026-06-19",
-      "metadata": {
-        "amount_minor": 638248,
-        "currency": "USD"
-      }
-    },
-    "TXN-00021": {
-      "transaction_id": "TXN-00021",
       "tx_type": "vendor_payment",
       "entity_ids": [
         "PAY-2026-0004",
         "INV-2026-0004",
+        "VEND-005"
+      ],
+      "ledger_entry_ids": [
+        "ENTRY-00021"
+      ],
+      "timestamp": "2026-03-09",
+      "metadata": {
+        "amount_minor": 732487,
+        "currency": "USD"
+      }
+    },
+    "TXN-00016": {
+      "transaction_id": "TXN-00016",
+      "tx_type": "vendor_payment",
+      "entity_ids": [
+        "PAY-2026-0005",
+        "INV-2026-0005",
         "VEND-002"
       ],
       "ledger_entry_ids": [
+        "ENTRY-00022"
+      ],
+      "timestamp": "2026-03-23",
+      "metadata": {
+        "amount_minor": 804752,
+        "currency": "USD"
+      }
+    },
+    "TXN-00017": {
+      "transaction_id": "TXN-00017",
+      "tx_type": "customer_sale",
+      "entity_ids": [
+        "SALE-2026-0017",
+        "CUST-004"
+      ],
+      "ledger_entry_ids": [
+        "ENTRY-00023",
+        "ENTRY-00024"
+      ],
+      "timestamp": "2026-03-09",
+      "metadata": {
+        "amount_minor": 302999
+      }
+    },
+    "TXN-00018": {
+      "transaction_id": "TXN-00018",
+      "tx_type": "customer_sale",
+      "entity_ids": [
+        "SALE-2026-0018",
+        "CUST-003"
+      ],
+      "ledger_entry_ids": [
+        "ENTRY-00025",
+        "ENTRY-00026"
+      ],
+      "timestamp": "2026-03-14",
+      "metadata": {
+        "amount_minor": 334496
+      }
+    },
+    "TXN-00019": {
+      "transaction_id": "TXN-00019",
+      "tx_type": "customer_sale",
+      "entity_ids": [
+        "SALE-2026-0019",
+        "CUST-003"
+      ],
+      "ledger_entry_ids": [
+        "ENTRY-00027",
         "ENTRY-00028"
       ],
-      "timestamp": "2026-06-22",
+      "timestamp": "2026-03-14",
       "metadata": {
-        "amount_minor": 476736,
+        "amount_minor": 423740
+      }
+    },
+    "TXN-00020": {
+      "transaction_id": "TXN-00020",
+      "tx_type": "customer_sale",
+      "entity_ids": [
+        "SALE-2026-0020",
+        "CUST-004"
+      ],
+      "ledger_entry_ids": [
+        "ENTRY-00029",
+        "ENTRY-00030"
+      ],
+      "timestamp": "2026-03-18",
+      "metadata": {
+        "amount_minor": 45954
+      }
+    },
+    "TXN-00021": {
+      "transaction_id": "TXN-00021",
+      "tx_type": "vendor_invoice",
+      "entity_ids": [
+        "INV-2026-0006",
+        "VEND-008"
+      ],
+      "ledger_entry_ids": [
+        "ENTRY-00031"
+      ],
+      "timestamp": "2026-03-24",
+      "metadata": {
+        "total_minor": 1358717,
         "currency": "USD"
       }
     },
@@ -344,48 +345,49 @@
       "transaction_id": "TXN-00022",
       "tx_type": "vendor_invoice",
       "entity_ids": [
-        "INV-2026-0011",
-        "VEND-002"
+        "INV-2026-0007",
+        "VEND-004"
       ],
       "ledger_entry_ids": [
-        "ENTRY-00029"
+        "ENTRY-00032"
       ],
-      "timestamp": "2026-06-25",
+      "timestamp": "2026-03-30",
       "metadata": {
-        "total_minor": 1403496,
+        "total_minor": 692815,
         "currency": "USD"
       }
     },
     "TXN-00023": {
       "transaction_id": "TXN-00023",
-      "tx_type": "customer_sale",
+      "tx_type": "vendor_payment",
       "entity_ids": [
-        "SALE-2026-0023",
-        "CUST-002"
+        "PAY-2026-0006",
+        "INV-2026-0006",
+        "VEND-008"
       ],
       "ledger_entry_ids": [
-        "ENTRY-00030",
-        "ENTRY-00031"
+        "ENTRY-00033"
       ],
-      "timestamp": "2026-07-01",
+      "timestamp": "2026-04-14",
       "metadata": {
-        "amount_minor": 281772
+        "amount_minor": 1358717,
+        "currency": "USD"
       }
     },
     "TXN-00024": {
       "transaction_id": "TXN-00024",
       "tx_type": "vendor_payment",
       "entity_ids": [
-        "PAY-2026-0005",
-        "INV-2026-0005",
-        "VEND-006"
+        "PAY-2026-0007",
+        "INV-2026-0007",
+        "VEND-004"
       ],
       "ledger_entry_ids": [
-        "ENTRY-00032"
+        "ENTRY-00034"
       ],
-      "timestamp": "2026-07-13",
+      "timestamp": "2026-04-12",
       "metadata": {
-        "amount_minor": 2058437,
+        "amount_minor": 692815,
         "currency": "USD"
       }
     },
@@ -393,47 +395,48 @@
       "transaction_id": "TXN-00025",
       "tx_type": "vendor_invoice",
       "entity_ids": [
-        "INV-2026-0012",
-        "VEND-005"
+        "INV-2026-0008",
+        "VEND-002"
       ],
       "ledger_entry_ids": [
-        "ENTRY-00033"
+        "ENTRY-00035"
       ],
-      "timestamp": "2026-07-19",
+      "timestamp": "2026-04-10",
       "metadata": {
-        "total_minor": 313053,
+        "total_minor": 1403496,
         "currency": "USD"
       }
     },
     "TXN-00026": {
       "transaction_id": "TXN-00026",
-      "tx_type": "vendor_invoice",
+      "tx_type": "customer_sale",
       "entity_ids": [
-        "INV-2026-0013",
-        "VEND-003"
+        "SALE-2026-0026",
+        "CUST-002"
       ],
       "ledger_entry_ids": [
-        "ENTRY-00034"
+        "ENTRY-00036",
+        "ENTRY-00037"
       ],
-      "timestamp": "2026-07-27",
+      "timestamp": "2026-04-13",
       "metadata": {
-        "total_minor": 416415,
-        "currency": "EUR"
+        "amount_minor": 281772
       }
     },
     "TXN-00027": {
       "transaction_id": "TXN-00027",
-      "tx_type": "vendor_invoice",
+      "tx_type": "vendor_payment",
       "entity_ids": [
-        "INV-2026-0014",
-        "VEND-003"
+        "PAY-2026-0008",
+        "INV-2026-0008",
+        "VEND-002"
       ],
       "ledger_entry_ids": [
-        "ENTRY-00035"
+        "ENTRY-00038"
       ],
-      "timestamp": "2026-07-29",
+      "timestamp": "2026-04-20",
       "metadata": {
-        "total_minor": 171608,
+        "amount_minor": 1403496,
         "currency": "USD"
       }
     },
@@ -441,82 +444,80 @@
       "transaction_id": "TXN-00028",
       "tx_type": "vendor_invoice",
       "entity_ids": [
-        "INV-2026-0015",
-        "VEND-003"
+        "INV-2026-0009",
+        "VEND-005"
       ],
       "ledger_entry_ids": [
-        "ENTRY-00036"
+        "ENTRY-00039"
       ],
-      "timestamp": "2026-08-08",
+      "timestamp": "2026-04-23",
       "metadata": {
-        "total_minor": 1179398,
-        "currency": "EUR"
+        "total_minor": 313053,
+        "currency": "USD"
       }
     },
     "TXN-00029": {
       "transaction_id": "TXN-00029",
-      "tx_type": "vendor_payment",
+      "tx_type": "vendor_invoice",
       "entity_ids": [
-        "PAY-2026-0006",
-        "INV-2026-0006",
+        "INV-2026-0010",
         "VEND-003"
-      ],
-      "ledger_entry_ids": [
-        "ENTRY-00037"
-      ],
-      "timestamp": "2026-08-26",
-      "metadata": {
-        "amount_minor": 1193300,
-        "currency": "USD"
-      }
-    },
-    "TXN-00030": {
-      "transaction_id": "TXN-00030",
-      "tx_type": "customer_sale",
-      "entity_ids": [
-        "SALE-2026-0030",
-        "CUST-004"
-      ],
-      "ledger_entry_ids": [
-        "ENTRY-00038",
-        "ENTRY-00039"
-      ],
-      "timestamp": "2026-08-22",
-      "metadata": {
-        "amount_minor": 225461
-      }
-    },
-    "TXN-00031": {
-      "transaction_id": "TXN-00031",
-      "tx_type": "vendor_payment",
-      "entity_ids": [
-        "PAY-2026-0007",
-        "INV-2026-0007",
-        "VEND-002"
       ],
       "ledger_entry_ids": [
         "ENTRY-00040"
       ],
-      "timestamp": "2026-09-12",
+      "timestamp": "2026-04-26",
       "metadata": {
-        "amount_minor": 368167,
+        "total_minor": 416415,
+        "currency": "EUR"
+      }
+    },
+    "TXN-00030": {
+      "transaction_id": "TXN-00030",
+      "tx_type": "vendor_invoice",
+      "entity_ids": [
+        "INV-2026-0011",
+        "VEND-003"
+      ],
+      "ledger_entry_ids": [
+        "ENTRY-00041"
+      ],
+      "timestamp": "2026-04-27",
+      "metadata": {
+        "total_minor": 171608,
         "currency": "USD"
+      }
+    },
+    "TXN-00031": {
+      "transaction_id": "TXN-00031",
+      "tx_type": "vendor_invoice",
+      "entity_ids": [
+        "INV-2026-0012",
+        "VEND-003"
+      ],
+      "ledger_entry_ids": [
+        "ENTRY-00042"
+      ],
+      "timestamp": "2026-05-02",
+      "metadata": {
+        "total_minor": 1179398,
+        "currency": "EUR"
       }
     },
     "TXN-00032": {
       "transaction_id": "TXN-00032",
       "tx_type": "vendor_payment",
       "entity_ids": [
-        "PAY-2026-0008",
-        "INV-2026-0008",
-        "VEND-004"
+        "PAY-2026-0009",
+        "INV-2026-0009",
+        "VEND-005"
       ],
       "ledger_entry_ids": [
-        "ENTRY-00041"
+        "ENTRY-00043"
       ],
-      "timestamp": "2026-09-16",
+      "timestamp": "2026-05-15",
       "metadata": {
-        "amount_minor": 881808,
+        "amount_minor": 313053,
         "currency": "USD"
       }
     },
@@ -525,127 +526,860 @@
       "tx_type": "customer_sale",
       "entity_ids": [
         "SALE-2026-0033",
-        "CUST-003"
+        "CUST-004"
       ],
       "ledger_entry_ids": [
-        "ENTRY-00042",
-        "ENTRY-00043"
+        "ENTRY-00044",
+        "ENTRY-00045"
       ],
-      "timestamp": "2026-09-21",
+      "timestamp": "2026-05-09",
       "metadata": {
-        "amount_minor": 498300
+        "amount_minor": 225461
       }
     },
     "TXN-00034": {
       "transaction_id": "TXN-00034",
-      "tx_type": "vendor_invoice",
+      "tx_type": "vendor_payment",
       "entity_ids": [
-        "INV-2026-0016",
-        "VEND-008"
+        "PAY-2026-0010",
+        "INV-2026-0010",
+        "VEND-003"
       ],
       "ledger_entry_ids": [
-        "ENTRY-00044"
+        "ENTRY-00046"
       ],
-      "timestamp": "2026-09-26",
+      "timestamp": "2026-05-26",
       "metadata": {
-        "total_minor": 176892,
-        "currency": "USD"
+        "amount_minor": 416415,
+        "currency": "EUR"
       }
     },
     "TXN-00035": {
       "transaction_id": "TXN-00035",
-      "tx_type": "customer_sale",
+      "tx_type": "vendor_payment",
       "entity_ids": [
-        "SALE-2026-0035",
-        "CUST-001"
-      ],
-      "ledger_entry_ids": [
-        "ENTRY-00045",
-        "ENTRY-00046"
-      ],
-      "timestamp": "2026-10-03",
-      "metadata": {
-        "amount_minor": 197519
-      }
-    },
-    "TXN-00036": {
-      "transaction_id": "TXN-00036",
-      "tx_type": "vendor_invoice",
-      "entity_ids": [
-        "INV-2026-0017",
-        "VEND-007"
+        "PAY-2026-0011",
+        "INV-2026-0011",
+        "VEND-003"
       ],
       "ledger_entry_ids": [
         "ENTRY-00047"
       ],
-      "timestamp": "2026-10-13",
+      "timestamp": "2026-05-23",
       "metadata": {
-        "total_minor": 544194,
+        "amount_minor": 171608,
         "currency": "USD"
+      }
+    },
+    "TXN-00036": {
+      "transaction_id": "TXN-00036",
+      "tx_type": "customer_sale",
+      "entity_ids": [
+        "SALE-2026-0036",
+        "CUST-003"
+      ],
+      "ledger_entry_ids": [
+        "ENTRY-00048",
+        "ENTRY-00049"
+      ],
+      "timestamp": "2026-05-24",
+      "metadata": {
+        "amount_minor": 498300
       }
     },
     "TXN-00037": {
       "transaction_id": "TXN-00037",
       "tx_type": "vendor_invoice",
       "entity_ids": [
-        "INV-2026-0018",
-        "VEND-004"
+        "INV-2026-0013",
+        "VEND-008"
       ],
       "ledger_entry_ids": [
-        "ENTRY-00048"
+        "ENTRY-00050"
       ],
-      "timestamp": "2026-10-22",
+      "timestamp": "2026-05-27",
       "metadata": {
-        "total_minor": 928088,
-        "currency": "GBP"
+        "total_minor": 176892,
+        "currency": "USD"
       }
     },
     "TXN-00038": {
       "transaction_id": "TXN-00038",
-      "tx_type": "vendor_invoice",
+      "tx_type": "vendor_payment",
       "entity_ids": [
-        "INV-2026-0019",
-        "VEND-001"
+        "PAY-2026-0012",
+        "INV-2026-0012",
+        "VEND-003"
       ],
       "ledger_entry_ids": [
-        "ENTRY-00049"
+        "ENTRY-00051"
       ],
-      "timestamp": "2026-10-27",
+      "timestamp": "2026-06-17",
       "metadata": {
-        "total_minor": 931153,
+        "amount_minor": 1179398,
         "currency": "EUR"
       }
     },
     "TXN-00039": {
       "transaction_id": "TXN-00039",
-      "tx_type": "customer_sale",
+      "tx_type": "vendor_invoice",
       "entity_ids": [
-        "SALE-2026-0039",
-        "CUST-002"
-      ],
-      "ledger_entry_ids": [
-        "ENTRY-00050",
-        "ENTRY-00051"
-      ],
-      "timestamp": "2026-11-03",
-      "metadata": {
-        "amount_minor": 186355
-      }
-    },
-    "TXN-00040": {
-      "transaction_id": "TXN-00040",
-      "tx_type": "vendor_payment",
-      "entity_ids": [
-        "PAY-2026-0009",
-        "INV-2026-0009",
-        "VEND-005"
+        "INV-2026-0014",
+        "VEND-006"
       ],
       "ledger_entry_ids": [
         "ENTRY-00052"
       ],
-      "timestamp": "2026-11-26",
+      "timestamp": "2026-06-04",
       "metadata": {
-        "amount_minor": 1163660,
+        "total_minor": 187187,
+        "currency": "USD"
+      }
+    },
+    "TXN-00040": {
+      "transaction_id": "TXN-00040",
+      "tx_type": "vendor_invoice",
+      "entity_ids": [
+        "INV-2026-0015",
+        "VEND-004"
+      ],
+      "ledger_entry_ids": [
+        "ENTRY-00053"
+      ],
+      "timestamp": "2026-06-08",
+      "metadata": {
+        "total_minor": 928088,
+        "currency": "GBP"
+      }
+    },
+    "TXN-00041": {
+      "transaction_id": "TXN-00041",
+      "tx_type": "vendor_invoice",
+      "entity_ids": [
+        "INV-2026-0016",
+        "VEND-001"
+      ],
+      "ledger_entry_ids": [
+        "ENTRY-00054"
+      ],
+      "timestamp": "2026-06-11",
+      "metadata": {
+        "total_minor": 931153,
+        "currency": "EUR"
+      }
+    },
+    "TXN-00042": {
+      "transaction_id": "TXN-00042",
+      "tx_type": "customer_sale",
+      "entity_ids": [
+        "SALE-2026-0042",
+        "CUST-002"
+      ],
+      "ledger_entry_ids": [
+        "ENTRY-00055",
+        "ENTRY-00056"
+      ],
+      "timestamp": "2026-06-15",
+      "metadata": {
+        "amount_minor": 186355
+      }
+    },
+    "TXN-00043": {
+      "transaction_id": "TXN-00043",
+      "tx_type": "vendor_payment",
+      "entity_ids": [
+        "PAY-2026-0013",
+        "INV-2026-0013",
+        "VEND-008"
+      ],
+      "ledger_entry_ids": [
+        "ENTRY-00057"
+      ],
+      "timestamp": "2026-07-03",
+      "metadata": {
+        "amount_minor": 176892,
+        "currency": "USD"
+      }
+    },
+    "TXN-00044": {
+      "transaction_id": "TXN-00044",
+      "tx_type": "vendor_invoice",
+      "entity_ids": [
+        "INV-2026-0017",
+        "VEND-003"
+      ],
+      "ledger_entry_ids": [
+        "ENTRY-00058"
+      ],
+      "timestamp": "2026-06-23",
+      "metadata": {
+        "total_minor": 91420,
+        "currency": "USD"
+      }
+    },
+    "TXN-00045": {
+      "transaction_id": "TXN-00045",
+      "tx_type": "vendor_payment",
+      "entity_ids": [
+        "PAY-2026-0014",
+        "INV-2026-0014",
+        "VEND-006"
+      ],
+      "ledger_entry_ids": [
+        "ENTRY-00059"
+      ],
+      "timestamp": "2026-07-20",
+      "metadata": {
+        "amount_minor": 187187,
+        "currency": "USD"
+      }
+    },
+    "TXN-00046": {
+      "transaction_id": "TXN-00046",
+      "tx_type": "vendor_payment",
+      "entity_ids": [
+        "PAY-2026-0015",
+        "INV-2026-0015",
+        "VEND-004"
+      ],
+      "ledger_entry_ids": [
+        "ENTRY-00060"
+      ],
+      "timestamp": "2026-07-16",
+      "metadata": {
+        "amount_minor": 928088,
+        "currency": "GBP"
+      }
+    },
+    "TXN-00047": {
+      "transaction_id": "TXN-00047",
+      "tx_type": "customer_sale",
+      "entity_ids": [
+        "SALE-2026-0047",
+        "CUST-001"
+      ],
+      "ledger_entry_ids": [
+        "ENTRY-00061",
+        "ENTRY-00062"
+      ],
+      "timestamp": "2026-07-05",
+      "metadata": {
+        "amount_minor": 81199
+      }
+    },
+    "TXN-00048": {
+      "transaction_id": "TXN-00048",
+      "tx_type": "customer_sale",
+      "entity_ids": [
+        "SALE-2026-0048",
+        "CUST-001"
+      ],
+      "ledger_entry_ids": [
+        "ENTRY-00063",
+        "ENTRY-00064"
+      ],
+      "timestamp": "2026-07-10",
+      "metadata": {
+        "amount_minor": 493962
+      }
+    },
+    "TXN-00049": {
+      "transaction_id": "TXN-00049",
+      "tx_type": "vendor_payment",
+      "entity_ids": [
+        "PAY-2026-0016",
+        "INV-2026-0016",
+        "VEND-001"
+      ],
+      "ledger_entry_ids": [
+        "ENTRY-00065"
+      ],
+      "timestamp": "2026-07-26",
+      "metadata": {
+        "amount_minor": 931153,
+        "currency": "EUR"
+      }
+    },
+    "TXN-00050": {
+      "transaction_id": "TXN-00050",
+      "tx_type": "vendor_invoice",
+      "entity_ids": [
+        "INV-2026-0018",
+        "VEND-008"
+      ],
+      "ledger_entry_ids": [
+        "ENTRY-00066"
+      ],
+      "timestamp": "2026-07-18",
+      "metadata": {
+        "total_minor": 547724,
+        "currency": "USD"
+      }
+    },
+    "TXN-00051": {
+      "transaction_id": "TXN-00051",
+      "tx_type": "vendor_payment",
+      "entity_ids": [
+        "PAY-2026-0017",
+        "INV-2026-0017",
+        "VEND-003"
+      ],
+      "ledger_entry_ids": [
+        "ENTRY-00067"
+      ],
+      "timestamp": "2026-07-24",
+      "metadata": {
+        "amount_minor": 91420,
+        "currency": "USD"
+      }
+    },
+    "TXN-00052": {
+      "transaction_id": "TXN-00052",
+      "tx_type": "vendor_payment",
+      "entity_ids": [
+        "PAY-2026-0018",
+        "INV-2026-0018",
+        "VEND-008"
+      ],
+      "ledger_entry_ids": [
+        "ENTRY-00068"
+      ],
+      "timestamp": "2026-08-07",
+      "metadata": {
+        "amount_minor": 547724,
+        "currency": "USD"
+      }
+    },
+    "TXN-00053": {
+      "transaction_id": "TXN-00053",
+      "tx_type": "customer_sale",
+      "entity_ids": [
+        "SALE-2026-0053",
+        "CUST-003"
+      ],
+      "ledger_entry_ids": [
+        "ENTRY-00069",
+        "ENTRY-00070"
+      ],
+      "timestamp": "2026-07-29",
+      "metadata": {
+        "amount_minor": 392999
+      }
+    },
+    "TXN-00054": {
+      "transaction_id": "TXN-00054",
+      "tx_type": "customer_sale",
+      "entity_ids": [
+        "SALE-2026-0054",
+        "CUST-001"
+      ],
+      "ledger_entry_ids": [
+        "ENTRY-00071",
+        "ENTRY-00072"
+      ],
+      "timestamp": "2026-08-04",
+      "metadata": {
+        "amount_minor": 94951
+      }
+    },
+    "TXN-00055": {
+      "transaction_id": "TXN-00055",
+      "tx_type": "customer_sale",
+      "entity_ids": [
+        "SALE-2026-0055",
+        "CUST-004"
+      ],
+      "ledger_entry_ids": [
+        "ENTRY-00073",
+        "ENTRY-00074"
+      ],
+      "timestamp": "2026-08-06",
+      "metadata": {
+        "amount_minor": 25012
+      }
+    },
+    "TXN-00056": {
+      "transaction_id": "TXN-00056",
+      "tx_type": "customer_sale",
+      "entity_ids": [
+        "SALE-2026-0056",
+        "CUST-002"
+      ],
+      "ledger_entry_ids": [
+        "ENTRY-00075",
+        "ENTRY-00076"
+      ],
+      "timestamp": "2026-08-09",
+      "metadata": {
+        "amount_minor": 318473
+      }
+    },
+    "TXN-00057": {
+      "transaction_id": "TXN-00057",
+      "tx_type": "customer_sale",
+      "entity_ids": [
+        "SALE-2026-0057",
+        "CUST-005"
+      ],
+      "ledger_entry_ids": [
+        "ENTRY-00077",
+        "ENTRY-00078"
+      ],
+      "timestamp": "2026-08-17",
+      "metadata": {
+        "amount_minor": 184829
+      }
+    },
+    "TXN-00058": {
+      "transaction_id": "TXN-00058",
+      "tx_type": "customer_sale",
+      "entity_ids": [
+        "SALE-2026-0058",
+        "CUST-001"
+      ],
+      "ledger_entry_ids": [
+        "ENTRY-00079",
+        "ENTRY-00080"
+      ],
+      "timestamp": "2026-08-19",
+      "metadata": {
+        "amount_minor": 201578
+      }
+    },
+    "TXN-00059": {
+      "transaction_id": "TXN-00059",
+      "tx_type": "vendor_invoice",
+      "entity_ids": [
+        "INV-2026-0019",
+        "VEND-004"
+      ],
+      "ledger_entry_ids": [
+        "ENTRY-00081"
+      ],
+      "timestamp": "2026-08-24",
+      "metadata": {
+        "total_minor": 923170,
+        "currency": "USD"
+      }
+    },
+    "TXN-00060": {
+      "transaction_id": "TXN-00060",
+      "tx_type": "customer_sale",
+      "entity_ids": [
+        "SALE-2026-0060",
+        "CUST-001"
+      ],
+      "ledger_entry_ids": [
+        "ENTRY-00082",
+        "ENTRY-00083"
+      ],
+      "timestamp": "2026-08-28",
+      "metadata": {
+        "amount_minor": 70404
+      }
+    },
+    "TXN-00061": {
+      "transaction_id": "TXN-00061",
+      "tx_type": "customer_sale",
+      "entity_ids": [
+        "SALE-2026-0061",
+        "CUST-002"
+      ],
+      "ledger_entry_ids": [
+        "ENTRY-00084",
+        "ENTRY-00085"
+      ],
+      "timestamp": "2026-08-29",
+      "metadata": {
+        "amount_minor": 157810
+      }
+    },
+    "TXN-00062": {
+      "transaction_id": "TXN-00062",
+      "tx_type": "vendor_invoice",
+      "entity_ids": [
+        "INV-2026-0020",
+        "VEND-004"
+      ],
+      "ledger_entry_ids": [
+        "ENTRY-00086"
+      ],
+      "timestamp": "2026-09-02",
+      "metadata": {
+        "total_minor": 281456,
+        "currency": "GBP"
+      }
+    },
+    "TXN-00063": {
+      "transaction_id": "TXN-00063",
+      "tx_type": "vendor_invoice",
+      "entity_ids": [
+        "INV-2026-0021",
+        "VEND-006"
+      ],
+      "ledger_entry_ids": [
+        "ENTRY-00087"
+      ],
+      "timestamp": "2026-09-09",
+      "metadata": {
+        "total_minor": 1000692,
+        "currency": "USD"
+      }
+    },
+    "TXN-00064": {
+      "transaction_id": "TXN-00064",
+      "tx_type": "vendor_invoice",
+      "entity_ids": [
+        "INV-2026-0022",
+        "VEND-004"
+      ],
+      "ledger_entry_ids": [
+        "ENTRY-00088"
+      ],
+      "timestamp": "2026-09-10",
+      "metadata": {
+        "total_minor": 1447684,
+        "currency": "USD"
+      }
+    },
+    "TXN-00065": {
+      "transaction_id": "TXN-00065",
+      "tx_type": "customer_sale",
+      "entity_ids": [
+        "SALE-2026-0065",
+        "CUST-004"
+      ],
+      "ledger_entry_ids": [
+        "ENTRY-00089",
+        "ENTRY-00090"
+      ],
+      "timestamp": "2026-09-15",
+      "metadata": {
+        "amount_minor": 131122
+      }
+    },
+    "TXN-00066": {
+      "transaction_id": "TXN-00066",
+      "tx_type": "vendor_invoice",
+      "entity_ids": [
+        "INV-2026-0023",
+        "VEND-005"
+      ],
+      "ledger_entry_ids": [
+        "ENTRY-00091"
+      ],
+      "timestamp": "2026-09-21",
+      "metadata": {
+        "total_minor": 557988,
+        "currency": "EUR"
+      }
+    },
+    "TXN-00067": {
+      "transaction_id": "TXN-00067",
+      "tx_type": "vendor_invoice",
+      "entity_ids": [
+        "INV-2026-0024",
+        "VEND-005"
+      ],
+      "ledger_entry_ids": [
+        "ENTRY-00092"
+      ],
+      "timestamp": "2026-09-25",
+      "metadata": {
+        "total_minor": 748768,
+        "currency": "EUR"
+      }
+    },
+    "TXN-00068": {
+      "transaction_id": "TXN-00068",
+      "tx_type": "vendor_invoice",
+      "entity_ids": [
+        "INV-2026-0025",
+        "VEND-006"
+      ],
+      "ledger_entry_ids": [
+        "ENTRY-00093"
+      ],
+      "timestamp": "2026-09-26",
+      "metadata": {
+        "total_minor": 621348,
+        "currency": "USD"
+      }
+    },
+    "TXN-00069": {
+      "transaction_id": "TXN-00069",
+      "tx_type": "vendor_payment",
+      "entity_ids": [
+        "PAY-2026-0019",
+        "INV-2026-0019",
+        "VEND-004"
+      ],
+      "ledger_entry_ids": [
+        "ENTRY-00094"
+      ],
+      "timestamp": "2026-10-10",
+      "metadata": {
+        "amount_minor": 923170,
+        "currency": "USD"
+      }
+    },
+    "TXN-00070": {
+      "transaction_id": "TXN-00070",
+      "tx_type": "vendor_invoice",
+      "entity_ids": [
+        "INV-2026-0026",
+        "VEND-003"
+      ],
+      "ledger_entry_ids": [
+        "ENTRY-00095"
+      ],
+      "timestamp": "2026-10-06",
+      "metadata": {
+        "total_minor": 1407332,
+        "currency": "USD"
+      }
+    },
+    "TXN-00071": {
+      "transaction_id": "TXN-00071",
+      "tx_type": "vendor_payment",
+      "entity_ids": [
+        "PAY-2026-0020",
+        "INV-2026-0020",
+        "VEND-004"
+      ],
+      "ledger_entry_ids": [
+        "ENTRY-00096"
+      ],
+      "timestamp": "2026-10-22",
+      "metadata": {
+        "amount_minor": 281456,
+        "currency": "GBP"
+      }
+    },
+    "TXN-00072": {
+      "transaction_id": "TXN-00072",
+      "tx_type": "vendor_invoice",
+      "entity_ids": [
+        "INV-2026-0027",
+        "VEND-005"
+      ],
+      "ledger_entry_ids": [
+        "ENTRY-00097"
+      ],
+      "timestamp": "2026-10-12",
+      "metadata": {
+        "total_minor": 432425,
+        "currency": "USD"
+      }
+    },
+    "TXN-00073": {
+      "transaction_id": "TXN-00073",
+      "tx_type": "vendor_invoice",
+      "entity_ids": [
+        "INV-2026-0028",
+        "VEND-003"
+      ],
+      "ledger_entry_ids": [
+        "ENTRY-00098"
+      ],
+      "timestamp": "2026-10-17",
+      "metadata": {
+        "total_minor": 783264,
+        "currency": "USD"
+      }
+    },
+    "TXN-00074": {
+      "transaction_id": "TXN-00074",
+      "tx_type": "customer_sale",
+      "entity_ids": [
+        "SALE-2026-0074",
+        "CUST-004"
+      ],
+      "ledger_entry_ids": [
+        "ENTRY-00099",
+        "ENTRY-00100"
+      ],
+      "timestamp": "2026-10-22",
+      "metadata": {
+        "amount_minor": 417892
+      }
+    },
+    "TXN-00075": {
+      "transaction_id": "TXN-00075",
+      "tx_type": "vendor_payment",
+      "entity_ids": [
+        "PAY-2026-0021",
+        "INV-2026-0021",
+        "VEND-006"
+      ],
+      "ledger_entry_ids": [
+        "ENTRY-00101"
+      ],
+      "timestamp": "2026-11-07",
+      "metadata": {
+        "amount_minor": 1000692,
+        "currency": "USD"
+      }
+    },
+    "TXN-00076": {
+      "transaction_id": "TXN-00076",
+      "tx_type": "customer_sale",
+      "entity_ids": [
+        "SALE-2026-0076",
+        "CUST-003"
+      ],
+      "ledger_entry_ids": [
+        "ENTRY-00102",
+        "ENTRY-00103"
+      ],
+      "timestamp": "2026-10-30",
+      "metadata": {
+        "amount_minor": 462932
+      }
+    },
+    "TXN-00077": {
+      "transaction_id": "TXN-00077",
+      "tx_type": "vendor_invoice",
+      "entity_ids": [
+        "INV-2026-0029",
+        "VEND-007"
+      ],
+      "ledger_entry_ids": [
+        "ENTRY-00104"
+      ],
+      "timestamp": "2026-11-03",
+      "metadata": {
+        "total_minor": 764503,
+        "currency": "GBP"
+      }
+    },
+    "TXN-00078": {
+      "transaction_id": "TXN-00078",
+      "tx_type": "vendor_payment",
+      "entity_ids": [
+        "PAY-2026-0022",
+        "INV-2026-0022",
+        "VEND-004"
+      ],
+      "ledger_entry_ids": [
+        "ENTRY-00105"
+      ],
+      "timestamp": "2026-11-09",
+      "metadata": {
+        "amount_minor": 1447684,
+        "currency": "USD"
+      }
+    },
+    "TXN-00079": {
+      "transaction_id": "TXN-00079",
+      "tx_type": "vendor_invoice",
+      "entity_ids": [
+        "INV-2026-0030",
+        "VEND-008"
+      ],
+      "ledger_entry_ids": [
+        "ENTRY-00106"
+      ],
+      "timestamp": "2026-11-11",
+      "metadata": {
+        "total_minor": 299308,
+        "currency": "USD"
+      }
+    },
+    "TXN-00080": {
+      "transaction_id": "TXN-00080",
+      "tx_type": "vendor_invoice",
+      "entity_ids": [
+        "INV-2026-0031",
+        "VEND-005"
+      ],
+      "ledger_entry_ids": [
+        "ENTRY-00107"
+      ],
+      "timestamp": "2026-11-16",
+      "metadata": {
+        "total_minor": 1406989,
+        "currency": "USD"
+      }
+    },
+    "TXN-00081": {
+      "transaction_id": "TXN-00081",
+      "tx_type": "customer_sale",
+      "entity_ids": [
+        "SALE-2026-0081",
+        "CUST-002"
+      ],
+      "ledger_entry_ids": [
+        "ENTRY-00108",
+        "ENTRY-00109"
+      ],
+      "timestamp": "2026-11-18",
+      "metadata": {
+        "amount_minor": 124811
+      }
+    },
+    "TXN-00082": {
+      "transaction_id": "TXN-00082",
+      "tx_type": "vendor_payment",
+      "entity_ids": [
+        "PAY-2026-0023",
+        "INV-2026-0023",
+        "VEND-005"
+      ],
+      "ledger_entry_ids": [
+        "ENTRY-00110"
+      ],
+      "timestamp": "2026-12-09",
+      "metadata": {
+        "amount_minor": 557988,
+        "currency": "EUR"
+      }
+    },
+    "TXN-00083": {
+      "transaction_id": "TXN-00083",
+      "tx_type": "customer_sale",
+      "entity_ids": [
+        "SALE-2026-0083",
+        "CUST-002"
+      ],
+      "ledger_entry_ids": [
+        "ENTRY-00111",
+        "ENTRY-00112"
+      ],
+      "timestamp": "2026-11-28",
+      "metadata": {
+        "amount_minor": 238829
+      }
+    },
+    "TXN-00084": {
+      "transaction_id": "TXN-00084",
+      "tx_type": "vendor_invoice",
+      "entity_ids": [
+        "INV-2026-0032",
+        "VEND-004"
+      ],
+      "ledger_entry_ids": [
+        "ENTRY-00113"
+      ],
+      "timestamp": "2026-12-02",
+      "metadata": {
+        "total_minor": 2077653,
+        "currency": "USD"
+      }
+    },
+    "TXN-00085": {
+      "transaction_id": "TXN-00085",
+      "tx_type": "vendor_invoice",
+      "entity_ids": [
+        "INV-2026-0033",
+        "VEND-001"
+      ],
+      "ledger_entry_ids": [
+        "ENTRY-00114"
+      ],
+      "timestamp": "2026-12-05",
+      "metadata": {
+        "total_minor": 232840,
         "currency": "USD"
       }
     }
@@ -656,16 +1390,24 @@
     ],
     "CUST-003": [
       "TXN-00001",
-      "TXN-00012",
-      "TXN-00033"
+      "TXN-00010",
+      "TXN-00018",
+      "TXN-00019",
+      "TXN-00036",
+      "TXN-00053",
+      "TXN-00076"
     ],
     "SALE-2026-0002": [
       "TXN-00002"
     ],
     "CUST-002": [
       "TXN-00002",
-      "TXN-00023",
-      "TXN-00039"
+      "TXN-00026",
+      "TXN-00042",
+      "TXN-00056",
+      "TXN-00061",
+      "TXN-00081",
+      "TXN-00083"
     ],
     "INV-2026-0001": [
       "TXN-00003",
@@ -675,176 +1417,362 @@
       "TXN-00003",
       "TXN-00004",
       "TXN-00006",
-      "TXN-00007",
-      "TXN-00009",
-      "TXN-00024"
+      "TXN-00008",
+      "TXN-00039",
+      "TXN-00045",
+      "TXN-00063",
+      "TXN-00068",
+      "TXN-00075"
     ],
     "INV-2026-0002": [
       "TXN-00004",
-      "TXN-00007"
+      "TXN-00008"
     ],
     "INV-2026-0003": [
       "TXN-00005",
-      "TXN-00020"
+      "TXN-00009"
     ],
     "VEND-003": [
       "TXN-00005",
-      "TXN-00010",
-      "TXN-00020",
-      "TXN-00026",
-      "TXN-00027",
-      "TXN-00028",
-      "TXN-00029"
+      "TXN-00009",
+      "TXN-00029",
+      "TXN-00030",
+      "TXN-00031",
+      "TXN-00034",
+      "TXN-00035",
+      "TXN-00038",
+      "TXN-00044",
+      "TXN-00051",
+      "TXN-00070",
+      "TXN-00073"
     ],
     "PAY-2026-0001": [
       "TXN-00006"
     ],
-    "PAY-2026-0002": [
+    "SALE-2026-0007": [
       "TXN-00007"
     ],
-    "INV-2026-0004": [
-      "TXN-00008",
-      "TXN-00021"
+    "CUST-004": [
+      "TXN-00007",
+      "TXN-00014",
+      "TXN-00017",
+      "TXN-00020",
+      "TXN-00033",
+      "TXN-00055",
+      "TXN-00065",
+      "TXN-00074"
     ],
-    "VEND-002": [
-      "TXN-00008",
-      "TXN-00013",
-      "TXN-00021",
-      "TXN-00022",
-      "TXN-00031"
+    "PAY-2026-0002": [
+      "TXN-00008"
     ],
-    "INV-2026-0005": [
-      "TXN-00009",
-      "TXN-00024"
+    "PAY-2026-0003": [
+      "TXN-00009"
     ],
-    "INV-2026-0006": [
-      "TXN-00010",
-      "TXN-00029"
+    "SALE-2026-0010": [
+      "TXN-00010"
     ],
     "SALE-2026-0011": [
       "TXN-00011"
     ],
-    "CUST-001": [
+    "CUST-005": [
       "TXN-00011",
-      "TXN-00016",
-      "TXN-00035"
+      "TXN-00057"
     ],
-    "SALE-2026-0012": [
-      "TXN-00012"
+    "INV-2026-0004": [
+      "TXN-00012",
+      "TXN-00015"
     ],
-    "INV-2026-0007": [
+    "VEND-005": [
+      "TXN-00012",
+      "TXN-00015",
+      "TXN-00028",
+      "TXN-00032",
+      "TXN-00066",
+      "TXN-00067",
+      "TXN-00072",
+      "TXN-00080",
+      "TXN-00082"
+    ],
+    "INV-2026-0005": [
       "TXN-00013",
-      "TXN-00031"
+      "TXN-00016"
+    ],
+    "VEND-002": [
+      "TXN-00013",
+      "TXN-00016",
+      "TXN-00025",
+      "TXN-00027"
     ],
     "SALE-2026-0014": [
       "TXN-00014"
     ],
-    "CUST-004": [
-      "TXN-00014",
-      "TXN-00030"
-    ],
-    "SALE-2026-0015": [
-      "TXN-00015"
-    ],
-    "CUST-005": [
-      "TXN-00015"
-    ],
-    "SALE-2026-0016": [
-      "TXN-00016"
-    ],
-    "INV-2026-0008": [
-      "TXN-00017",
-      "TXN-00032"
-    ],
-    "VEND-004": [
-      "TXN-00017",
-      "TXN-00019",
-      "TXN-00032",
-      "TXN-00037"
-    ],
-    "INV-2026-0009": [
-      "TXN-00018",
-      "TXN-00040"
-    ],
-    "VEND-005": [
-      "TXN-00018",
-      "TXN-00025",
-      "TXN-00040"
-    ],
-    "INV-2026-0010": [
-      "TXN-00019"
-    ],
-    "PAY-2026-0003": [
-      "TXN-00020"
-    ],
     "PAY-2026-0004": [
-      "TXN-00021"
-    ],
-    "INV-2026-0011": [
-      "TXN-00022"
-    ],
-    "SALE-2026-0023": [
-      "TXN-00023"
+      "TXN-00015"
     ],
     "PAY-2026-0005": [
+      "TXN-00016"
+    ],
+    "SALE-2026-0017": [
+      "TXN-00017"
+    ],
+    "SALE-2026-0018": [
+      "TXN-00018"
+    ],
+    "SALE-2026-0019": [
+      "TXN-00019"
+    ],
+    "SALE-2026-0020": [
+      "TXN-00020"
+    ],
+    "INV-2026-0006": [
+      "TXN-00021",
+      "TXN-00023"
+    ],
+    "VEND-008": [
+      "TXN-00021",
+      "TXN-00023",
+      "TXN-00037",
+      "TXN-00043",
+      "TXN-00050",
+      "TXN-00052",
+      "TXN-00079"
+    ],
+    "INV-2026-0007": [
+      "TXN-00022",
       "TXN-00024"
     ],
-    "INV-2026-0012": [
-      "TXN-00025"
-    ],
-    "INV-2026-0013": [
-      "TXN-00026"
-    ],
-    "INV-2026-0014": [
-      "TXN-00027"
-    ],
-    "INV-2026-0015": [
-      "TXN-00028"
+    "VEND-004": [
+      "TXN-00022",
+      "TXN-00024",
+      "TXN-00040",
+      "TXN-00046",
+      "TXN-00059",
+      "TXN-00062",
+      "TXN-00064",
+      "TXN-00069",
+      "TXN-00071",
+      "TXN-00078",
+      "TXN-00084"
     ],
     "PAY-2026-0006": [
-      "TXN-00029"
-    ],
-    "SALE-2026-0030": [
-      "TXN-00030"
+      "TXN-00023"
     ],
     "PAY-2026-0007": [
-      "TXN-00031"
+      "TXN-00024"
+    ],
+    "INV-2026-0008": [
+      "TXN-00025",
+      "TXN-00027"
+    ],
+    "SALE-2026-0026": [
+      "TXN-00026"
     ],
     "PAY-2026-0008": [
+      "TXN-00027"
+    ],
+    "INV-2026-0009": [
+      "TXN-00028",
+      "TXN-00032"
+    ],
+    "INV-2026-0010": [
+      "TXN-00029",
+      "TXN-00034"
+    ],
+    "INV-2026-0011": [
+      "TXN-00030",
+      "TXN-00035"
+    ],
+    "INV-2026-0012": [
+      "TXN-00031",
+      "TXN-00038"
+    ],
+    "PAY-2026-0009": [
       "TXN-00032"
     ],
     "SALE-2026-0033": [
       "TXN-00033"
     ],
-    "INV-2026-0016": [
+    "PAY-2026-0010": [
       "TXN-00034"
     ],
-    "VEND-008": [
-      "TXN-00034"
-    ],
-    "SALE-2026-0035": [
+    "PAY-2026-0011": [
       "TXN-00035"
     ],
-    "INV-2026-0017": [
+    "SALE-2026-0036": [
       "TXN-00036"
     ],
-    "VEND-007": [
-      "TXN-00036"
+    "INV-2026-0013": [
+      "TXN-00037",
+      "TXN-00043"
     ],
-    "INV-2026-0018": [
-      "TXN-00037"
-    ],
-    "INV-2026-0019": [
+    "PAY-2026-0012": [
       "TXN-00038"
+    ],
+    "INV-2026-0014": [
+      "TXN-00039",
+      "TXN-00045"
+    ],
+    "INV-2026-0015": [
+      "TXN-00040",
+      "TXN-00046"
+    ],
+    "INV-2026-0016": [
+      "TXN-00041",
+      "TXN-00049"
     ],
     "VEND-001": [
-      "TXN-00038"
+      "TXN-00041",
+      "TXN-00049",
+      "TXN-00085"
     ],
-    "SALE-2026-0039": [
-      "TXN-00039"
+    "SALE-2026-0042": [
+      "TXN-00042"
     ],
-    "PAY-2026-0009": [
-      "TXN-00040"
+    "PAY-2026-0013": [
+      "TXN-00043"
+    ],
+    "INV-2026-0017": [
+      "TXN-00044",
+      "TXN-00051"
+    ],
+    "PAY-2026-0014": [
+      "TXN-00045"
+    ],
+    "PAY-2026-0015": [
+      "TXN-00046"
+    ],
+    "SALE-2026-0047": [
+      "TXN-00047"
+    ],
+    "CUST-001": [
+      "TXN-00047",
+      "TXN-00048",
+      "TXN-00054",
+      "TXN-00058",
+      "TXN-00060"
+    ],
+    "SALE-2026-0048": [
+      "TXN-00048"
+    ],
+    "PAY-2026-0016": [
+      "TXN-00049"
+    ],
+    "INV-2026-0018": [
+      "TXN-00050",
+      "TXN-00052"
+    ],
+    "PAY-2026-0017": [
+      "TXN-00051"
+    ],
+    "PAY-2026-0018": [
+      "TXN-00052"
+    ],
+    "SALE-2026-0053": [
+      "TXN-00053"
+    ],
+    "SALE-2026-0054": [
+      "TXN-00054"
+    ],
+    "SALE-2026-0055": [
+      "TXN-00055"
+    ],
+    "SALE-2026-0056": [
+      "TXN-00056"
+    ],
+    "SALE-2026-0057": [
+      "TXN-00057"
+    ],
+    "SALE-2026-0058": [
+      "TXN-00058"
+    ],
+    "INV-2026-0019": [
+      "TXN-00059",
+      "TXN-00069"
+    ],
+    "SALE-2026-0060": [
+      "TXN-00060"
+    ],
+    "SALE-2026-0061": [
+      "TXN-00061"
+    ],
+    "INV-2026-0020": [
+      "TXN-00062",
+      "TXN-00071"
+    ],
+    "INV-2026-0021": [
+      "TXN-00063",
+      "TXN-00075"
+    ],
+    "INV-2026-0022": [
+      "TXN-00064",
+      "TXN-00078"
+    ],
+    "SALE-2026-0065": [
+      "TXN-00065"
+    ],
+    "INV-2026-0023": [
+      "TXN-00066",
+      "TXN-00082"
+    ],
+    "INV-2026-0024": [
+      "TXN-00067"
+    ],
+    "INV-2026-0025": [
+      "TXN-00068"
+    ],
+    "PAY-2026-0019": [
+      "TXN-00069"
+    ],
+    "INV-2026-0026": [
+      "TXN-00070"
+    ],
+    "PAY-2026-0020": [
+      "TXN-00071"
+    ],
+    "INV-2026-0027": [
+      "TXN-00072"
+    ],
+    "INV-2026-0028": [
+      "TXN-00073"
+    ],
+    "SALE-2026-0074": [
+      "TXN-00074"
+    ],
+    "PAY-2026-0021": [
+      "TXN-00075"
+    ],
+    "SALE-2026-0076": [
+      "TXN-00076"
+    ],
+    "INV-2026-0029": [
+      "TXN-00077"
+    ],
+    "VEND-007": [
+      "TXN-00077"
+    ],
+    "PAY-2026-0022": [
+      "TXN-00078"
+    ],
+    "INV-2026-0030": [
+      "TXN-00079"
+    ],
+    "INV-2026-0031": [
+      "TXN-00080"
+    ],
+    "SALE-2026-0081": [
+      "TXN-00081"
+    ],
+    "PAY-2026-0023": [
+      "TXN-00082"
+    ],
+    "SALE-2026-0083": [
+      "TXN-00083"
+    ],
+    "INV-2026-0032": [
+      "TXN-00084"
+    ],
+    "INV-2026-0033": [
+      "TXN-00085"
     ]
   }
 }

@@ -81,34 +81,62 @@ class GeneratedWorld(BaseModel):
     def export_to_directory(
         self, dir_path: Path | str, truth_findings: list[Finding] | None = None
     ) -> None:
-        """Export world artifacts to target directory as CSV, JSON, and JSONL files."""
+        """Export world artifacts to target directory as CSV, JSON, and JSONL files (Section 03)."""
         out_dir = Path(dir_path)
         out_dir.mkdir(parents=True, exist_ok=True)
 
-        # 1. Export ledger.csv
+        # 0. Export policy.json (Section 03)
+        policy_file = out_dir / "policy.json"
+        policy_dict = {
+            "schema_version": "1.0.0",
+            "episode_id": self.manifest.episode_id,
+            "fx_date_policy": "transaction_date",
+            "period_start": self.manifest.period_start,
+            "period_end": self.manifest.period_end,
+            "timezone": self.manifest.timezone,
+            "rounding_rule": self.manifest.rounding_rule,
+            "amount_tolerance_minor": 100,
+        }
+        policy_file.write_text(json.dumps(policy_dict, indent=2), encoding="utf-8")
+
+        # 1. Export ledger.csv (Section 03 canonical + compatibility headers)
         ledger_file = out_dir / "ledger.csv"
         with ledger_file.open("w", newline="", encoding="utf-8") as f:
             writer = csv.writer(f)
             writer.writerow(
                 [
+                    "row_id",
+                    "timestamp",
+                    "account",
+                    "debit_minor",
+                    "credit_minor",
+                    "currency",
+                    "entity_id",
+                    "invoice_id",
+                    "payment_id",
                     "entry_id",
                     "account_id",
                     "date",
                     "description",
-                    "debit_minor",
-                    "credit_minor",
                     "reference_id",
                 ]
             )
             for row in self.ledger:
                 writer.writerow(
                     [
-                        row.entry_id,
-                        row.account_id,
-                        row.date,
-                        row.description,
+                        row.row_id or row.entry_id,
+                        row.timestamp or row.date,
+                        row.account or row.account_id,
                         row.debit_minor,
                         row.credit_minor,
+                        row.currency,
+                        row.entity_id or "",
+                        row.invoice_id or "",
+                        row.payment_id or "",
+                        row.entry_id or row.row_id,
+                        row.account_id or row.account,
+                        row.date or row.timestamp,
+                        row.description,
                         row.reference_id or "",
                     ]
                 )
@@ -125,13 +153,31 @@ class GeneratedWorld(BaseModel):
             for pmt in self.payments:
                 f.write(pmt.model_dump_json() + "\n")
 
-        # 4. Export fx.csv
+        # 4. Export fx.csv (Section 03 canonical: date, source_currency, target_currency, rate)
         fx_file = out_dir / "fx.csv"
         with fx_file.open("w", newline="", encoding="utf-8") as f:
             writer = csv.writer(f)
-            writer.writerow(["date", "base_currency", "quote_currency", "rate"])
+            writer.writerow(
+                [
+                    "date",
+                    "source_currency",
+                    "target_currency",
+                    "rate",
+                    "base_currency",
+                    "quote_currency",
+                ]
+            )
             for fx in self.fx_rates:
-                writer.writerow([fx.date, fx.base_currency, fx.quote_currency, fx.rate])
+                writer.writerow(
+                    [
+                        fx.date,
+                        fx.source_currency or fx.base_currency,
+                        fx.target_currency or fx.quote_currency,
+                        fx.rate,
+                        fx.base_currency or fx.source_currency,
+                        fx.quote_currency or fx.target_currency,
+                    ]
+                )
 
         # 5. Export manifest.json
         manifest_file = out_dir / "manifest.json"
@@ -141,12 +187,22 @@ class GeneratedWorld(BaseModel):
         provenance_file = out_dir / "provenance.json"
         provenance_file.write_text(json.dumps(self.provenance, indent=2), encoding="utf-8")
 
-        # 7. Export truth.json if provided
+        # 7. Export truth.json if provided (Section 03: issue_id, type, affected_ids, expected_amount_minor, currency, admissible_evidence_sets)
         if truth_findings is not None:
             truth_file = out_dir / "truth.json"
-            truth_file.write_text(
-                json.dumps([f.model_dump() for f in truth_findings], indent=2), encoding="utf-8"
-            )
+            formatted_truth = []
+            for f in truth_findings:
+                item = f.model_dump()
+                item["issue_id"] = f.issue_id or f.finding_id
+                item["type"] = f.type or f.error_type
+                item["affected_ids"] = f.affected_ids or ([f.entity_id] if f.entity_id else [])
+                item["expected_amount_minor"] = f.expected_amount_minor or 0
+                item["currency"] = f.currency or "USD"
+                item["admissible_evidence_sets"] = f.admissible_evidence_sets or (
+                    [list(f.evidence_ids)] if f.evidence_ids else []
+                )
+                formatted_truth.append(item)
+            truth_file.write_text(json.dumps(formatted_truth, indent=2), encoding="utf-8")
 
 
 class SyntheticLedgerGenerator:

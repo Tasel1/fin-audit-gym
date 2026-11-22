@@ -1,9 +1,17 @@
 {
+  "schema_version": "1.0.0",
   "episode_id": "EP-2026-1003",
   "company_name": "Starlight Enterprise Solutions Inc.",
   "fiscal_year": 2026,
+  "base_currency": "USD",
   "currency": "USD",
+  "period_start": "2026-01-01T00:00:00+00:00",
+  "period_end": "2026-12-31T23:59:59+00:00",
+  "timezone": "UTC",
+  "total_records": 85,
+  "total_documents": 0,
+  "total_transactions": 133,
   "initial_cash_minor": 100000000,
-  "total_transactions": 77,
+  "rounding_rule": "ROUND_HALF_EVEN",
   "injected_anomalies_count": 6
 }

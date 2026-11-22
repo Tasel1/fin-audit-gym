@@ -1,0 +1,10 @@
+{
+  "schema_version": "1.0.0",
+  "episode_id": "EP-2026-1009",
+  "fx_date_policy": "transaction_date",
+  "period_start": "2026-01-01T00:00:00+00:00",
+  "period_end": "2026-12-31T23:59:59+00:00",
+  "timezone": "UTC",
+  "rounding_rule": "ROUND_HALF_EVEN",
+  "amount_tolerance_minor": 100
+}
