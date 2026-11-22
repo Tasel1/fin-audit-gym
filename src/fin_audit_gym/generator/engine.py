@@ -122,10 +122,14 @@ class GeneratedWorld(BaseModel):
                 ]
             )
             for row in self.ledger:
+                ts = row.timestamp or (
+                    f"{row.date}T10:00:00+00:00" if row.date else "2026-01-01T10:00:00+00:00"
+                )
+                d = row.date or (ts.split("T")[0] if "T" in ts else ts)
                 writer.writerow(
                     [
                         row.row_id or row.entry_id,
-                        row.timestamp or row.date,
+                        ts,
                         row.account or row.account_id,
                         row.debit_minor,
                         row.credit_minor,
@@ -135,7 +139,7 @@ class GeneratedWorld(BaseModel):
                         row.payment_id or "",
                         row.entry_id or row.row_id,
                         row.account_id or row.account,
-                        row.date or row.timestamp,
+                        d,
                         row.description,
                         row.reference_id or "",
                     ]
@@ -145,12 +149,18 @@ class GeneratedWorld(BaseModel):
         invoices_file = out_dir / "invoices.jsonl"
         with invoices_file.open("w", encoding="utf-8") as f:
             for inv in self.invoices:
+                if not inv.issued_at and inv.invoice_date:
+                    inv.issued_at = f"{inv.invoice_date}T09:00:00+00:00"
+                if not inv.due_at and inv.due_date:
+                    inv.due_at = f"{inv.due_date}T18:00:00+00:00"
                 f.write(inv.model_dump_json() + "\n")
 
         # 3. Export payments.jsonl
         payments_file = out_dir / "payments.jsonl"
         with payments_file.open("w", encoding="utf-8") as f:
             for pmt in self.payments:
+                if not pmt.timestamp and pmt.payment_date:
+                    pmt.timestamp = f"{pmt.payment_date}T14:30:00+00:00"
                 f.write(pmt.model_dump_json() + "\n")
 
         # 4. Export fx.csv (Section 03 canonical: date, source_currency, target_currency, rate)

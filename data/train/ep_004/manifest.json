@@ -10,8 +10,8 @@
   "timezone": "UTC",
   "total_records": 85,
   "total_documents": 0,
-  "total_transactions": 127,
+  "total_transactions": 122,
   "initial_cash_minor": 100000000,
   "rounding_rule": "ROUND_HALF_EVEN",
-  "injected_anomalies_count": 6
+  "injected_anomalies_count": 4
 }

@@ -41,7 +41,41 @@ def generate_dataset(
             )
             world = SyntheticLedgerGenerator(gen_config).generate()
 
-            anomaly_config = AnomalyConfig(seed=seed)
+            # Calibrate episode difficulty: Clean cases (Section 16), atomic errors, and interacting scenarios (Section 15 & 67)
+            if i in (1, 2):
+                anomaly_config = AnomalyConfig(
+                    seed=seed,
+                    num_duplicate_invoices=0,
+                    num_unallocated_payments=0,
+                    num_fx_mismatches=0,
+                    num_period_cutoffs=0,
+                    num_composite_round_trips=0,
+                    num_composite_split_invoices=0,
+                    num_distractors=3,
+                )
+            elif i in (3, 4, 5):
+                anomaly_config = AnomalyConfig(
+                    seed=seed,
+                    num_duplicate_invoices=1,
+                    num_unallocated_payments=1,
+                    num_fx_mismatches=1,
+                    num_period_cutoffs=1,
+                    num_composite_round_trips=0,
+                    num_composite_split_invoices=0,
+                    num_distractors=2,
+                )
+            else:
+                anomaly_config = AnomalyConfig(
+                    seed=seed,
+                    num_duplicate_invoices=1,
+                    num_unallocated_payments=1,
+                    num_fx_mismatches=1,
+                    num_period_cutoffs=1,
+                    num_composite_round_trips=1,
+                    num_composite_split_invoices=1,
+                    num_distractors=3,
+                )
+
             mutated_world, truth = AnomalyInjector(anomaly_config).inject(world)
 
             mutated_world.export_to_directory(ep_dir, truth_findings=truth)

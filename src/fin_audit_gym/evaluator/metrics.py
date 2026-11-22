@@ -27,11 +27,11 @@ def calculate_metrics(
     """Calculate TP, FP, FN, Precision, Recall, and F1 with clean-book and 1-to-1 matching rules."""
     active_matcher = matcher or BipartiteMatcher()
 
-    # Clean books rule
+    # Clean books rule (Section 05: if truth empty and findings exist, F1=0, P=0, R=0)
     if len(ground_truth) == 0:
         if len(predictions) == 0:
             return AuditMetrics(tp=0, fp=0, fn=0, precision=1.0, recall=1.0, f1=1.0)
-        return AuditMetrics(tp=0, fp=len(predictions), fn=0, precision=0.0, recall=1.0, f1=0.0)
+        return AuditMetrics(tp=0, fp=len(predictions), fn=0, precision=0.0, recall=0.0, f1=0.0)
 
     # Dirty books: 1-to-1 Kuhn-Munkres bipartite matching
     matched_pairs, _, _ = active_matcher.match(predictions, ground_truth)
